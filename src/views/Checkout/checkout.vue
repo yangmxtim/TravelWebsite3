@@ -234,6 +234,14 @@ const curAddress = {}  // 地址对象
     border-color:#83c4f8;
   }
 }
+@media screen and (max-width: 768px) {
+  .my-btn {
+    display: block; 
+    margin-bottom: 10px; 
+    margin-right: 0; 
+  }
+}
+
 
 
 .total {
