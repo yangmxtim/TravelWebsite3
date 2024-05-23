@@ -30,16 +30,16 @@
       </div>
       <div class="foot">
         <div class="total">
-          <p>共 10 件商品</p>
-          <p>&yen; 100.00 </p>
+          <p style="margin-bottom: 5px;">共 10 件商品</p>
+          <p>TWD$ 100.00 </p>
         </div>
-        <el-button size="large" type="primary" >去购物车结算</el-button>
+        <el-button size="large" type="primary" @click="$router.push('/cartlist')" >前往購物車</el-button>
       </div>
     </div>
 </div>
 </template>
 
-<style >
+<style scoped >
 .cart {
   width: 50px;
   position: relative;
@@ -122,8 +122,8 @@
 
         p {
           &:last-child {
-            font-size: 18px;
-            color: #ee4b4b;
+            font-size: 16px;
+            color: #f76c6c;
           }
         }
       }

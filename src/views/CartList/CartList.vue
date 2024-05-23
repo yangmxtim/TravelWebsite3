@@ -12,11 +12,11 @@ const cartList = []
               <th width="120">
                 <el-checkbox/>
               </th>
-              <th width="400">商品信息</th>
-              <th width="220">单价</th>
-              <th width="180">数量</th>
-              <th width="180">小计</th>
-              <th width="140">操作</th>
+              <th width="400">購買商品</th>
+              <th width="220">單價</th>
+              <th width="180">數量</th>
+              <th width="180">合計</th>
+              <th width="140">刪除</th>
             </tr>
           </thead>
           <!-- 商品列表 -->
@@ -46,7 +46,7 @@ const cartList = []
               </td>
               <td class="tc">
                 <p>
-                  <el-popconfirm title="确认删除吗?" confirm-button-text="确认" cancel-button-text="取消" @confirm="">
+                  <el-popconfirm title="確定刪除嗎?" confirm-button-text="確定" cancel-button-text="取消" @confirm="">
                     <template #reference>
                       <a href="javascript:;">删除</a>
                     </template>
@@ -57,8 +57,8 @@ const cartList = []
             <tr v-if="cartList.length === 0">
               <td colspan="6">
                 <div class="cart-none">
-                  <el-empty description="购物车列表为空">
-                    <el-button type="primary">随便逛逛</el-button>
+                  <el-empty description="購物車目前沒商品">
+                    <el-button type="primary">來去逛逛</el-button>
                   </el-empty>
                 </div>
               </td>
@@ -70,18 +70,18 @@ const cartList = []
       <!-- 操作栏 -->
       <div class="action">
         <div class="batch">
-          共 10 件商品，已选择 2 件，商品合计：
-          <span class="red">¥ 200.00 </span>
+          共 10 件商品，已選擇 2 件，價格合計：
+          <span class="red">TWD 200.00 </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" >下单结算</el-button>
+          <el-button size="large" type="primary" @click="$router.push('/checkout')">前往結帳</el-button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style >
+<style scoped>
 .xtx-cart-page {
   margin-top: 20px;
 
@@ -126,17 +126,19 @@ const cartList = []
   }
 
   .tc {
-    text-align: center;
+  text-align: center;
 
-    a {
-      color: #e94242;
-    }
-
-    .xtx-numbox {
-      margin: 0 auto;
-      width: 120px;
-    }
+  a {
+    color: #e94242;
+    text-decoration: none; /* 新增這行以移除超連結的底線 */
   }
+
+  .xtx-numbox {
+    margin: 0 auto;
+    width: 120px;
+  }
+}
+
 
   .red {
     color: #e94242;
