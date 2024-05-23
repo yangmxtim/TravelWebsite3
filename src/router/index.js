@@ -2,11 +2,11 @@
 //createWebHistory:創建history模式的路由
 
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/views/Login/index.vue'
-import Layout from '@/views/Layout/index.vue'
-import Category from '@/views/Category/index.vue'
-import Home from '@/views/Home/index.vue'
-import CartList from '@/views/CartList/index.vue'
+import Login from '@/views/Login/Login.vue'
+import Layout from '@/views/Layout/Layout.vue'
+import Category from '@/views/Category/Category.vue'
+import Home from '@/views/Home/Home.vue'
+import CartList from '@/views/CartList/CartList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
