@@ -86,8 +86,8 @@ const cartList = []
   margin-top: 20px;
 
   .cart {
-    background: #fff;
-    color: #666;
+    margin: 0 auto;
+    width: 80%; /* 設置購物車料表的寬度 */
 
     table {
       border-spacing: 0;
