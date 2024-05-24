@@ -57,6 +57,13 @@
                     class="flip-card__input"
                     required
                   />
+                  <input
+                    type="tel"
+                    placeholder="請輸入電話"
+                    v-model="registerPhone"
+                    class="flip-card__input"
+                    required
+                  />
                   <p>使用其他方式註冊</p>
                   <div class="row">
                     <!-- Other register methods -->
@@ -110,6 +117,7 @@ export default {
             username: this.registerName,
             email: this.registerAccount,
             password: this.registerPassword,
+            phone: this.registerPhone,
           },
           withCredentials: true,
         })

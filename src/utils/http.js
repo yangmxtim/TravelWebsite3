@@ -3,8 +3,8 @@ import axios from "axios";
 
 const httpInstance= axios.create({
     //設定基礎的url （可更改）
-    //baseURL:'http://pcapi-xiaotuxian-front-devtest.itheima.net',
-    baseURL:'localhost:8080',
+    baseURL:'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+    //baseURL:'localhost:8080',
     //配置超時時間
     timeout:5000
 })
