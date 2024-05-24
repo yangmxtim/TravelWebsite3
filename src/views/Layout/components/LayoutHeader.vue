@@ -1,6 +1,4 @@
 <script setup>
-
-
 import HeaderCart from './HeaderCart.vue'
 </script>
 
@@ -33,6 +31,9 @@ import HeaderCart from './HeaderCart.vue'
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-lg-2" href="./contact.html">聯絡我們</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mx-lg-2" href="../../Login">登入</a>
               </li>
             </ul>
             <div>
