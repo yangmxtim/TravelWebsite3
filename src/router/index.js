@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/Login/Login.vue'
 import Layout from '@/views/Layout/Layout.vue'
 import Category from '@/views/Category/Category.vue'
+import Product from '@/views/Product/Product.vue'
 import Home from '@/views/Home/Home.vue'
 import CartList from '@/views/CartList/CartList.vue'
 import Checkout from '@/views/Checkout/checkout.vue'
@@ -28,6 +29,10 @@ const router = createRouter({
           path:'category',
           // eslint-disable-next-line no-undef
           component: Category
+        },
+        {
+          path:'product',
+          component: Product
         },
         {
           path:'cartlist',

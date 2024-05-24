@@ -1,8 +1,7 @@
 <script setup>
 import CategoryAside from './components/CategoryAside.vue';
-import CategorNav from './components/CategorNav.vue';
-import CategorySection from './components/CategorySection.vue';
-   
+import CategoryNav from './components/CategoryNav.vue';
+import CategorySection from './components/CategorySection.vue'; 
 </script>
 
 <template>
@@ -12,7 +11,7 @@ import CategorySection from './components/CategorySection.vue';
                 <CategoryAside></CategoryAside>
             </div>
             <div class="col-md-9">
-                <CategorNav></CategorNav>
+                <CategoryNav></CategoryNav>
                 <CategorySection></CategorySection>
             </div>
 
