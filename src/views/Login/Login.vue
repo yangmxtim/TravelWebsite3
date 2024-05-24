@@ -74,6 +74,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -100,6 +101,30 @@ export default {
             : window.location.reload();
         });
       console.log("Login with", this.loginAccount, this.loginPassword);
+    },
+    handleRegister() {
+      // Handle register logic here
+      axios
+        .post("http://10.0.103.40:8080/member/register", null, {
+          params: {
+            username: this.registerName,
+            email: this.registerAccount,
+            password: this.registerPassword,
+          },
+          withCredentials: true,
+        })
+        .then((response) => {
+          alert(response.data);
+          response.data === "Success!"
+            ? window.location.replace("/")
+            : window.location.reload();
+        });
+      console.log(
+        "Register with",
+        this.registerName,
+        this.registerAccount,
+        this.registerPassword
+      );
     },
   },
 };
