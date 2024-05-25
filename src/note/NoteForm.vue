@@ -1,10 +1,10 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <label for="title">Title : </label>
+  <form @submit.prevent="handleSubmit" class="note-form">
+    <label for="title" class="note-label">Title : </label>
     <br>
     <input id="title" type="text" v-model="note.title" class="title">
     <br><br>
-    <label for="content">Content : </label>
+    <label for="content" class="note-label">Content : </label>
     <br>
     <textarea id="content" v-model="note.content" class="textbox"></textarea>
     <br><br>
