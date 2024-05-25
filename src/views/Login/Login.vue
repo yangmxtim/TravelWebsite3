@@ -1,3 +1,4 @@
+
 <template>
   <div class="login">
     <main>
@@ -68,14 +69,12 @@
                   <div class="row">
                     <!-- Other register methods -->
                   </div>
-                  <button class="flip-card__btn">註冊</button>
-                </form>
+                </label>
               </div>
             </div>
-          </label>
-        </div>
-      </div>
-    </main>
+          </main>
+    </div>
+    <LayoutFooter></LayoutFooter>
   </div>
 </template>
 
@@ -147,7 +146,8 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", /* 3 */ "Helvetica Neue", sans-serif;
 }
 .login {
-  margin-top: 10vh;
+  margin-top: 35vh;
+  margin-bottom: 55dvh;
 }
 
 * {

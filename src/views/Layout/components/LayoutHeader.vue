@@ -7,9 +7,11 @@ import HeaderCart from './HeaderCart.vue'
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid container">
-        <a class="navbar-brand me-auto" href="./index.html">
-          <img src="" alt="">
+        <router-link to="/">
+        <a class="navbar-brand me-auto" href="#">
+          <img src="/src/views/Layout/img/logo.png" alt="">
         </a>
+      </router-link>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">海島旅遊</h5>
@@ -18,19 +20,19 @@ import HeaderCart from './HeaderCart.vue'
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active mx-lg-2" aria-current="page" href="./index.html">Home</a>
+                <a class="nav-link active mx-lg-2" aria-current="page" href="#">目的地</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="./about.html">關於我們</a>
+                <a class="nav-link mx-lg-2" href="#">交通</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="./product.html">產品列表</a>
+                <a class="nav-link mx-lg-2" href="#">住宿</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="./store.html">門市資訊</a>
+                <a class="nav-link mx-lg-2" href="#">景點門票</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="./contact.html">聯絡我們</a>
+                <a class="nav-link mx-lg-2" href="#">會員專區</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-lg-2" href="../../Login">登入</a>

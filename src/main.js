@@ -13,7 +13,9 @@ import "bootstrap"
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+//導入vue-datepicker
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 
 //bootstrap
@@ -26,3 +28,4 @@ app.use(createPinia())
 app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')
+app.component('VueDatePicker', VueDatePicker);
