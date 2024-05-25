@@ -96,7 +96,7 @@ export default {
     handleLogin() {
       // Handle login logic here
       axios
-        .post("http://10.0.103.40:8080/auth/login", null, {
+        .post("http://localhost:8080/auth/login", null, {
           params: { username: this.loginAccount, password: this.loginPassword },
           withCredentials: true,
         })
@@ -111,7 +111,7 @@ export default {
     handleRegister() {
       // Handle register logic here
       axios
-        .post("http://10.0.103.40:8080/member/register", null, {
+        .post("http://localhost:8080/member/register", null, {
           params: {
             username: this.registerName,
             email: this.registerAccount,
