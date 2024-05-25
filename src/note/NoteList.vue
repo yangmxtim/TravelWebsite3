@@ -4,8 +4,8 @@
     <ul class="note-board">
       <li v-for="note in notes" :key="note.id" class="list">
         <div>
-          <strong>{{ note.title }}</strong>
-          <p >{{ note.content }}</p>
+          <strong class="note-title">{{ note.title }}</strong>
+          <p class="note-content">{{ note.content }}</p>
         </div>
         <div class="button-container">
           <button @click="editNote(note)" class="list-button"><i class="fa-solid fa-pen"></i></button>

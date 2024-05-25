@@ -16,12 +16,12 @@
   margin-bottom: 10px;
 }
 
-strong {
+.note-title {
   font-size: 18px;
   color: #333;
 }
 
-p {
+.note-content {
   font-size: 16px;
   color: #666;
   white-space:pre-wrap;
@@ -45,15 +45,10 @@ p {
   justify-content: space-between; 
   
 }
-button:hover {
+.listbutton:hover {
   background-color: #0056b3;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
 
 
 
@@ -68,7 +63,7 @@ label {
   height: 50px;
 }
 /* NoteForm style */
-form{
+.note-form{
   text-align: center;
   border: 2px solid lightcoral;
   border-radius: 25px;
@@ -96,9 +91,12 @@ form{
 }
 
 
-label {
+.note-label {
   font-weight: bold;
   font-size: 20px;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .title-input,
