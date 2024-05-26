@@ -5,7 +5,8 @@
 <template>
   <div class="cart">
     <a class="curr" href="javascript:;">
-      <i class="iconfont icon-cart"></i><em>2</em>
+      <i class="fa-solid fa-cart-shopping icon-cart"></i><em>2</em>
+      <i class=""></i>
     </a>
     <div class="layer">
       <div class="list">
@@ -60,7 +61,7 @@
       font-style: normal;
       position: absolute;
       right: 0;
-      top: 0;
+      top: -5px;
       padding: 1px 6px;
       line-height: 1;
       background: #ee4b4b;
