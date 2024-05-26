@@ -1,5 +1,7 @@
 <script setup>
 import HeaderCart from './HeaderCart.vue'
+import HeaderLogin from './HeaderLogin.vue'
+import HeaderLove from './HeaderLove.vue'
 </script>
 
 
@@ -38,9 +40,13 @@ import HeaderCart from './HeaderCart.vue'
                 <a class="nav-link mx-lg-2" href="../../Login">登入</a>
               </li>
             </ul>
-            <div>
-            <HeaderCart></HeaderCart>
-          </div>
+                <!-- 我的最愛 -->
+                <div><HeaderLove></HeaderLove></div>
+                <!-- 購物車 -->
+                <div><HeaderCart></HeaderCart></div>
+                <!-- 會員登入 -->
+                <div><HeaderLogin></HeaderLogin></div>
+        
           </div>
         
         </div>

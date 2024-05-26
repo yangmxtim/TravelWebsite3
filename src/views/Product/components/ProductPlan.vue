@@ -16,6 +16,13 @@ export default {
     }
   }
 };
+
+// count購物車新增/減少數字框
+const count = ref(1)
+const countChange = (count) => {
+  console.log(count)
+}
+
 </script>
 
 <script setup>
@@ -41,10 +48,12 @@ const date = ref(new Date());
                         </div>
                         <div class="row d-grid gap-2 mx-auto">
                             <div class="col-12 d-grid d-lg-flex justify-content-lg-end">
-                                <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#more"
+
+                              
+                                <el-button  size="large" type="button" data-bs-toggle="collapse" data-bs-target="#more"
                                     aria-expanded="false" aria-controls="collapseExample">
                                     選擇方案
-                                </button>
+                                </el-button>
                         </div>
                         </div>
                     </div>
@@ -61,10 +70,8 @@ const date = ref(new Date());
                                 <div class="row">
                                     <div class="col-8">數量</div>
                                     <div class="col-4 d-grid d-lg-flex justify-content-lg-end">
-                                      <div class="number-quantity">
-                                        <button @click="decrement">-</button>
-                                        <input type="number" v-model="quantity" min="0">
-                                        <button @click="increment">+</button>
+                                      <div >
+                                        <el-input-number  v-model="count" @change="countChange" />
                                       </div>
 
                                     </div>
@@ -79,8 +86,8 @@ const date = ref(new Date());
                                 <div class="row">
                                     <div class="col-7"></div>
                                     <div class="col-5 d-grid d-lg-flex justify-content-lg-end">
-                                        <button type="button" class="btn btn-info">加入購物車</button>
-                                        <button type="button" class="btn btn-primary">立即訂購</button>
+                                        <el-button size="large" type="button" >加入購物車</el-button>
+                                        <!-- <el-button type="button" class="btn btn-primary">立即訂購</el-button> -->
                                     </div>
                                 </div>
                             </div>
