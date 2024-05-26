@@ -1,10 +1,11 @@
 <template>
   <LayoutHeader />
+  <Weather/>
   <div>
     <ul class="note-board">
-      <li v-for="note in notes" :key="note.id" class="list">
+      <li v-for="note in notes" :key="note.id" class="note-list">
         <div>
-          <strong class="note-title">{{ note.title }}</strong>
+          <strong class="note-title-strong">{{ note.title }}</strong>
           <p class="note-content">{{ note.content }}</p>
         </div>
         <div class="button-container">
@@ -26,9 +27,10 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import NoteForm from './NoteForm.vue';
-import LayoutHeader from '../views/Layout/components/LayoutHeader.vue'
-import LayoutFooter from '../views/Layout/components/LayoutFooter.vue'
-import '../styles/note.css';
+import LayoutHeader from '../Layout/components/LayoutHeader.vue';
+import LayoutFooter from '../Layout/components/LayoutFooter.vue';
+import Weather from '../Weather/Weather.vue'
+import '@/styles/note.css';
 
 
 const notes = ref([]);
@@ -56,7 +58,7 @@ async function deleteNote(id) {
 
 async function loadNotes() {
   const response = await axios.get('http://localhost:8080/api/notes');
-  console.log(response);
+  // console.log(response);
   notes.value = response.data;
 }
 
