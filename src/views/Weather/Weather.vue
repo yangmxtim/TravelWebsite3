@@ -3,12 +3,15 @@
 
       <div v-if="loading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
-      <div v-else >
+      <div v-else style="display: flex; overflow-x: scroll;">
         <div v-for="(startTime, index) in weatherData.startTimes" :key="index" class="weather-timebar">
            
-                <div class="weather-timebar-time">{{ startTime }}</div>
+                <div class="weather-timebar-time">{{ startTime }} ～</div>
                 <div class="weather-timebar-time">{{ weatherData.endTimes[index] }}</div>
-                <div class="weather-timebar-temp">{{ weatherData.temperatures[index] }} °C</div>
+                <br>
+                <div class="weather-timebar-temp">平均溫度：{{ weatherData.temperatures[index] }} °C</div>
+                <div class="weather-timebar-time">{{ weatherData.rainOdds[index] }} </div>
+
 
       </div>
         
@@ -34,9 +37,11 @@
       const response = await axios.get(link_Kaoshiung);
     //   weatherData.value = response.data;
     const times = response.data.records.locations[0].location[0].weatherElement[1].time;
+    const rainOdds = response.data.records.locations[0].location[0].weatherElement[0].time;
     const startTime = [];
     const endTime = [];
     const temperature = [];
+    const rain = [];
     times.forEach(time => {
         const st = time.startTime.slice(5,-3);
         const et = time.endTime.slice(5,-3);
@@ -46,10 +51,19 @@
         endTime.push(et);
         temperature.push(tp); //get tempature
     })
+    rainOdds.forEach(time => {
+      const ro = time.elementValue[0].value;
+      if(ro != " "){
+        rain.push("降雨機率"+ro+"%");
+      }else{
+        rain.push("尚未預測")
+      }
+    })
+    console.log(rain);
     startTimes.value = startTime;
     temperatures.value = temperature;
     endTimes.value = endTime;
-    weatherData.value ={"startTimes":startTime,"endTimes":endTime,"temperatures":temperature}
+    weatherData.value ={"startTimes":startTime,"endTimes":endTime,"temperatures":temperature,"rainOdds":rain}
     console.log(weatherData.value);
     // console.log( startTimes.value);
     
@@ -86,12 +100,12 @@
   }
   .weather-timebar{
     border: 1px solid black;
-
+    min-width: 130px;
+    max-width: 130px;
     
   }
-  /* .weather-timebar-time{
-    display: block;
-    border: 1px solid black;
-  }  */
+  .weather-timebar-time{
+    text-align: start;
+  } 
   </style>
   
