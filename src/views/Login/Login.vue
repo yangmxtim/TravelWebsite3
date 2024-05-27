@@ -1,7 +1,12 @@
+<script setup>
+import LayoutHeader from '@/views/Layout/components/LayoutHeader.vue';
+import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
+</script>
+
 <template>
+  <LayoutHeader></LayoutHeader>
   <div class="login">
     <main>
-      <br /><br /><br /><br /><br /><br />
       <div class="wrapper">
         <div class="card-switch">
           <label class="switch">
@@ -10,7 +15,11 @@
             <span class="card-side"></span>
             <div class="flip-card__inner">
               <div class="flip-card__front">
-                <div class="title"><img src="./img/logo.png" alt="" /></div>
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col"><img src="/src/views/Layout/img/logo.png" style="width: 60%;" /></div>
+                </div>
+                
                 <form @submit.prevent="handleLogin" class="flip-card__form">
                   <input
                     type="text"
@@ -34,7 +43,10 @@
                 </form>
               </div>
               <div class="flip-card__back">
-                <div class="title"><img src="./img/logo.png" alt="" /></div>
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col"><img src="/src/views/Layout/img/logo.png" style="width: 60%;" /></div>
+                </div>
                 <form @submit.prevent="handleRegister" class="flip-card__form">
                   <input
                     type="text"
@@ -77,6 +89,7 @@
       </div>
     </main>
   </div>
+  <LayoutFooter></LayoutFooter>
 </template>
 
 <script>
@@ -138,7 +151,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 body {
   font-family:
@@ -147,7 +159,8 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", /* 3 */ "Helvetica Neue", sans-serif;
 }
 .login {
-  margin-top: 10vh;
+  margin-top: 30vh;
+  margin-bottom: 50vh;
 }
 
 * {
