@@ -9,7 +9,7 @@ import Product from '@/views/Product/Product.vue'
 import Home from '@/views/Home/Home.vue'
 import CartList from '@/views/CartList/CartList.vue'
 import Checkout from '@/views/Checkout/checkout.vue'
-import NoteList from '@/note/NoteList.vue'
+import NoteList from '@/views/Note/NoteList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
