@@ -10,6 +10,7 @@ import CategoryTouristSpot from '@/views/Category/CategoryTouristSpot.vue'
 import CategoryMembers from '@/views/Category/CategoryMembers.vue'
 import Product from '@/views/Product/Product.vue'
 import Home from '@/views/Home/Home.vue'
+import About from '@/views/Home/About.vue'
 import CartList from '@/views/CartList/CartList.vue'
 import Checkout from '@/views/Checkout/checkout.vue'
 import NoteList from '@/views/Note/NoteList.vue'
@@ -28,6 +29,10 @@ const router = createRouter({
         {
           path:'',
           component: Home
+        },
+        {
+          path:'about',
+          component: About
         },
         {
           path:'categoryTraffic',
