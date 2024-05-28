@@ -5,9 +5,9 @@
                             <div class="col-md-12 my-2 d-flex">
                                 <div class="card-body">
                                     <span class="nav-link2">選擇分類：</span>
-                                    <a class="nav-link2 mx-lg-2" href="#">分類1</a>
-                                    <a class="nav-link2 mx-lg-2" href="#">分類2</a>
-                                    <a class="nav-link2 mx-lg-2" href="#">分類3</a>
+                                    <a class="nav-link2 mx-lg-2" href="#">遊樂園</a>
+                                    <a class="nav-link2 mx-lg-2" href="#">海生館</a>
+                                    <a class="nav-link2 mx-lg-2" href="#">觀光景點</a>
                                 </div>
                                 <div>
                                     <img style=" height: 65px; width: auto;" src="/src/views/Layout/img/cat.png">
