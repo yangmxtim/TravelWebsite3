@@ -1,6 +1,7 @@
 <template>
   <LayoutHeader />
   <Weather/>
+  {{ test }}
   <div>
     <ul class="note-board">
       <li v-for="note in notes" :key="note.id" class="note-list">
@@ -24,6 +25,7 @@
 </template>
 
 <script setup>
+
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import NoteForm from './NoteForm.vue';
