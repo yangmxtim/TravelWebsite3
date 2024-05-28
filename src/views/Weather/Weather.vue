@@ -1,6 +1,7 @@
 <template>
     <div class="weather-bar">
-
+      {{ test }}
+      {{ test.count }}
       <div v-if="loading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <div v-else style="display: flex; overflow-x: scroll;">
@@ -22,7 +23,10 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
+  import {useAuthenticationStore} from '@/stores/authentication'
   import axios from 'axios';
+  const test = useAuthenticationStore();
+  test.credCredentials = 2;
   
   const weatherData = ref([]);
   const startTimes = ref();
