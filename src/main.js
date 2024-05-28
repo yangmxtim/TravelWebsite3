@@ -17,6 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
+//導入字型
+import '@/assets/font/font.css';
 
 //bootstrap
 library.add(faPhone)
