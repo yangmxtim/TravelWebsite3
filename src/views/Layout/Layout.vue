@@ -10,3 +10,7 @@ import LayoutFooter from './components/LayoutFooter.vue'
   <RouterView />
   <LayoutFooter />
 </template>
+
+<style>
+*{font-family: Iansui-Regular;}
+</style>

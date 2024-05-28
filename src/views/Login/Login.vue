@@ -153,10 +153,7 @@ export default {
 
 <style scoped>
 body {
-  font-family:
-        /* 1 */ -apple-system, BlinkMacSystemFont,
-    /* 2 */ "Microsoft JhengHei", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", /* 3 */ "Helvetica Neue", sans-serif;
+  font-family:Iansui-Regular;
 }
 .login {
   margin-top: 30vh;
