@@ -94,6 +94,10 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
 
 <script>
 import axios from "axios";
+//test pinia
+import { mapStores } from "pinia";
+import {useAuthenticationStore} from '@/stores/authentication'
+
 
 export default {
   data() {
@@ -105,6 +109,10 @@ export default {
       registerAccount: "",
       registerPassword: "",
     };
+  },
+  //test pinia
+  computed: {
+    ...mapStores(useAuthenticationStore)
   },
   methods: {
     handleLogin() {
@@ -121,6 +129,10 @@ export default {
             : window.location.reload();
         });
       console.log("Login with", this.loginAccount, this.loginPassword);
+      // test pinia
+      this.authenticationStore.credCredentials = 20;
+      console.log(this.authenticationStore);
+      console.log(this.authenticationStore.credCredentials);
     },
     handleRegister() {
       // Handle register logic here
