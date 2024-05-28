@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-sm-3 col-4">
                     <ul>
-                        <router-link :to="''">
+                        <router-link :to="'/About'">
                         <h6>認識海島</h6>
                         </router-link>
                         <li>關於我們</li>
