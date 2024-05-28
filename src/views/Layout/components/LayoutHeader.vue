@@ -25,16 +25,16 @@ import HeaderLove from './HeaderLove.vue'
                 <a class="nav-link active mx-lg-2" aria-current="page" href="#">目的地</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#">交通</a>
+                <router-link to="categoryTraffic"><a class="nav-link mx-lg-2" href="#">交通</a></router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#">住宿</a>
+                <router-link to="categoryHotel"><a class="nav-link mx-lg-2" href="#">住宿</a></router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#">景點門票</a>
+                <router-link to="categoryTouristSpot"><a class="nav-link mx-lg-2" href="#">景點門票</a></router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#">會員專區</a>
+                <router-link to="categoryMembers"><a class="nav-link mx-lg-2" href="#">會員專區</a></router-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-lg-2" href="../../Login">登入</a>
@@ -129,5 +129,13 @@ import HeaderLove from './HeaderLove.vue'
   .social-icon> a:hover {
     color: #2e6cdf;
   }
+  /* 連結消除底線 */
+  .router-link-active{
+    text-decoration: none;
+  }
+   a{
+    text-decoration: none;
+   } 
+  
   </style>
   
