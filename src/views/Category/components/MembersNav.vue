@@ -1,6 +1,6 @@
 <!-- 上方分類項 -->
 <template>
-    <div class="card  my-2 p-0 box-shadow">
+    <div class="card  my-2 p-0 box-shadow"> 
                         <div class="row ">
                             <div class="col-md-12 my-2 d-flex">
                                 <div class="card-body">
