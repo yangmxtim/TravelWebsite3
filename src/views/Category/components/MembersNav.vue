@@ -8,7 +8,9 @@
                                     <router-link to="categoryMembers">
                                         <a class="nav-link2 mx-lg-2" href="#">我的票券</a>
                                     </router-link>
-                                    <a class="nav-link2 mx-lg-2" href="#">基本資料</a>
+                                    <router-link to="memberinfo">
+                                        <a class="nav-link2 mx-lg-2" href="#">基本資料</a>
+                                    </router-link>   
                                     <router-link to="note">
                                         <a class="nav-link2 mx-lg-2" href="#">行程筆記</a>
                                     </router-link>

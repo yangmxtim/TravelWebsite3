@@ -5,10 +5,13 @@
             <div class="col">
                 <MembersNav></MembersNav>
                 <br>
-                <h4>姓名：{{ name }}</h4>
-                <h4>電話：{{ name }}</h4>
-                <h4>信箱：{{ name }}</h4>
-                <h4>帳號：{{ name }}</h4>
+                <div class="info-container">
+                    <h4>姓名：{{ info.name }}</h4>
+                    <h4>電話：{{ info.phone }}</h4>
+                    <h4>信箱：{{ name }}</h4>
+                    <h4>帳號：{{ name }}</h4>
+                    <h4></h4>
+                </div>
             </div>
         </div>
     </div> 
@@ -23,5 +26,23 @@ import LayoutHeader from '../Layout/components/LayoutHeader.vue';
 import LayoutFooter from '../Layout/components/LayoutFooter.vue';
 import Weather from '../Weather/Weather.vue'
 
-const name=ref('names');
+const info=ref([]);
+info.value = {
+    "name":"terry",
+    "phone":"0953123123"
+}
 </script>
+<style scoped>
+.info-container{
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    text-align: start;  
+    padding: 50px;  
+    padding-top: 3rem;
+    min-height: 80vh;
+}
+h4{
+    margin: 2rem 0;
+    font-size: 25px;
+}
+</style>

@@ -1,8 +1,5 @@
 <template>
   <LayoutHeader />
-
-  
-
   <div>
     <div class="container">
         <div class="row">
