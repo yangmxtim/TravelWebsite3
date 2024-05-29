@@ -1,9 +1,16 @@
 <template>
   <LayoutHeader />
-  <Weather/>
-  {{ test }}
+
+  
+
   <div>
-    <ul class="note-board">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <MembersNav></MembersNav>
+                <!-- <router-link to="qr">1</router-link> -->
+                <Weather/>
+                <ul class="note-board">
       <li v-for="note in notes" :key="note.id" class="note-list">
         <div>
           <strong class="note-title-strong">{{ note.title }}</strong>
@@ -18,6 +25,11 @@
     <button @click="addNote" class="addNote list-button"><i class="fa-solid fa-pen-to-square"></i></button>
 
     <NoteForm v-if="showForm" :initialNote="currentNote" @close-window="closeForm" @note-saved="loadNotes" />
+
+            </div>
+        </div>
+    </div> 
+
   </div>
   <LayoutFooter />
   
@@ -28,11 +40,13 @@
 
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import MembersNav from '../Category/components/MembersNav.vue';
 import NoteForm from './NoteForm.vue';
 import LayoutHeader from '../Layout/components/LayoutHeader.vue';
 import LayoutFooter from '../Layout/components/LayoutFooter.vue';
 import Weather from '../Weather/Weather.vue'
 import '@/styles/note.css';
+
 
 
 const notes = ref([]);
