@@ -1,7 +1,5 @@
 <template>
     <div class="weather-bar">
-      {{ test }}
-      {{ test.count }}
       <div v-if="loading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <div v-else style="display: flex; overflow-x: scroll;">
