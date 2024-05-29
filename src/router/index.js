@@ -16,7 +16,11 @@ import Checkout from '@/views/Checkout/checkout.vue'
 import NoteList from '@/views/Note/NoteList.vue'
 import QRcodeTickets from '@/views/QRcode/QRcodeTickets.vue'
 import QRDonePage from '@/views/QRcode/QRDonePage.vue'
-
+import Admin from "@/views/Backstage/layouts/admin.vue";
+import BackMain from "@/views/Backstage/layouts/backMain.vue";
+import Member from "@/views/Backstage/layouts/member.vue";
+import OrderManage from "@/views/Backstage/layouts/orderManage.vue";
+import ProductManage from "@/views/Backstage/layouts/productManage.vue";
 
 
 
@@ -88,7 +92,41 @@ const router = createRouter({
     {
       path:'/qr',
       component:QRcodeTickets
-    }
+    },
+    {
+      path: "/admin",
+      component: Admin,
+      children: [
+        {
+          path: "/backMain",
+          component: BackMain,
+          meta: {
+            title: "數據分析",
+          },
+        },
+        {
+          path: "/member",
+          component: Member,
+          meta: {
+            title: "會員管理",
+          },
+        },
+        {
+          path: "/orderManage",
+          component: OrderManage,
+          meta: {
+            title: "訂單管理",
+          },
+        },
+        {
+          path: "/productManage",
+          component: ProductManage,
+          meta: {
+            title: "產品管理",
+          },
+        },
+      ],
+    },
 
   ]
 })
