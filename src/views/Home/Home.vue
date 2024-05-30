@@ -4,20 +4,20 @@ import HomeCategory from "./components/HomeCategory.vue";
 import HomeNew from "./components/HomeNew.vue";
 import HomeHot from "./components/HomeHot.vue";
 import homeProduct from "./components/HomeProduct.vue";
-import axios from "axios";
 
-axios
-  .post("http://localhost:8080/authorize", null, {
-    withCredentials: true
-  })
-  .then((response) => {
-    alert(response.data);
-  });
+
+
+
+import { ref ,inject} from "vue";
+const name = inject("name");
+const permission = inject("permission");
 </script>
 
 
 <template>
-
+  Permission: {{ permission }}
+  <br />
+  Name: {{ name }}
   <div class="container">
     <HomeCategory />
 
