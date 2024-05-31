@@ -16,46 +16,20 @@ const sendLogoutRequest = async () => {
       withCredentials: true,
     });
     responseStatus.value = response.data;
-    console.log(response.data); 
     alert("登出"+response.data);
     window.location.replace("/");
     window.location.reload();
-    
-
   } catch (error) {
     console.error('Error during the POST request:', error);
     responseStatus.value = 'Request failed';
+    alert("登出失敗");
   }
 };
 
 const address = inject("email");
 const phone = inject("phone");
 const name = inject("name");
-const permission = inject("permission");
-import axios from 'axios';
-import { ref } from 'vue';
 
-// 定义一个响应状态的变量以处理请求响应
-const responseStatus = ref(null);
-
-// 发送POST请求的函数
-const sendLogoutRequest = async () => {
-  try {
-    const response = await axios.post('http://localhost:8080/auth/logout', null, {
-      withCredentials: true,
-    });
-    responseStatus.value = response.data;
-    console.log(response.data); 
-    alert("登出"+response.data);
-    window.location.replace("/");
-    window.location.reload();
-    
-
-  } catch (error) {
-    console.error('Error during the POST request:', error);
-    responseStatus.value = 'Request failed';
-  }
-};
 </script>
 
 <template>
