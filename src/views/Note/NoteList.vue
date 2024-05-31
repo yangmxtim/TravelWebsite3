@@ -2,34 +2,36 @@
   <LayoutHeader />
   <div>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <MembersNav></MembersNav>
-                <!-- <router-link to="qr">1</router-link> -->
-                <Weather/>
-                <ul class="note-board">
-      <li v-for="note in notes" :key="note.id" class="note-list">
-        <div>
-          <strong class="note-title-strong">{{ note.title }}</strong>
-          <p class="note-content">{{ note.content }}</p>
+      <div class="row">
+        <div class="col-md-3 " data-aos="fade-up">
+          <WeatherDate></WeatherDate>
         </div>
-        <div class="button-container">
-          <button @click="editNote(note)" class="list-button"><i class="fa-solid fa-pen"></i></button>
-          <button @click="deleteNote(note.id)" class="list-button"><i class="fa-solid fa-trash"></i></button>
-        </div>
-      </li>
-    </ul>
-    <button @click="addNote" class="addNote list-button"><i class="fa-solid fa-pen-to-square"></i></button>
+        <div class="col-md-9">
+          <MembersNav></MembersNav>
+          <ul class="note-board">
+            <li v-for="note in notes" :key="note.id" class="note-list">
+              <div>
+                <strong class="note-title-strong">{{ note.title }}</strong>
+                <p class="note-content">{{ note.content }}</p>
+              </div>
+              <div class="button-container">
+                <button @click="editNote(note)" class="list-button"><i class="fa-solid fa-pen"></i></button>
+                <button @click="deleteNote(note.id)" class="list-button"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </li>
+          </ul>
+          <button @click="addNote" class="addNote list-button"><i class="fa-solid fa-pen-to-square"></i></button>
 
-    <NoteForm v-if="showForm" :initialNote="currentNote" @close-window="closeForm" @note-saved="loadNotes" />
+          <NoteForm v-if="showForm" :initialNote="currentNote" @close-window="closeForm" @note-saved="loadNotes" />
 
-            </div>
         </div>
-    </div> 
+        
+      </div>
+    </div>
 
   </div>
   <LayoutFooter />
-  
+
 
 </template>
 
@@ -42,6 +44,8 @@ import NoteForm from './NoteForm.vue';
 import LayoutHeader from '../Layout/components/LayoutHeader.vue';
 import LayoutFooter from '../Layout/components/LayoutFooter.vue';
 import Weather from '../Weather/Weather.vue'
+import WeatherDate from '../Weather/WeatherDate.vue';
+
 import '@/styles/note.css';
 
 
@@ -77,4 +81,3 @@ async function loadNotes() {
 
 onMounted(loadNotes);
 </script>
-
