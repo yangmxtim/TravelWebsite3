@@ -9,13 +9,13 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 mb-4">
-                        <img src="https://placehold.co/520x265" class="img-fluid" alt="">
+                        <img src="/src/views/Layout/img/p1.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-md-4 col-sm-12 mb-4">
-                        <img src="https://placehold.co/520x265" class="img-fluid" alt="">
+                        <img src="/src/views/Layout/img/p2.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-md-4 col-sm-12 mb-4">
-                        <img src="https://placehold.co/520x265" class="img-fluid" alt="">
+                        <img src="/src/views/Layout/img/p3.png" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>

@@ -8,6 +8,8 @@ import axios from "axios";
 
 const permission = ref(null);
 const name = ref(null);
+const phone = ref(null);
+const email = ref(null);
 
 onMounted(() => {
   axios
@@ -26,6 +28,8 @@ onMounted(() => {
     })
     .then((response) => {
       name.value = response.data.username;
+      phone.value = response.data.phone;
+      email.value = response.data.email;
     })
     .catch((error) => {
       console.error("Error during authorization:", error);
@@ -34,6 +38,8 @@ onMounted(() => {
 
 provide("permission", permission);
 provide("name", name);
+provide("phone", phone);
+provide("email", email);
 </script>
 
 <style scoped>

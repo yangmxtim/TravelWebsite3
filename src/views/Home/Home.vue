@@ -15,15 +15,11 @@ const permission = inject("permission");
 
 
 <template>
-  Permission: {{ permission }}
+  <!-- Permission: {{ permission }}
   <br />
-  Name: {{ name }}
-  <div class="container">
-    <HomeCategory />
-
-
-
-  </div>
+  Name: {{ name }} -->
+  
+  <HomeCategory />
   <HomeNew />
   <HomeHot />
   <homeProduct />
