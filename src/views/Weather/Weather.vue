@@ -10,11 +10,7 @@
                 <br>
                 <div class="weather-timebar-temp">平均溫度：{{ weatherData.temperatures[index] }} °C</div>
                 <div class="weather-timebar-time">{{ weatherData.rainOdds[index] }} </div>
-
-
-      </div>
-        
-       
+      </div>       
       </div>
     </div>
   </template>

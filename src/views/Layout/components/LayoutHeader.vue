@@ -61,9 +61,6 @@ const permission = inject("permission");
                 ><a class="nav-link mx-lg-2" href="#">會員專區</a></router-link
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="../../Login">登入</a>
-            </li>
           </ul>
           <div>
             
