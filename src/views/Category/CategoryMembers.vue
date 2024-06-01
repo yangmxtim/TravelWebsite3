@@ -1,8 +1,8 @@
 <script setup>
 import MembersNav from './components/MembersNav.vue';
-import NoteList from '../Note/NoteList.vue';
 import WeatherDate from '../Weather/WeatherDate.vue';
 import QRcodeTickets from '../QRcode/QRcodeTickets.vue';
+import MemberInfo from '../MemberInfo/MemberInfo.vue';
 
 </script>
 
@@ -14,7 +14,7 @@ import QRcodeTickets from '../QRcode/QRcodeTickets.vue';
             </div>
             <div class="col-md-9">
                 <MembersNav></MembersNav>
-                <QRcodeTickets></QRcodeTickets>
+                <MemberInfo></MemberInfo>
             </div>
         </div>
     </div> 

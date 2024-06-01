@@ -1,13 +1,14 @@
 <template>
   <form @submit.prevent="handleSubmit" class="note-form">
     <label for="title" class="note-label">Title : </label>
-    <br>
+    
     <input id="title" type="text" v-model="note.title" class="note-title">
-    <br><br>
-    <label for="content" class="note-label">Content : </label>
     <br>
+    <br>
+    <label for="content" class="note-label">Content : </label>
+
     <textarea id="content" v-model="note.content" class="note-textbox"></textarea>
-    <br><br>
+
     <input type="submit" value="Submit" class="bottomBtn">
     <button type="button" @click="close" class="bottomBtn">Close</button>
   </form>
