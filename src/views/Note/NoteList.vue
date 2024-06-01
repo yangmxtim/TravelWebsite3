@@ -8,6 +8,9 @@
         </div>
         <div class="col-md-9">
           <MembersNav></MembersNav>
+          <div v-if="loading" class="loading"></div>
+          <div v-else-if="error" class="loading">{{ error }}</div>
+          <div v-else>
           <ul class="note-board">
             <li v-for="note in notes" :key="note.id" class="note-list">
               <div>
@@ -21,7 +24,7 @@
             </li>
           </ul>
           <button @click="addNote" class="addNote list-button"><i class="fa-solid fa-pen-to-square"></i></button>
-
+          </div>
           <NoteForm v-if="showForm" :initialNote="currentNote" @close-window="closeForm" @note-saved="loadNotes" />
 
         </div>
@@ -53,6 +56,10 @@ import '@/styles/note.css';
 const notes = ref([]);
 const showForm = ref(false);
 const currentNote = ref({});
+const loading = ref(true);
+const error = ref(null);
+
+
 
 function addNote() {
   currentNote.value = {};
@@ -74,10 +81,16 @@ async function deleteNote(id) {
 }
 
 async function loadNotes() {
-  const response = await axios.get('http://localhost:8080/api/notes');
-  // console.log(response);
-  notes.value = response.data;
+  try{
+    const response = await axios.get('http://localhost:8080/api/notes');
+    notes.value = response.data;
+  }catch(err){
+    error.value = '無法載入筆記';
+  }finally{
+    loading.value = false;
+  }
 }
 
 onMounted(loadNotes);
+
 </script>

@@ -1,28 +1,13 @@
 <template>
-    <LayoutHeader />
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 " data-aos="fade-up">
-                <WeatherDate></WeatherDate>
-            </div>
-            <div class="col-md-9">
-                <MembersNav></MembersNav>
-                <div class="info-container">
-                    <h4>姓名：{{ info.name }}</h4>
-                    <h4>電話：{{ info.phone }}</h4>
-                    <h4>信箱：{{ name }}</h4>
-                    <h4>帳號：{{ name }}</h4>
-                    <h4></h4>
-                </div>
-            </div>
-
-        </div>
+    <div class="info-container">
+        <h4>姓名：{{ info.name }}</h4>
+        <h4>電話：{{ info.phone }}</h4>
+        <h4>信箱：{{ name }}</h4>
+        <h4>帳號：{{ name }}</h4>
+        <h4></h4>
     </div>
-    <br>
 
-
-    <LayoutFooter />
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
