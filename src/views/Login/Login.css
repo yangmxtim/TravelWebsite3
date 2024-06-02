@@ -1,219 +1,392 @@
-body {
-    font-family:Iansui-Regular;
+.login {
+  margin-top: 35vh;
+  margin-bottom: 60vh;
+  z-index: 1;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+.wrapperr {
+  --input-focus: #7191ce;
+  --font-color: #323232;
+  --font-color-sub: #666;
+  --bg-color: #ffffff;
+  --bg-color-alt: #666;
+  --main-color: #323232;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* switch card */
+.switch {
+  transform: translateY(-200px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 50px;
+  height: 20px;
+}
+
+.card-side::before {
+  position: absolute;
+  content: "登入";
+  left: -70px;
+  top: 0;
+  width: 100px;
+  text-decoration: underline;
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.card-side::after {
+  position: absolute;
+  content: "註冊";
+  left: 70px;
+  top: 0;
+  width: 100px;
+  text-decoration: none;
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-colorcolor);
+  transition: 0.3s;
+}
+
+.slider:before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  border: 2px solid var(--main-color);
+  border-radius: 5px;
+  left: -2px;
+  bottom: 2px;
+  background-color: var(--bg-color);
+  box-shadow: 0 3px 0 var(--main-color);
+  transition: 0.3s;
+}
+
+.toggle:checked + .slider {
+  background-color: var(--input-focus);
+}
+
+.toggle:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+.toggle:checked ~ .card-side:before {
+  text-decoration: none;
+}
+
+.toggle:checked ~ .card-side:after {
+  text-decoration: underline;
+}
+
+/* card */
+.flip-card__inner {
+  width: 300px;
+  height: 350px;
+  position: relative;
+  background-color: transparent;
+  perspective: 1000px;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.toggle:checked ~ .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.toggle:checked ~ .flip-card__front {
+  box-shadow: none;
+}
+
+.flip-card__front,
+.flip-card__back {
+  padding: 20px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background: rgba(255, 255, 255, 0.564);
+  gap: 20px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+}
+
+.flip-card__back {
+  width: 100%;
+  transform: rotateY(180deg);
+}
+
+.flip-card__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  margin: 20px 0 20px 0;
+  font-size: 25px;
+  font-weight: 900;
+  text-align: center;
+  color: var(--main-color);
+}
+
+.flip-card__input {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--font-color);
+  padding: 5px 10px;
+  outline: none;
+  background-color: #ffffffb4;
+}
+
+.flip-card__input::placeholder {
+  color: var(--font-color-sub);
+  opacity: 0.8;
+}
+
+.flip-card__input:focus {
+  border: 2px solid var(--input-focus);
+}
+
+.flip-card__btn:active,
+.button-confirm:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(3px, 3px);
+}
+
+.flip-card__btn {
+  margin: 20px 0 20px 0;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--font-color);
+  cursor: pointer;
+  background-color: #ffffffb4;
+}
+
+/* Background styles */
+section {
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  background: linear-gradient(to top, #9890e3, #b1f4cf);
+  z-index: -1;
+}
+
+#particles {
+  width: 100%;
+  height: 100%;
+}
+
+.fish {
+  position: absolute;
+}
+
+.fish1 {
+  top: 20%;
+  height: 60px;
+  animation: animate 20s linear infinite;
+}
+
+.fish2 {
+  top: 40%;
+  height: 80px;
+  animation: animate 30s linear infinite;
+}
+
+.fish3 {
+  top: 70%;
+  height: 100px;
+  animation: animate 30s linear infinite;
+}
+
+.fish4 {
+  top: 60%;
+  height: 60px;
+  animation: animate2 70s linear infinite;
+}
+
+.fish5 {
+  top: 80%;
+  height: 100px;
+  animation: animate2 20s linear infinite;
+}
+
+.fish6 {
+  top: 30%;
+  height: 70px;
+  animation: animate2 50s linear infinite;
+}
+
+.fish7 {
+  top: 50%;
+  height: 80px;
+  animation: animate2 40s linear infinite;
+}
+
+.fish8 {
+  top: 0%;
+  height: 60px;
+  animation: animate 50s linear infinite;
+}
+
+.fish9 {
+  top: 50%;
+  height: 110px;
+  animation: animate3 50s linear infinite;
+}
+
+.fish10 {
+  top: 30%;
+  height: 150px;
+  animation: animate 80s linear infinite;
+}
+
+.fish11 {
+  top: 50%;
+  height: 80px;
+  animation: animate4 30s linear infinite;
+}
+
+.fish12 {
+  top: 70%;
+  height: 130px;
+  animation: animate4 20s linear infinite;
+}
+
+.fish13 {
+  top: 0%;
+  height: 170px;
+  animation: animate4 60s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(-20px);
+    left: -10%;
   }
-  .login {
-    margin-top: 30vh;
-    margin-bottom: 50vh;
+  25% {
+    transform: translateY(0px);
   }
-  
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  50% {
+    transform: translateY(50px);
   }
-  
-  button {
-    font-family: inherit;
+  75% {
+    transform: translateY(0px);
   }
-  
-  .wrapperr {
-    --input-focus: #7191ce;
-    --font-color: #323232;
-    --font-color-sub: #666;
-    --bg-color: #fff;
-    --bg-color-alt: #666;
-    --main-color: #323232;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  100% {
+    transform: translateY(-20px);
+    left: 120%;
   }
-  
-  /* switch card */
-  .switch {
-    transform: translateY(-200px);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    width: 50px;
-    height: 20px;
+}
+
+@keyframes animate2 {
+  0% {
+    transform: translateY(-50px);
+    right: -10%;
   }
-  
-  .card-side::before {
-    position: absolute;
-    content: "登入";
-    left: -70px;
-    top: 0;
-    width: 100px;
-    text-decoration: underline;
-    color: var(--font-color);
-    font-weight: 600;
+  25% {
+    transform: translateY(0px);
   }
-  
-  .card-side::after {
-    position: absolute;
-    content: "註冊";
-    left: 70px;
-    top: 0;
-    width: 100px;
-    text-decoration: none;
-    color: var(--font-color);
-    font-weight: 600;
+  50% {
+    transform: translateY(50px);
   }
-  
-  .toggle {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  75% {
+    transform: translateY(0px);
   }
-  
-  .slider {
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 2px solid var(--main-color);
-    box-shadow: 4px 4px var(--main-color);
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--bg-colorcolor);
-    transition: 0.3s;
+  100% {
+    transform: translateY(-50px);
+    right: 100%;
   }
-  
-  .slider:before {
-    box-sizing: border-box;
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    border: 2px solid var(--main-color);
-    border-radius: 5px;
-    left: -2px;
-    bottom: 2px;
-    background-color: var(--bg-color);
-    box-shadow: 0 3px 0 var(--main-color);
-    transition: 0.3s;
+}
+
+@keyframes animate3 {
+  0% {
+    transform: translateY(-30px);
+    left: 5%;
   }
-  
-  .toggle:checked + .slider {
-    background-color: var(--input-focus);
+  25% {
+    transform: translateY(0px);
   }
-  
-  .toggle:checked + .slider:before {
-    transform: translateX(30px);
+  50% {
+    transform: translateY(50px);
   }
-  
-  .toggle:checked ~ .card-side:before {
-    text-decoration: none;
+  75% {
+    transform: translateY(0px);
   }
-  
-  .toggle:checked ~ .card-side:after {
-    text-decoration: underline;
+  100% {
+    transform: translateY(-30px);
+    left: 100%;
   }
-  
-  /* card */
-  
-  .flip-card__inner {
-    width: 300px;
-    height: 350px;
-    position: relative;
-    background-color: transparent;
-    perspective: 1000px;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
+}
+
+@keyframes animate4 {
+  0% {
+    transform: translateY(-40px);
+    right: 0%;
   }
-  
-  .toggle:checked ~ .flip-card__inner {
-    transform: rotateY(180deg);
+  25% {
+    transform: translateY(0px);
   }
-  
-  .toggle:checked ~ .flip-card__front {
-    box-shadow: none;
+  50% {
+    transform: translateY(50px);
   }
-  
-  .flip-card__front,
-  .flip-card__back {
-    padding: 20px;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    background: rgb(255, 255, 255);
-    gap: 20px;
-    border-radius: 5px;
-    border: 2px solid var(--main-color);
-    box-shadow: 4px 4px var(--main-color);
+  75% {
+    transform: translateY(0px);
   }
-  
-  .flip-card__back {
-    width: 100%;
-    transform: rotateY(180deg);
+  100% {
+    transform: translateY(-40px);
+    right: 130%;
   }
-  
-  .flip-card__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .title {
-    margin: 20px 0 20px 0;
-    font-size: 25px;
-    font-weight: 900;
-    text-align: center;
-    color: var(--main-color);
-  }
-  
-  .flip-card__input {
-    width: 250px;
-    height: 40px;
-    border-radius: 5px;
-    border: 2px solid var(--main-color);
-    background-color: var(--bg-color);
-    box-shadow: 4px 4px var(--main-color);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--font-color);
-    padding: 5px 10px;
-    outline: none;
-  }
-  
-  .flip-card__input::placeholder {
-    color: var(--font-color-sub);
-    opacity: 0.8;
-  }
-  
-  .flip-card__input:focus {
-    border: 2px solid var(--input-focus);
-  }
-  
-  .flip-card__btn:active,
-  .button-confirm:active {
-    box-shadow: 0px 0px var(--main-color);
-    transform: translate(3px, 3px);
-  }
-  
-  .flip-card__btn {
-    margin: 20px 0 20px 0;
-    width: 120px;
-    height: 40px;
-    border-radius: 5px;
-    border: 2px solid var(--main-color);
-    background-color: var(--bg-color);
-    box-shadow: 4px 4px var(--main-color);
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--font-color);
-    cursor: pointer;
-  }
-  
-  
-  
+}
+
