@@ -1,13 +1,29 @@
 <script setup>
 import LayoutHeader from '@/views/Layout/components/LayoutHeader.vue';
 import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
-import "./Login.css";
 </script>
 
 <template>
   <LayoutHeader></LayoutHeader>
+  <section>
+        <div id="particles">
+          <img src="./img/fish1.png" class="fish fish1">
+          <img src="./img/fish2.png" class="fish fish2">
+          <img src="./img/fish3.png" class="fish fish3">
+          <img src="./img/fish4.png" class="fish fish4">
+          <img src="./img/fish5.png" class="fish fish5">
+          <img src="./img/fish6.png" class="fish fish6">
+          <img src="./img/fish7.png" class="fish fish7">
+          <img src="./img/fish8.png" class="fish fish8">
+          <img src="./img/fish9.png" class="fish fish9">
+          <img src="./img/fish10.png" class="fish fish10">
+          <img src="./img/fish11.png" class="fish fish11">
+          <img src="./img/fish12.png" class="fish fish12">
+          <img src="./img/fish13.png" class="fish fish13">
+        </div>
+      </section>
+
   <div class="login">
-    <main>
       <div class="wrapperr">
         <div class="card-switch">
           <label class="switch">
@@ -88,7 +104,6 @@ import "./Login.css";
           </label>
         </div>
       </div>
-    </main>
   </div>
   <LayoutFooter></LayoutFooter>
 </template>
@@ -162,6 +177,4 @@ export default {
 </script>
 
 
-<style scoped>
-</style>
-
+<style scoped lang="css" src="./Login.css"></style>
