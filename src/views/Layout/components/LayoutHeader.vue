@@ -42,9 +42,9 @@ const permission = inject("permission");
               >
             </li>
             <li class="nav-item">
-              <router-link to="categoryTraffic"
-                ><a class="nav-link mx-lg-2" href="#">交通</a></router-link
-              >
+              <router-link to="categoryTraffic">
+                <a class="nav-link mx-lg-2" href="#">交通</a>
+              </router-link>
             </li>
             <li class="nav-item">
               <router-link to="categoryHotel"

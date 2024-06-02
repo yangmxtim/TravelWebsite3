@@ -2,7 +2,7 @@
     <div class="container">
             <div class="row py-4">
                 <div class="col-11">
-                    <h2>{縣市}{種類}|{名稱}</h2>
+                    <h2>{縣市}{種類}|{{product.name}}</h2>
                 </div>
                 <div class="col-1">
                     <label class="ui-bookmark">
@@ -61,6 +61,17 @@
             </div>
         </div>
 </template>
+
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  product: {
+    type: Object,
+    required: true
+  }
+});
+</script>
 
 <style scoped>
 /* 圖片圓角 */
