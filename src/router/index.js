@@ -64,9 +64,11 @@ const router = createRouter({
         }
         ,
         {
-          path:'product',
-          component: Product
-        },
+          path: '/product/:id',
+          name: 'product',
+          component: Product,
+          props: true // 啟用將路由參數作為組件的屬性傳遞
+      },
         {
           path:'cartlist',
           component: CartList
