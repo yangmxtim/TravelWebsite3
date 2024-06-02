@@ -17,6 +17,12 @@ import NoteList from '@/views/Note/NoteList.vue'
 import QRcodeTickets from '@/views/QRcode/QRcodeTickets.vue'
 import QRDonePage from '@/views/QRcode/QRDonePage.vue'
 import MemberInfo from '@/views/MemberInfo/MemberInfo.vue'
+import Admin from "@/views/Backstage/layouts/admin.vue";
+import BackMain from "@/views/Backstage/layouts/backMain.vue";
+import Member from "@/views/Backstage/layouts/member.vue";
+import OrderManage from "@/views/Backstage/layouts/orderManage.vue";
+import ProductManage from "@/views/Backstage/layouts/productManage.vue";
+import NewProduct from "@/views/Backstage/layouts/newProduct.vue";
 
 
 
@@ -94,7 +100,48 @@ const router = createRouter({
     {
       path:'/memberinfo',
       component:MemberInfo
-    }
+    },
+    {
+      path: "/",
+      component: Admin,
+      children: [
+        {
+          path: "/backMain",
+          component: BackMain,
+          meta: {
+            breadcrumb: "數據分析",
+          },
+        },
+        {
+          path: "/member",
+          component: Member,
+          meta: {
+            breadcrumb: "會員管理",
+          },
+        },
+        {
+          path: "/orderManage",
+          component: OrderManage,
+          meta: {
+            breadcrumb: "訂單管理",
+          },
+        },
+        {
+          path: "/productManage",
+          component: ProductManage,
+          meta: {
+            breadcrumb: "商品管理",
+          },
+        },
+        {
+          path:'/newProduct',
+          component: NewProduct,
+          meta: {
+            breadcrumb: "新增商品",
+          },
+        },
+      ],
+    },
 
   ]
 })
