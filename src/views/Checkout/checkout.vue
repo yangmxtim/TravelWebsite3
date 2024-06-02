@@ -1,7 +1,46 @@
 <script setup>
-const checkInfo = {}  // 订单对象
-const curAddress = {}  // 地址对象
+const checkInfo = {}  // 訂單對象
+const curAddress = {} // 地址對象
 
+
+import { ref } from 'vue';
+import axios from 'axios';
+
+//存儲用戶選擇的支付方式
+const selectedPaymentMethod = ref('');
+
+//支付方式按鈕的點擊事件,並設置當前選擇的支付方式
+const handlePaymentMethodClick = (paymentMethod) => {
+  selectedPaymentMethod.value = paymentMethod;
+}
+
+
+const handleConfirmOrder = () => {
+  //根據用戶選擇支付方式連確定連接後端的URL
+  let backendURL = '';
+  if (selectedPaymentMethod.value === '綠界支付') {
+    backendURL = 'http://localhost:8080/ecpayCheckout';
+  } else if (selectedPaymentMethod.value === 'LINE PAY') {
+    backendURL = 'linePayCheckoutURL'; // 我先預設我會做出LINE PAY
+  }
+
+  // 發送POST 請求到後端
+  axios.post(backendURL, {
+    //這邊添加要傳送到後端的數據
+
+  })
+  .then(response => {
+    // 請求成功處理邏輯
+    console.log(response.data);
+    // 根據後端返回結果進行相對應的處理 例如跳轉頁面
+
+  })
+  .catch(error => {
+    //請求失敗處理邏輯
+    console.error(error);
+    
+  });
+}
 </script>
 
 <template>
@@ -52,9 +91,8 @@ const curAddress = {}  // 地址对象
         <!-- 付款方式 -->
         <h3 class="box-title">付款方式</h3>
         <div class="box-body">
-          <a class="my-btn " href="javascript:;">藍新支付</a>
-          <a class="my-btn" href="javascript:;">LINE PAY</a>
-          
+          <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === '綠界支付' }" @click="handlePaymentMethodClick('綠界支付')">綠界支付</a>
+          <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === 'LINE PAY' }" @click="handlePaymentMethodClick('LINE PAY')">LINE PAY</a> 
         </div>
         <!-- 金额明细 -->
         <h3 class="box-title">交易明細</h3>
@@ -75,9 +113,9 @@ const curAddress = {}  // 地址对象
             </dl>
           </div>
         </div>
-        <!-- 提交订单 -->
+        <!-- 確認下單 -->
         <div class="submit">
-          <el-button type="primary" size="large" >確認下單</el-button>
+          <el-button type="primary" size="large" @click="handleConfirmOrder">確認下單</el-button>
         </div>
       </div>
     </div>
@@ -228,12 +266,22 @@ const curAddress = {}  // 地址对象
   margin-right: 25px;
   color: #666666;
   display: inline-block;
-  text-decoration: none; /* 刪除超連結底線 */
+  text-decoration: none;
 
   &:hover {
     border-color:#83c4f8;
   }
 }
+.my-btn.active,
+.my-btn:hover {
+  border-color: #83c4f8;
+}
+
+.my-btn.active {
+  background-color: #83c4f8;
+  color: white;
+}
+
 @media screen and (max-width: 768px) {
   .my-btn {
     display: block; 
