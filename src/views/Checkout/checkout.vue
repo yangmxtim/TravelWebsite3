@@ -1,46 +1,76 @@
 <script setup>
-const checkInfo = {}  // 訂單對象
-const curAddress = {} // 地址對象
-
-
 import { ref } from 'vue';
 import axios from 'axios';
 
-//存儲用戶選擇的支付方式
+
+// 訂單信息
+const orderInfo = ref({
+  
+  totalAmount: '500', // 假設這是訂單總金額
+  itemName: '商品A', // 假設這是商品名稱
+  tradeDesc: '商品A的描述', // 假設這是交易描述
+  goods: [
+    {
+      id: 1,
+      name: '商品A',
+      picture: '商品A圖片連結',
+      price: '500',
+      quantity: '2',
+      totalPrice: '1000',
+      totalPayPrice: '1000'
+    },
+    {
+      id: 2,
+      name: '商品B',
+      picture: '商品B圖片連結',
+      price: '300',
+      quantity: '1',
+      totalPrice: '300',
+      totalPayPrice: '300'
+    }
+  ],
+  summary: {
+    goodsCount: 3, // 商品總數
+    totalPrice: 1300, // 商品總價
+    totalPayPrice: 1300 // 應付金額
+  }
+});
+
+// 存儲用戶選擇的支付方式
 const selectedPaymentMethod = ref('');
 
-//支付方式按鈕的點擊事件,並設置當前選擇的支付方式
+// 支付方式按鈕的點擊事件, 並設置當前選擇的支付方式
 const handlePaymentMethodClick = (paymentMethod) => {
   selectedPaymentMethod.value = paymentMethod;
-}
-
+};
 
 const handleConfirmOrder = () => {
-  //根據用戶選擇支付方式連確定連接後端的URL
+  // 根據用戶選擇支付方式連確定連接後端的URL
   let backendURL = '';
   if (selectedPaymentMethod.value === '綠界支付') {
     backendURL = 'http://localhost:8080/ecpayCheckout';
   } else if (selectedPaymentMethod.value === 'LINE PAY') {
-    backendURL = 'linePayCheckoutURL'; // 我先預設我會做出LINE PAY
+    backendURL = 'linePayCheckoutURL'; // 假設你將來會添加LINE PAY的處理
   }
 
-  // 發送POST 請求到後端
-  axios.post(backendURL, {
-    //這邊添加要傳送到後端的數據
+  // 發送 POST 請求到後端
+  axios.post(backendURL, orderInfo.value)
+    .then(response => {
+      // 獲取後端返回的 HTML 表單內容
+      const formData = response.data;
 
-  })
-  .then(response => {
-    // 請求成功處理邏輯
-    console.log(response.data);
-    // 根據後端返回結果進行相對應的處理 例如跳轉頁面
+      // 將表單內容添加到頁面中
+      const formContainer = document.getElementById('paymentFormContainer');
+      formContainer.innerHTML = formData;
 
-  })
-  .catch(error => {
-    //請求失敗處理邏輯
-    console.error(error);
-    
-  });
-}
+      // 提交表單
+      formContainer.querySelector('form').submit();
+    })
+    .catch(error => {
+      // 請求失敗處理邏輯
+      console.error(error);
+    });
+};
 </script>
 
 <template>
@@ -51,8 +81,7 @@ const handleConfirmOrder = () => {
         <h3 class="box-title">會員資訊</h3>
         <div class="box-body">
           <div class="address">
-            
-            
+            <!-- 這裡添加會員資訊的相關代碼 -->
           </div>
         </div>
         <!-- 商品信息 -->
@@ -69,20 +98,20 @@ const handleConfirmOrder = () => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="i in checkInfo.goods" :key="i.id">
+              <tr v-for="item in orderInfo.goods" :key="item.id">
                 <td>
                   <a href="javascript:;" class="info">
-                    <img :src="i.picture" alt="">
+                    <img :src="item.picture" alt="">
                     <div class="right">
-                      <p>{{ i.name }}</p>
-                      <p>{{ i.attrsText }}</p>
+                      <p>{{ item.name }}</p>
+                      <!-- 如果有其他屬性需要顯示，可以在這裡添加 -->
                     </div>
                   </a>
                 </td>
-                <td>&yen;{{ i.price }}</td>
-                <td>{{ i.price }}</td>
-                <td>&yen;{{ i.totalPrice }}</td>
-                <td>&yen;{{ i.totalPayPrice }}</td>
+                <td>&yen;{{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>&yen;{{ item.totalPrice }}</td>
+                <td>&yen;{{ item.totalPayPrice }}</td>
               </tr>
             </tbody>
           </table>
@@ -94,22 +123,21 @@ const handleConfirmOrder = () => {
           <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === '綠界支付' }" @click="handlePaymentMethodClick('綠界支付')">綠界支付</a>
           <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === 'LINE PAY' }" @click="handlePaymentMethodClick('LINE PAY')">LINE PAY</a> 
         </div>
-        <!-- 金额明细 -->
+        <!-- 金額明細 -->
         <h3 class="box-title">交易明細</h3>
         <div class="box-body">
           <div class="total">
             <dl>
               <dt>商品件數：</dt>
-              <dd>{{ checkInfo.summary?.goodsCount }}件</dd>
+              <dd>{{ orderInfo.summary?.goodsCount }}件</dd>
             </dl>
             <dl>
               <dt>商品總價：</dt>
-              <dd>TWD{{ checkInfo.summary?.totalPrice.toFixed(2) }}</dd>
+              <dd>TWD{{ orderInfo.summary?.totalPrice.toFixed(2) }}</dd>
             </dl>
-            
             <dl>
               <dt>應付金額：</dt>
-              <dd class="price">{{ checkInfo.summary?.totalPayPrice.toFixed(2) }}</dd>
+              <dd class="price">{{ orderInfo.summary?.totalPayPrice.toFixed(2) }}</dd>
             </dl>
           </div>
         </div>
@@ -119,8 +147,13 @@ const handleConfirmOrder = () => {
         </div>
       </div>
     </div>
+    <!-- 支付表單容器 -->
+    <div id="paymentFormContainer" style="display: none;"></div>
   </div>
 </template>
+
+
+
 
 <style scoped>
 .xtx-pay-checkout-page {
