@@ -11,6 +11,7 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
+import {  } from 'vue-router';
 import axios from 'axios';
 import MembersNav from '../Category/components/MembersNav.vue';
 

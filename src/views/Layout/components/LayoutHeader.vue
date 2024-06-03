@@ -72,8 +72,7 @@ const permission = inject("permission");
           <div><HeaderCart></HeaderCart></div>
           <!-- 會員登入 -->
           <div>
-            <!-- <div v-if="permission != 'Fail!'">Hello,{{ name }}</div> -->
-            <div v-if="permission != 'Fail!'"><HeaderLogout></HeaderLogout></div>
+            <div v-if="permission == 'member' || permission == 'admin'"><HeaderLogout></HeaderLogout></div>
             <div v-else><HeaderLogin></HeaderLogin></div>
           </div>
         </div>
