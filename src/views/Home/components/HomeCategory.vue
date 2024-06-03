@@ -57,4 +57,28 @@
       transform: translate(-50%, -50%) translateY(0);
     }
   }
+
+  @media (max-width: 767.98px){
+    .overlay-text {
+    position: absolute;
+    top: 45%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-size: 4vw; 
+    color: #fff;
+    animation: moveText 5s linear infinite;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  .overlay-text1 {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-size: 4vw;
+    color: #fff;
+    animation: moveText 5s linear infinite;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  }
 </style>

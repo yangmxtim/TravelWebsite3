@@ -22,6 +22,18 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
           <img src="./img/fish13.png" class="fish fish13">
         </div>
       </section>
+      <ul class="bubble">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
 
   <div class="login">
       <div class="wrapperr">

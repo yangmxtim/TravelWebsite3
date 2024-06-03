@@ -30,26 +30,27 @@
 
   &:hover {
       flex: 3;
+      cursor: pointer;
   }
 }
 
 .item-1 {
-  background-image: url('https://placehold.co/310x220');
+  background-image: url('/src/views/Layout/img/p4.jpg');
   border-radius: 10px;
 }
 
 .item-2 {
-  background-image: url('https://placehold.co/310x220');
+  background-image: url('/src/views/Layout/img/p5.jpg');
   border-radius: 10px;
 }
 
 .item-3 {
-  background-image: url('https://placehold.co/310x220');
+  background-image: url('/src/views/Layout/img/p6.jpg');
   border-radius: 10px;
 }
 
 .item-4 {
-  background-image: url('https://placehold.co/310x220');
+  background-image: url('/src/views/Layout/img/p7.jpg');
   border-radius: 10px;
 }
 
