@@ -26,25 +26,32 @@ const countChange = (count) => {
 </script>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,defineProps} from 'vue';
 
 const date = ref(new Date());
+
+const props = defineProps({
+  product: {
+    type: Object,
+    required: true
+  }
+});
 
 </script>
 
 <template>
-    <div class="container">
+    <div v-for="(detail, index) in product.product_detail" :key="index" class="container">
             <h4 class="py-2">方案</h4>
             <div class="row">
-                <div class="col-md-3"><img src="https://placehold.co/310x200"></div>
-                <div class="col-md-7"><h5>{方案名稱}</h5><br>
-                    {方案敘述}
+                <div class="col-md-3"><img :src="detail.img" class="img-fluid" alt=""></div>
+                <div class="col-md-7"><h5>{{detail.name}}</h5><br>
+                    {{detail.introduction}}
                 </div>
 
                 <div class="col-md-2">
                     <div class="row">
                         <div class="col-12">
-                            <h5 class="text-end">TWD{金額}</h5><br><br><br><br><br>
+                            <h5 class="text-end">TWD{{detail.price}}</h5><br><br><br><br><br>
                         </div>
                         <div class="row d-grid gap-2 mx-auto">
                             <div class="col-12 d-grid d-lg-flex justify-content-lg-end">
