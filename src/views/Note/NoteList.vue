@@ -58,7 +58,8 @@ const showForm = ref(false);
 const currentNote = ref({});
 const loading = ref(true);
 const error = ref(null);
-
+//抓取會員ＩＤ
+const uid = 1;
 
 
 function addNote() {
@@ -82,7 +83,7 @@ async function deleteNote(id) {
 
 async function loadNotes() {
   try{
-    const response = await axios.get('http://localhost:8080/api/notes');
+    const response = await axios.get(`http://localhost:8080/api/notes/${uid}`);
     notes.value = response.data;
   }catch(err){
     error.value = '無法載入筆記';
