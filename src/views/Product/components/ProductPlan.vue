@@ -40,8 +40,8 @@ const props = defineProps({
 </script>
 
 <template>
+    <h4 class="py-2 container">選擇方案</h4>
     <div v-for="(detail, index) in product.product_detail" :key="index" class="container">
-            <h4 class="py-2">方案</h4>
             <div class="row">
                 <div class="col-md-3"><img :src="detail.img" class="img-fluid" alt=""></div>
                 <div class="col-md-7"><h5>{{detail.name}}</h5><br>
