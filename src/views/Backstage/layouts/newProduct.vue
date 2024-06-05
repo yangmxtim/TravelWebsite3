@@ -1,163 +1,180 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="form"
-    label-width="auto"
-    style="max-width: 900px"
-  >
-    <el-form-item label="商品名稱">
-      <el-input v-model="form.name" />
-    </el-form-item>
-
-    <div class="d-flex">
-      <el-form-item class="col" label="價格">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item class="col" label="價格">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item class="col" label="庫存">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item class="col ps-4" label="商品類型">
-        <el-select v-model="form.region1" placeholder="請選擇類型">
-          <el-option label="交通" value="交通" />
-          <el-option label="住宿" value="住宿" />
-          <el-option label="其他" value="其他" />
-        </el-select>
-      </el-form-item>
+  <div class="d-flex">
+    <div class="col-7">
+      <form @submit.prevent="handleSubmit">
+        <div class="d-inlineblock">
+          <div class="pb-3 input-group">
+            <label class="input-group-text" for="name">產品名稱</label>
+            <input class="form-control" type="text" name="name" id="name" 
+              v-model="formData.name" placeholder="允許字母、數字和空格，且長度在 1 到 20 個字之間">
+          </div>
+    
+          <div class="pb-3 input-group">
+            <label class="input-group-text" for="price">價格</label>
+            <input class="form-control" id="price" type="text" name="price" 
+              v-model="formData.price" />
+            <label class="input-group-text" for="stock">庫存</label>
+            <input class="form-control" id="stock" type="text" name="stock" 
+              v-model="formData.stock" />
+          </div>
+    
+          <div class="pb-3 input-group">
+            <label class="input-group-text" for="type">商品類型</label>
+            <select class="form-select" v-model="formData.type" name="type">
+              <option value="transport">交通</option>
+              <option value="stay">住宿</option>
+            </select>
+            <label class="input-group-text" for="tag">標籤</label>
+            <input class="form-control" v-model="formData.tag" id="tag" type="text" name="tag" />
+          </div>
+    
+          <div v-if="formData.type === 'transport'" class="pb-3 input-group">
+            <label class="input-group-text" for="fromTime">出發時間</label>
+            <input class="form-control" v-model="formData.fromTime" id="fromTime" type="date" name="fromTome" />
+            <label class="input-group-text" for="toTime">到達時間</label>
+            <input class="form-control" v-model="formData.toTime" id="toTime" type="date" name="toTime" />
+          </div>
+          <div v-if="formData.type === 'transport'" class="pb-3 input-group">
+            <label class="input-group-text" for="fromPlace">出發地點</label>
+            <input class="form-control" v-model="formData.fromPlace" id="fromPlace" type="text" name="fromPlace" />
+            <label class="input-group-text" for="toPlace">到達地點</label>
+            <input class="form-control" v-model="formData.toPlace" id="toPlace" type="text" name="toPlace" />
+          </div>
+          <div v-if="formData.type === 'stay'" class="pb-3 input-group">
+            <label class="input-group-text" for="addr">住宿地址</label>
+            <input class="form-control" v-model="formData.addr" id="addr" type="text" name="addr" />
+          </div>
+    
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="image">圖片</label>
+            <input type="file" class="form-control" id="image" multiple @change="handleFileUpload">
+          </div>
+          
+          <div class="pb-3 input-group">
+            <label class="input-group-text" for="intro">介紹</label>
+            <textarea class="form-control" id="intro" style="min-height: 100px;" name="intro"
+            v-model="formData.intro" placeholder="允許字母、數字和空格，且長度在 5 到 200 個字之間"></textarea>
+          </div>
+          <div class="input-group">
+            <button class="btn btn-primary form-control" style="max-width: 80px" type="submit">
+              新增
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-
-    <div v-if="form.region1 && form.region1 === '交通'" class="d-flex">
-      <el-form-item class="col" label="出發地" :rules="require">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item class="col" label="到達地">
-        <el-input v-model="form.name" />
-      </el-form-item>
+    
+    <div class="pe-3" width="20px"></div>
+    <!-- 預覽圖片 -->
+    <div class="col" style="border: 2px solid lightgray;">
+      <div v-for="(image, index) in imagePreviews" :key="index">
+        <img :src="image" alt="圖片預覽" style="max-width: 300px;">
+      </div>
     </div>
-    <div v-if="form.region1 && form.region1 === '住宿'" class="d-flex">
-      <el-form-item class="col" label="住宿地址">
-        <el-input v-model="form.name" />
-      </el-form-item>
-    </div>
-
-    <el-form-item label="商品說明">
-      <el-input v-model="form.desc" type="textarea" />
-    </el-form-item>
-
-    <el-form-item label="商品圖片">
-      <el-upload
-        :file-list="fileList"
-        list-type="picture-card"
-        :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove"
-        :before-upload="handleBeforeUpload"
-        :http-request="uploadToServer"
-      >
-        <el-icon><Plus /></el-icon>
-      </el-upload>
-
-      <el-dialog v-model="dialogVisible">
-        <img class="full-width" :src="dialogImageUrl" alt="Preview Image" />
-      </el-dialog>
-    </el-form-item>
-
-    <el-form-item>
-      <el-button type="primary" @click="submitForm">新增</el-button>
-      <router-link to="/productManage">
-        <el-button>取消</el-button>
-      </router-link>
-    </el-form-item>
-  </el-form>
+  </div>
 </template>
 
 <script setup>
-import axios from "axios";
-import { ref, reactive } from "vue";
-import { Plus } from "@element-plus/icons-vue";
+import {ref} from 'vue'
+import axios from 'axios'
 
-const require = {
-  required: true,
-  message: "domain can not be null",
-  trigger: "blur",
-};
-
-// do not use same name with ref
-const form = reactive({
-  name: "",
-  region1: "",
-  region2: "",
-  date1: "",
-  date2: "",
-  delivery: false,
-  type: [],
-  resource: "",
-  desc: "",
+const formData = ref({
+  name: '預設產品名稱',
+  intro: '預設介紹文字',
+  price: '100',
+  stock: '10',
+  type: 'transport',
+  tag: '預設標籤',
+  fromTime: '',
+  toTime: '',
+  fromPlace: '預設出發地點',
+  toPlace: '預設到達地點',
+  addr: '預設地址',
+  images: [],
 });
 
-const formRef = ref(null);
-const submitForm = () => {
-  formRef.value.validate((valid) => {
-    if (valid) {
-      // 表单验证通过，可以提交表单
-      console.log("表单验证通过，提交表单");
-    } else {
-      // 表单验证失败，不提交表单
-      console.log("表单验证失败，不提交表单");
-    }
-  });
-};
+const imagePreviews = ref([])
 
-// 圖片
-const fileList = ref([]);
+const handleFileUpload = (event) => {
+  const files = event.target.files;
+  formData.value.images = files; // 儲存選中的檔案
 
-const dialogImageUrl = ref("");
-const dialogVisible = ref(false);
-
-const handlePictureCardPreview = (file) => {
-  dialogImageUrl.value = file.url;
-  dialogVisible.value = true;
-};
-
-const handleRemove = (file, fileList) => {
-  console.log("移除文件:", file, fileList);
-};
-
-const handleBeforeUpload = (file) => {
-  file.url = URL.createObjectURL(file);
-  fileList.value.push(file);
-  return false; // 阻止自動上傳，手動處理上傳
-};
-
-const uploadToServer = async ({ file }) => {
-  try {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const response = await axios.post(
-      "https://your-api-endpoint.com/upload",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+  imagePreviews.value = []; // 清空舊的預覽
+  if (files) {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      // 檢查檔案大小，這裡假設上限為 5MB
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxSizeInBytes) {
+        alert(`檔案 "${file.name}" 超出了大小限制 (最大 5MB)，請選擇較小的檔案。`);
+        continue; // 跳過處理這個檔案
       }
-    );
-
-    if (response.data && response.data.url) {
-      // 將返回的URL更新到文件對象
-      file.url = response.data.url;
-      console.log("上傳成功:", response.data.url);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        imagePreviews.value.push(reader.result);
+      }
     }
-  } catch (error) {
-    console.error("上傳失敗:", error);
   }
-};
+}
+
+const handleSubmit = async () => {
+  // // 驗證產品名稱
+  // if (!validateProductName(formData.value.name)) {
+  //   alert('請輸入有效的產品名稱');
+  //   return;
+  // }
+  // // 驗證價格和庫存
+  // if (!validateNum(formData.value.price) || !validateNum(formData.value.stock)) {
+  //   alert('請輸入有效的價格和庫存');
+  //   return;
+  // }
+  // // 驗證介紹
+  // if (!validateIntro(formData.value.intro)) {
+  //   alert('請輸入有效的介紹');
+  //   return;
+  // }
+
+  try {
+    const formDataToSend = new FormData();
+    for (const key in formData.value) {
+      if (key !== 'images') {
+        formDataToSend.append(key, formData.value[key]);
+      }
+    }
+    
+    // 將圖片添加到formDataToSend中
+    for (let i = 0; i < formData.value.images.length; i++) {
+      formDataToSend.append('images', formData.value.images[i]);
+    }
+
+    const response = await axios.post('http://localhost:8080/upload', formDataToSend, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    console.log('成功:', response.data);
+  } catch (error) {
+    console.error('錯誤:', error);
+  }
+}
+
+const validateProductName = (name) => {
+  const regex = /^[a-zA-Z0-9\s]{1,20}$/;
+  return regex.test(name);
+}
+
+const validateIntro = (intro) => {
+  const regex = /^[a-zA-Z0-9\s]{5,200}$/;
+  return regex.test(intro);
+}
+
+const validateNum = (num) => {
+  const regex = /^(100000|[0-9]{1,5})$/;
+  return regex.test(num);
+}
 </script>
 
 <style scoped>
-.full-width {
-  width: 100%;
-}
 </style>
