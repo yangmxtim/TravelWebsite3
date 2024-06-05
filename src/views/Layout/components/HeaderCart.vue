@@ -1,17 +1,33 @@
 <script setup>
+import { useCartStore } from "@/stores/cartStore"
+const cartStore = useCartStore()
 
+//從購物車刪除商品
+const removeFromCart = (skuId) => {
+  cartStore.removeFromCart(skuId);
+}
+
+// 新增商品
+const addToCart = (product) => {
+  cartStore.addToCart(product);
+  // 新增後更新價格
+  updateCartSummary();
+}
+
+// 更新購物車總數量跟總價格
+const updateCartSummary = () => {
+  cartStore.updateCartSummary(); //購物車數據重新計算
+}
 </script>
 
 <template>
   <div class="cart">
     <a class="curr" href="javascript:;">
-      <i class="fa-solid fa-cart-shopping icon-cart"></i><em>2</em>
-      <i class=""></i>
+      <i class="fa-solid fa-cart-shopping icon-cart"></i><em>{{ cartStore.cartList.length  }}</em>
     </a>
     <div class="layer">
       <div class="list">
-        <!--
-        <div class="item" v-for="i in cartList" :key="i">
+        <div class="item" v-for="i in cartStore.cartList" :key="i.skuId">
           <RouterLink to="">
             <img :src="i.picture" alt="" />
             <div class="center">
@@ -25,20 +41,22 @@
               <p class="count">x{{ i.count }}</p>
             </div>
           </RouterLink>
-          <i class="iconfont icon-close-new" @click="store.delCart(i.skuId)"></i>
-        </div>
-        -->
+          <i class="iconfont icon-close-new" @click="removeFromCart(i.skuId)"></i>
+        </div> 
       </div>
       <div class="foot">
         <div class="total">
-          <p style="margin-bottom: 5px;">共 10 件商品</p>
-          <p>TWD$ 100.00 </p>
+          <p style="margin-bottom: 5px;">共 {{ cartStore.cartList.length }} 件商品</p>
+          <p>TWD$ {{ cartStore.totalPrice.toFixed(2) }} </p>
         </div>
-        <el-button size="large" type="primary" @click="$router.push('/cartlist')" >前往購物車</el-button>
+        <el-button size="large" type="primary" @click="$router.push('/cartlist')" >前往购物车</el-button>
       </div>
     </div>
-</div>
+  </div>
 </template>
+
+
+
 
 <style scoped >
 .cart {
@@ -130,6 +148,11 @@
       }
     }
   }
+
+  .item a {
+  text-decoration: none; /* 去除底線 */
+  color: inherit; /* 確保連結的顏色與其父元素相同 */
+}
 
   .list {
     height: 310px;

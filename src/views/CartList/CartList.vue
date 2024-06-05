@@ -1,5 +1,27 @@
-<script setup>
-const cartList = []
+<script>
+import { useCartStore } from '@/stores/cartStore'; // 導入購物車 store
+
+export default {
+  setup() {
+    const cartStore = useCartStore();
+    const cartList = cartStore.cartList;
+
+    // 刪除購物車中的商品
+    const removeFromCart = (skuId) => {
+      cartStore.removeFromCart(skuId);
+    };
+
+    // 單選回調
+    const singleCheck = (i, selected) => {
+      console.log(selected)
+      // store cartList 
+      // 除了 selected 補充一個用來篩選的參數 skuId
+      cartStore.singleCheck(i.skuId, selected)
+    }
+
+    return { cartList, removeFromCart, singleCheck };
+  }
+}
 </script>
 
 <template>
@@ -10,7 +32,7 @@ const cartList = []
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox/>
+               
               </th>
               <th width="400">購買商品</th>
               <th width="220">單價</th>
@@ -23,7 +45,8 @@ const cartList = []
           <tbody>
             <tr v-for="i in cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                  <!-- 單選框 -->
+                <el-checkbox :model-value="i.selected" @change="(selcted)=>singleCheck(i,selcted)" />
               </td>
               <td>
                 <div class="goods">
@@ -35,21 +58,21 @@ const cartList = []
                   </div>
                 </div>
               </td>
-              <td class="tc">
-                <p>&yen;{{ i.price }}</p>
+              <td class="tc" >
+                <p>${{ i.price }}</p>
               </td>
               <td class="tc">
                 <el-input-number v-model="i.count" />
               </td>
               <td class="tc">
-                <p class="f16 red">&yen;{{ (i.price * i.count).toFixed(2) }}</p>
+                <p class="f16 red">${{ (i.price * i.count).toFixed(2) }}</p>
               </td>
               <td class="tc">
                 <p>
-                  <el-popconfirm title="確定刪除嗎?" confirm-button-text="確定" cancel-button-text="取消" @confirm="">
+                  <el-popconfirm title="確定刪除嗎?" confirm-button-text="確定" cancel-button-text="取消" @confirm="removeFromCart(i.skuId)">
                     <template #reference>
-                      <a href="javascript:;">删除</a>
-                    </template>
+                        <a href="javascript:;">删除</a>
+                  </template>
                   </el-popconfirm>
                 </p>
               </td>
@@ -67,11 +90,11 @@ const cartList = []
 
         </table>
       </div>
-      <!-- 操作栏 -->
+      <!-- 操作欄 -->
       <div class="action">
         <div class="batch">
-          共 10 件商品，已選擇 2 件，價格合計：
-          <span class="red">TWD 200.00 </span>
+          共 {{ cartList.length }} 件商品，已選擇 {{ cartList.filter(item => item.selected).length }} 件，價格合計：
+          <span class="red">$ {{ (cartList.filter(item => item.selected).reduce((total, item) => total + item.price * item.count, 0)).toFixed(2) }} </span>
         </div>
         <div class="total">
           <el-button size="large" type="primary" @click="$router.push('/checkout')">前往結帳</el-button>
@@ -126,7 +149,7 @@ const cartList = []
   }
 
   .tc {
-  text-align: center;
+  text-align: start;
 
   a {
     color: #e94242;
