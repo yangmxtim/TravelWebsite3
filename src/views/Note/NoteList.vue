@@ -46,7 +46,7 @@ import MembersNav from '../Category/components/MembersNav.vue';
 import NoteForm from './NoteForm.vue';
 import LayoutHeader from '../Layout/components/LayoutHeader.vue';
 import LayoutFooter from '../Layout/components/LayoutFooter.vue';
-import Weather from '../Weather/Weather.vue'
+
 import WeatherDate from '../Weather/WeatherDate.vue';
 
 import '@/styles/note.css';
