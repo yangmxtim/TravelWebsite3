@@ -42,24 +42,16 @@ const permission = inject("permission");
               >
             </li>
             <li class="nav-item">
-              <router-link to="categoryTraffic">
-                <a class="nav-link mx-lg-2" href="#">交通</a>
-              </router-link>
+              <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryTraffic')">交通</a>
             </li>
             <li class="nav-item">
-              <router-link to="categoryHotel"
-                ><a class="nav-link mx-lg-2" href="#">住宿</a></router-link
-              >
+                <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryHotel')">住宿</a>
             </li>
             <li class="nav-item">
-              <router-link to="categoryTouristSpot"
-                ><a class="nav-link mx-lg-2" href="#">景點門票</a></router-link
-              >
+                <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryTouristSpot')">景點門票</a>
             </li>
             <li class="nav-item">
-              <router-link to="categoryMembers"
-                ><a class="nav-link mx-lg-2" href="#">會員專區</a></router-link
-              >
+                <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryMembers')">會員專區</a>
             </li>
           </ul>
           <div>
