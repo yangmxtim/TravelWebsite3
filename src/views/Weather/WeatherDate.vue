@@ -77,7 +77,7 @@ const fetchWeatherData = async (place) => {
     const temperature = [];
     const rain = [];
     times.forEach((time,index) => {
-      if(index % 2 != 0  ){
+      if(index % 2 != 0  && index < 7){
         const st = time.startTime.slice(5, 10);
 
         const tp = time.elementValue[0].value;
@@ -87,7 +87,7 @@ const fetchWeatherData = async (place) => {
       }
     })
     rainOdds.forEach((time ,index)=> {
-      if(index % 2 != 0  ){
+      if(index % 2 != 0  && index < 7){
         const ro = time.elementValue[0].value;   //rain odds
         if (ro != " ") {
           // rain.push("降雨機率" + ro + "%");
@@ -128,8 +128,9 @@ onMounted(() => {
   padding: 20px;
   border-radius: 8px;
   max-height: 400px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 	flex-direction:column;
+  animation: 2s infinite alternate breathing-color;
 }
 .weather-bar h3 {
   margin: 0 0 10px;
@@ -151,7 +152,9 @@ onMounted(() => {
 
 }
 .weather-timebar-time{text-align: center; font-size: 25px;}
-.left{  border: 2px solid black;
+.left{  
+  border: 2px solid black;
+  animation: 5s infinite alternate breathing-color;
 }
 .right{
   display: flex;
@@ -180,5 +183,26 @@ onMounted(() => {
 }
 .button-container button:hover{
   background-color: rgb(255, 180, 150);
+}
+
+@keyframes breathing-color{
+  0%{
+    color: lightgray;
+    border-color: lightgray;
+  }
+  33%{
+    color: grey;
+    border-color: grey;
+
+  }
+  66%{
+    color: darkgray;
+    border-color: darkgray;
+  }
+  
+  100%{
+    color: black;
+    border-color: black;
+  }
 }
 </style>
