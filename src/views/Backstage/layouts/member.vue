@@ -126,6 +126,20 @@ const editAdress = ref("");
 
 const getAddress = ref("")
 
+const message = ref('');
+const fetchMessage = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/findAll');
+    message.value = response.data;
+    console.log(message.value)
+  } catch (error) {
+    console.error('Error fetching message:', error);
+  }
+};
+onMounted(() => {
+  fetchMessage();
+});
+
 // 編輯驗證
 const validate = () => {
   console.log(getAddress.value)

@@ -95,6 +95,10 @@ const tableData = [
     sum: "12345",
   },
 ];
+
+const handleClick = ()=>{
+  
+}
 </script>
 
 <style>
