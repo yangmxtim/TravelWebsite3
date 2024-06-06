@@ -1,15 +1,10 @@
 <template>
+  <!-- head -->
   <el-form :inline="true" :model="formInline" class="demo-form-inline">
     <el-form-item label="">
       <el-input v-model="formInline.user" placeholder="商品名稱..." clearable />
     </el-form-item>
-    <el-form-item label="">
-      <el-select v-model="formInline.region" placeholder="庫存管理" clearable>
-        <el-option label="全部" />
-        <el-option label="未達安全庫存" />
-        <el-option label="庫存狀態良好" />
-      </el-select>
-    </el-form-item>
+    <el-form-item label=""> </el-form-item>
     <el-form-item label="">
       <el-date-picker
         v-model="formInline.date"
@@ -28,26 +23,49 @@
     </el-form-item>
   </el-form>
 
-  <el-table
-    :data="tableData"
-    style="width: 100%; height: calc(100vh - 4rem - 220px)"
-  >
-    <el-table-column prop="id" label="產品編號" width="100" />
-    <el-table-column prop="name" label="產品名稱" width="100" />
-    <el-table-column prop="price" label="金額" width="100" />
-    <el-table-column prop="address" label="詳細內容" width="300" />
-    <el-table-column prop="email" label="庫存數量" width="200" />
-    <el-table-column prop="date" label="建立時間" />
-    <el-table-column fixed="right" label="" width="150">
-      <template #default>
-        <el-button link type="primary" size="small" @click="handleClick">
-          刪除
-        </el-button>
-        <el-button link type="primary" size="small">編輯</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+  <!-- table -->
+  <input type="text" id="myInput" onkeyup="myFunction()" 
+    placeholder="Search for names.." title="Type in a name">
+  <table id="myTable">
+    <tr class="header">
+      <th style="width: 60%">Name</th>
+      <th style="width: 40%">Country</th>
+    </tr>
+    <tr>
+      <td>Alfreds Futterkiste</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <td>Berglunds snabbkop</td>
+      <td>Sweden</td>
+    </tr>
+    <tr>
+      <td>Island Trading</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td>Koniglich Essen</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <td>Laughing Bacchus Winecellars</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Italy</td>
+    </tr>
+    <tr>
+      <td>North/South</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td>Paris specialites</td>
+      <td>France</td>
+    </tr>
+  </table>
 
+  <!-- page -->
   <nav class="mt-3" aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item">
@@ -69,11 +87,9 @@
 
 <script setup>
 import { ref, reactive } from "vue";
-import { ElTable } from "element-plus";
 
 const formInline = reactive({
   user: "",
-  region: "",
   date: "",
 });
 
@@ -81,16 +97,29 @@ const onSubmit = () => {
   console.log("submit!");
 };
 
-const tableData = [
-  {
-    id: "1200453",
-    name: "大饅頭",
-    price: "563",
-    address: "好吃的饅頭",
-    email: "12345",
-    date: "2020-06-12",
-  },
-];
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
 </script>
 
 <style scoped>
@@ -100,5 +129,40 @@ const tableData = [
 
 .demo-form-inline .el-select {
   --el-select-width: 150px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
 }
 </style>

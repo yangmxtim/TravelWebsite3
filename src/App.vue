@@ -5,6 +5,7 @@
 <script setup>
 import { ref, provide, onMounted } from "vue";
 import axios from "axios";
+import router from './router';
 
 const permission = ref(null);
 const name = ref(null);
@@ -18,6 +19,9 @@ onMounted(() => {
     })
     .then((response) => {
       permission.value = response.data;
+      if(permission.value === "admin"){
+        router.push("/backMain");
+      }
     })
     .catch((error) => {
       console.error("Error during authorization:", error);
