@@ -52,7 +52,7 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
                 <form @submit.prevent="handleLogin" class="flip-card__form">
                   <input
                     type="text"
-                    placeholder="請輸入帳號"
+                    placeholder="請輸入姓名"
                     v-model="loginAccount"
                     class="flip-card__input"
                     required
@@ -86,7 +86,7 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
                   />
                   <input
                     type="text"
-                    placeholder="請輸入帳號"
+                    placeholder="請輸入信箱"
                     v-model="registerAccount"
                     class="flip-card__input"
                     required
