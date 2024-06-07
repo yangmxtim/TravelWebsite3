@@ -1,24 +1,24 @@
 <template>
-  <el-container>
-    <el-header>
+  <div>
+    <f-menu></f-menu>
+    <div class="content">
       <f-header></f-header>
-    </el-header>
-    <el-container>
-      <el-aside  style="width: 20%;">
-        <f-menu></f-menu>
-      </el-aside>
-      <el-main>
-        <f-bread></f-bread>
-        <router-view></router-view>
-      </el-main>
-    </el-container>
-  </el-container>
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import FHeader from "./components/FHeader.vue";
 import FMenu from "./components/FMenu.vue";
-import FBread from "./components/FBread.vue"
+import "@/styles/backStyle.css";
+// import "@/utils/backStageUtils.js";
+// import "@/utils/lib/chart/chart.min.js";
+// import "@/utils/lib/easing/easing.min.js";
+// import "@/utils/lib/waypoints/waypoints.min.js";
+// import "@/utils/lib/owlcarousel/owl.carousel.min.js";
+// import "@/utils/lib/tempusdominus/js/moment.min.js";
+// import "@/utils/lib/tempusdominus/js/moment-timezone.min.js";
 </script>
 
 <style>

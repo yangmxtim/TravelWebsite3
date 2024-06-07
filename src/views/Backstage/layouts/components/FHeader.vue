@@ -1,103 +1,95 @@
 <template>
-  <div
-    class="d-flex text-light fixed-top top-0 start-0 align-items-center"
-    style="height: 4rem; background-color: orange"
-  >
-    <span class="d-flex h-100" style="width: 250px">
-      <img class="h-50 m-3" src="@/assets/images/seaIsland_logo.png" />
-      <img class="h-50 my-3" src="@/assets/images/seaIsland_word.png" />
-    </span>
-
-    <el-icon class="icon-btn"><Fold /></el-icon>
-    <el-tooltip effect="dark" content="刷新頁面" placement="bottom">
-      <el-icon class="icon-btn" @click="handleRefresh"><Refresh /></el-icon>
-    </el-tooltip>
-    <div class="ms-auto d-flex align-items-center">
-      <el-tooltip effect="dark" content="全螢幕" placement="bottom">
-        <el-icon class="me-3 icon-btn" @click="toggle">
-          <FullScreen v-if="!isFullscreen" />
-          <Aim v-else />
-        </el-icon>
-      </el-tooltip>
-      <el-dropdown
-        class="dropdown d-flex align-items-center justify-content-center mx-3"
-        >
-        <!-- @command="handleCommand" -->
-        <span class="el-dropdown-link d-flex align-items-center text-dark">
-          <!-- <el-avatar class="me-2" :size="25" :src="$store.state.user.avatar" />
-          {{ $store.state.user.username }} -->
-          <el-icon class="el-icon--right">
-            <arrow-down />
-          </el-icon>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="rePassword">修改密碼</el-dropdown-item>
-            <el-dropdown-item command="logout">登出</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-    </div>
-  </div>
-
-  <el-drawer
-    v-model="showDrawer"
-    title="修改密碼"
-    size="45%"
-    :close-on-click-modal="false"
-  >
-    <span>
-      <el-form
-        ref="formRef"
-        :rules="rules"
-        :model="form"
-        style="max-width: 100%"
-        label-width="80px"
-        size="small"
-      >
-        <el-form-item prop="oldpassword" class="mt-2 w-100" label="舊密碼">
-          <el-input
-            class="border-light"
-            type="text"
-            placeholder="請輸入舊密碼"
-            v-model="form.oldpassword"
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password" class="mt-2" label="新密碼">
-          <el-input
-            class="border-light"
-            type="password"
-            placeholder="請輸入密碼"
-            v-model="form.password"
-            show-password
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="repassword" class="mt-2" label="確認密碼">
-          <el-input
-            class="border-light"
-            type="repassword"
-            placeholder="請輸入確認密碼"
-            v-model="form.repassword"
-            show-password
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            @click="onSubmit"
-            class="my-3 bg-primary text-light border-0"
-            :loading="loading"
-          >
-            提交
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </span>
-  </el-drawer>
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Search">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="./img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="./img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="./img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Profile updated</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">New user added</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Password changed</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="./img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
 </template>
-
+  
 <script setup>
 import { ref, reactive } from "vue";
 // import { logout, updatapassword } from "@/views/Backstage/api/manager";
