@@ -95,7 +95,7 @@ const formData = ref({
 
 const imagePreviews = ref([])
 
-const handleFileUpload = (event) => {
+const handleFileUpload = (event) => { 
   const files = event.target.files;
   formData.value.images = files; // 儲存選中的檔案
 

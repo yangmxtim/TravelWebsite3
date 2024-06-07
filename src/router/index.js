@@ -19,7 +19,7 @@ import QRDonePage from '@/views/QRcode/QRDonePage.vue'
 import MemberInfo from '@/views/MemberInfo/MemberInfo.vue'
 import Admin from "@/views/Backstage/layouts/admin.vue";
 import BackMain from "@/views/Backstage/layouts/backMain.vue";
-import Member from "@/views/Backstage/layouts/member.vue";
+import Member from "@/views/Backstage/layouts/memberManage.vue";
 import OrderManage from "@/views/Backstage/layouts/orderManage.vue";
 import ProductManage from "@/views/Backstage/layouts/productManage.vue";
 import NewProduct from "@/views/Backstage/layouts/newProduct.vue";
