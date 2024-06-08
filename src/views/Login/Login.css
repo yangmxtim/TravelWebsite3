@@ -41,7 +41,7 @@ button {
 
 .card-side::before {
   position: absolute;
-  content: "登入";
+  content: "註冊";
   left: -70px;
   top: 0;
   width: 100px;
@@ -52,7 +52,7 @@ button {
 
 .card-side::after {
   position: absolute;
-  content: "註冊";
+  content: "登入";
   left: 70px;
   top: 0;
   width: 100px;

@@ -51,7 +51,9 @@ const permission = inject("permission");
                 <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryTouristSpot')">景點門票</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryMembers')">會員專區</a>
+                <!-- 驗證有沒有登入 沒有的話會轉到登入頁面 -->
+                <a class="nav-link mx-lg-2" v-if="name" href="#"  @click="$router.push('/categoryMembers')">會員專區</a>
+                <a class="nav-link mx-lg-2" v-else href="#"  @click="$router.push('/Login')">會員專區</a>
             </li>
           </ul>
           <div>
