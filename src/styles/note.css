@@ -18,20 +18,18 @@
   margin: auto;
   margin-bottom: 15px;
   margin-top: 10px;
-  padding: 10px 80px 0 80px;
+  padding: 10px 40px 0 40px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: rgb(245, 210, 194);
-  height: 260px;
+  height: 300px;
   max-width: 450px;
   min-width: 450px;
   
   
 }
 
-.note-list > div {
-  /* margin-bottom: 10px; */
-}
+
 
 .note-title-strong {
   font-size: 30px;
@@ -144,4 +142,9 @@
   text-align: center;
   height:80vh ;
   padding-top: 30vh;
+}
+.note-time{
+  margin-top: 1em;
+  text-align: end;
+  font-size: 14px;
 }

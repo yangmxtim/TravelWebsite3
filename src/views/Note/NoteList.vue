@@ -23,6 +23,7 @@
                 <button @click="editNote(note)" class="list-button"><i class="fa-solid fa-pen"></i></button>
                 <button @click="deleteNote(note.id)" class="list-button"><i class="fa-solid fa-trash"></i></button>
               </div>
+              <div class="note-time">{{ note.updateTime }}</div>
             </li>
           </ul>
           <button @click="addNote" class="addNote list-button"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -100,6 +101,8 @@ async function loadNotes() {
     loading.value = false;
   }
 }
+
+
 
 // onMounted(loadNotes);
 onMounted(() => {
