@@ -21,6 +21,8 @@ import { ref, watchEffect, inject } from 'vue';
 
 import '@/styles/note.css';
 import axios from 'axios';
+
+
 //抓取會員ＩＤ
 const uid = inject("id");
 const emit = defineEmits(['close-window', 'note-saved']);
@@ -32,20 +34,21 @@ const props = defineProps({
 });
 
 const note = ref({ ...props.initialNote });
-// props.initialNote.userId = 1;
-// console.log(props.initialNote.userId)
+
 watchEffect(() => {
   note.value = { ...props.initialNote };
   note.value.userId = uid;
-  // console.log(note.value)
+  note.value.updateTime = noteUpdateTime();
+  console.log(note.value)
+
+  
 });
 
-function close() {
+function close() {  
   emit('close-window');
 }
 
 async function handleSubmit() {
-  console.log(note.value)
   if (note.value.title.trim() === '' || note.value.content.trim() === '') {
     return;
   }
@@ -58,6 +61,18 @@ async function handleSubmit() {
   
   emit('note-saved');
   close();
+}
+function noteUpdateTime() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth()).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 </script>
