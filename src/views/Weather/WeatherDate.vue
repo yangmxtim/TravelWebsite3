@@ -97,12 +97,12 @@ const fetchWeatherData = async (place) => {
         }
       }
     })
-    console.log(rain);
+    // console.log(rain);
     startTimes.value = startTime;
     temperatures.value = temperature;
 
     weatherData.value = { "startTimes": startTime,"temperatures": temperature, "rainOdds": rain }
-    console.log(weatherData.value);
+    // console.log(weatherData.value);
     // console.log( startTimes.value);
 
   } catch (err) {

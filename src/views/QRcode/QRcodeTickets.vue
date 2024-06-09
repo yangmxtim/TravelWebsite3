@@ -1,6 +1,7 @@
 <template>
+    <!-- 登入 -->
+    <div v-if="uid">
     <LayoutHeader />
-
     <div class="container">
         <div class="row">
             <div class="col-md-3 " data-aos="fade-up">
@@ -24,6 +25,11 @@
     </div>
     <br>
     <LayoutFooter/>
+    <!-- 未登入 -->
+    </div>
+    <div v-else="">
+        <Login/>
+    </div>
 
 
 
@@ -32,7 +38,8 @@
 <script setup>
 import VueQrcode from 'vue-qrcode'
 // import axios from 'axios';
-import { ref } from 'vue';
+import Login from "../Login/Login.vue";
+import { ref, inject } from 'vue';
 import LayoutHeader from '../Layout/components/LayoutHeader.vue';
 import WeatherDate from '../Weather/WeatherDate.vue';
 import MembersNav from '../Category/components/MembersNav.vue';
@@ -41,6 +48,8 @@ const link = ref();
 const ip1 = 'http://10.0.103.138:8080/api/check/3';
 const ip2 = 'http://10.0.103.138:8080/api/check/4';
 link.value = ip1;
+// 確認登入否
+const uid = inject("id");
 
 
 </script>

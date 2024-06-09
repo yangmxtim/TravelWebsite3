@@ -15,13 +15,14 @@
   </form>
 </template>
 
+
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, inject } from 'vue';
 
 import '@/styles/note.css';
 import axios from 'axios';
 //抓取會員ＩＤ
-const uid = 1;
+const uid = inject("id");
 const emit = defineEmits(['close-window', 'note-saved']);
 const props = defineProps({
   initialNote: {

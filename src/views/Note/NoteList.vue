@@ -1,4 +1,6 @@
 <template>
+  <!-- 有登入 -->
+  <div v-if="uid">
   <LayoutHeader />
   <div>
     <div class="container">
@@ -34,22 +36,28 @@
 
   </div>
   <LayoutFooter />
-
+  </div>
+  <!-- 未登入 跳轉 -->
+   <div v-else>
+    <Login />
+   </div>
 
 </template>
 
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref, inject,onMounted } from 'vue';
 import axios from 'axios';
 import MembersNav from '../Category/components/MembersNav.vue';
 import NoteForm from './NoteForm.vue';
 import LayoutHeader from '../Layout/components/LayoutHeader.vue';
 import LayoutFooter from '../Layout/components/LayoutFooter.vue';
+import Login from '../Login/Login.vue';
 
 import WeatherDate from '../Weather/WeatherDate.vue';
 
 import '@/styles/note.css';
+
 
 
 
@@ -58,8 +66,8 @@ const showForm = ref(false);
 const currentNote = ref({});
 const loading = ref(true);
 const error = ref(null);
-//抓取會員ＩＤ
-const uid = 1;
+//抓取會員ID 以及 確認登入否
+const uid = inject("id");
 
 
 function addNote() {
@@ -83,15 +91,22 @@ async function deleteNote(id) {
 
 async function loadNotes() {
   try{
-    const response = await axios.get(`http://localhost:8080/api/notes/${uid}`);
+    const response = await axios.get(`http://localhost:8080/api/notes/${uid.value}`);
     notes.value = response.data;
+    
   }catch(err){
-    error.value = '無法載入筆記';
+    error.value = '無法載入筆記';    
   }finally{
     loading.value = false;
   }
 }
 
-onMounted(loadNotes);
+// onMounted(loadNotes);
+onMounted(() => {
+      setTimeout(() => {
+        loadNotes();
+      }, 100);
+    });
+  
 
 </script>

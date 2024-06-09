@@ -63,12 +63,12 @@ const router = createRouter({
           component: CategoryTouristSpot
         }
         ,
-        {
-          path:'categoryMembers',
-          // eslint-disable-next-line no-undef
-          component: CategoryMembers
-        }
-        ,
+        // {
+        //   path:'categoryMembers',
+        //   // eslint-disable-next-line no-undef
+        //   component: CategoryMembers
+        // }
+        // ,
         {
           path: '/product/:id',
           name: 'product',
@@ -101,6 +101,12 @@ const router = createRouter({
       path:'/memberinfo',
       component:MemberInfo
     },
+    {
+      path:'/categoryMembers',
+      // eslint-disable-next-line no-undef
+      component: CategoryMembers
+    }
+    ,
     {
       path: "/",
       component: Admin,

@@ -11,6 +11,7 @@ const permission = ref(null);
 const name = ref(null);
 const phone = ref(null);
 const email = ref(null);
+const id = ref(null);
 
 onMounted(() => {
   axios
@@ -34,6 +35,8 @@ onMounted(() => {
       name.value = response.data.username;
       phone.value = response.data.phone;
       email.value = response.data.email;
+      id.value = response.data.id;
+      
     })
     .catch((error) => {
       console.error("Error during authorization:", error);
@@ -44,6 +47,7 @@ provide("permission", permission);
 provide("name", name);
 provide("phone", phone);
 provide("email", email);
+provide("id", id);
 </script>
 
 <style scoped>

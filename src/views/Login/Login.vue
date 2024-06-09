@@ -48,34 +48,6 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
                   <div class="col-1"></div>
                   <div class="col"><img src="/src/views/Layout/img/logo.png" style="width: 60%;" /></div>
                 </div>
-                
-                <form @submit.prevent="handleLogin" class="flip-card__form">
-                  <input
-                    type="text"
-                    placeholder="請輸入姓名"
-                    v-model="loginAccount"
-                    class="flip-card__input"
-                    required
-                  />
-                  <input
-                    type="password"
-                    placeholder="請輸入密碼"
-                    v-model="loginPassword"
-                    class="flip-card__input"
-                    required
-                  />
-                  <p>使用其他方式登入</p>
-                  <div class="row">
-                    <!-- Other login methods -->
-                  </div>
-                  <button class="flip-card__btn">登入</button>
-                </form>
-              </div>
-              <div class="flip-card__back">
-                <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col"><img src="/src/views/Layout/img/logo.png" style="width: 60%;" /></div>
-                </div>
                 <form @submit.prevent="handleRegister" class="flip-card__form">
                   <input
                     type="text"
@@ -110,6 +82,34 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
                     <!-- Other register methods -->
                   </div>
                   <button class="flip-card__btn">註冊</button>
+                </form>
+              </div>
+              <div class="flip-card__back">
+               
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col"><img src="/src/views/Layout/img/logo.png" style="width: 60%;" /></div>
+                </div>               
+                <form @submit.prevent="handleLogin" class="flip-card__form">
+                  <input
+                    type="text"
+                    placeholder="請輸入姓名"
+                    v-model="loginAccount"
+                    class="flip-card__input"
+                    required
+                  />
+                  <input
+                    type="password"
+                    placeholder="請輸入密碼"
+                    v-model="loginPassword"
+                    class="flip-card__input"
+                    required
+                  />
+                  <p>使用其他方式登入</p>
+                  <div class="row">
+                    <!-- Other login methods -->
+                  </div>
+                  <button class="flip-card__btn">登入</button>
                 </form>
               </div>
             </div>

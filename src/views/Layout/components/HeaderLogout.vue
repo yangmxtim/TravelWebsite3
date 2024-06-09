@@ -5,11 +5,10 @@ import { inject } from "vue";
 import axios from 'axios';
 import { ref } from 'vue';
 
-
-// 定义一个响应状态的变量以处理请求响应
+// 定義一個響應狀態的變量以處理請求響應
 const responseStatus = ref(null);
 
-// 发送POST请求的函数
+// 發送POST請求的函數
 const sendLogoutRequest = async () => {
   try {
     const response = await axios.post('http://localhost:8080/auth/logout', null, {
