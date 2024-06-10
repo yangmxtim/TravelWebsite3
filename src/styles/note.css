@@ -21,11 +21,31 @@
   padding: 10px 40px 0 40px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: rgb(245, 210, 194);
+  background-color: #FEF285;
   height: 300px;
-  max-width: 450px;
-  min-width: 450px;
+  max-width: 400px;
+  min-width: 400px; 
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.note-add-list {
+  margin: auto;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  padding: 10px 40px 0 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #F8F8F8;
+  height: 300px;
+  max-width: 400px;
+  min-width: 400px; 
+}
+.note-add{
+  font-size: 300px;
+  margin: auto;
+  padding-left: 1.3rem;
   
+  display: block;
+  color: #DCDCDC;
   
 }
 
@@ -48,7 +68,7 @@
 .list-button {
   cursor: pointer;
   border: none;
-  background-color: rgba(255, 155, 109);
+  background-color: rgba(255, 155, 109, 60%);
   color: #fff;
   padding: 8px 16px;
   border-radius: 5px;
@@ -61,10 +81,10 @@
   
 }
 .list-button:hover {
-  background-color: rgb(226, 103, 48, 80%);
+  background-color: rgba(255, 155, 109, 80%);
 }
 
-.addNote{
+/* .addNote{
   margin-left:auto ;
   margin-right: 15px;
   margin-bottom: 15px;
@@ -72,11 +92,12 @@
   border-radius: 50%;
   width: 50px;
   height: 50px;
-}
+} */
 /* NoteForm style */
 .note-form{
   text-align: center;
   border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   padding: 10px 0px;
   z-index: 3000;
   width: 400px;
@@ -85,14 +106,15 @@
   left: 50%;
   margin: 0 auto;
   transform: translate(-50%,-50%);
-  background-color: rgb(245, 133, 78);
+  background-color: #FEFEFE;
   min-height: 350px;
   max-height: 350px;
 
 }
 
 .note-title,.note-textbox {
-  width: 20vw;
+  max-width: 300px;
+  min-width: 300px;
   border: 1.5px solid black;
   border-radius: 15px;
   font-size: 18px;
@@ -134,7 +156,7 @@
 }
 
 .bottomBtn:hover {
-  background-color: lightcyan;
+  background-color: #FEF285;
 }
 
 .loading{
@@ -144,7 +166,8 @@
   padding-top: 30vh;
 }
 .note-time{
-  margin-top: 1em;
-  text-align: end;
+
+  text-align: start;
   font-size: 14px;
+  border-bottom: 1px outset gray;
 }

@@ -5,7 +5,7 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3 " data-aos="fade-up">
+        <div class="col-md-3 weather" data-aos="fade-up">
           <WeatherDate></WeatherDate>
         </div>
         <div class="col-md-9">
@@ -17,16 +17,17 @@
             <li v-for="note in notes" :key="note.id" class="note-list">
               <div>
                 <strong class="note-title-strong">{{ note.title }}</strong>
+                <div class="note-time">{{ note.updateTime }}</div>
                 <p class="note-content">{{ note.content }}</p>
               </div>
               <div class="button-container">
                 <button @click="editNote(note)" class="list-button"><i class="fa-solid fa-pen"></i></button>
                 <button @click="deleteNote(note.id)" class="list-button"><i class="fa-solid fa-trash"></i></button>
               </div>
-              <div class="note-time">{{ note.updateTime }}</div>
+              
             </li>
+            <li class="note-add-list " @click="addNote"><i class="fa-solid fa-plus note-add" ></i></li>
           </ul>
-          <button @click="addNote" class="addNote list-button"><i class="fa-solid fa-pen-to-square"></i></button>
           </div>
           <NoteForm v-if="showForm" :initialNote="currentNote" @close-window="closeForm" @note-saved="loadNotes" />
 

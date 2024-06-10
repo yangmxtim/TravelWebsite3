@@ -9,9 +9,10 @@
 
     <textarea id="content" v-model="note.content" class="note-textbox"></textarea>
 
-
-    <input type="submit" value="Submit" class="bottomBtn">
-    <button type="button" @click="close" class="bottomBtn">Close</button>
+    <div>
+      <input type="submit" value="送出" class="bottomBtn">
+      <button type="button" @click="close" class="bottomBtn">關閉</button>
+    </div>
   </form>
 </template>
 
