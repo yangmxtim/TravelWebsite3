@@ -1,78 +1,3 @@
-<script setup>
-import { ref } from 'vue';
-import axios from 'axios';
-
-
-// 訂單信息
-const orderInfo = ref({
-  
-  totalAmount: '500', // 假設這是訂單總金額
-  itemName: '商品A', // 假設這是商品名稱
-  tradeDesc: '商品A的描述', // 假設這是交易描述
-  goods: [
-    {
-      id: 1,
-      name: '商品A',
-      picture: '商品A圖片連結',
-      price: '500',
-      quantity: '2',
-      totalPrice: '1000',
-      totalPayPrice: '1000'
-    },
-    {
-      id: 2,
-      name: '商品B',
-      picture: '商品B圖片連結',
-      price: '300',
-      quantity: '1',
-      totalPrice: '300',
-      totalPayPrice: '300'
-    }
-  ],
-  summary: {
-    goodsCount: 3, // 商品總數
-    totalPrice: 1300, // 商品總價
-    totalPayPrice: 1300 // 應付金額
-  }
-});
-
-// 存儲用戶選擇的支付方式
-const selectedPaymentMethod = ref('');
-
-// 支付方式按鈕的點擊事件, 並設置當前選擇的支付方式
-const handlePaymentMethodClick = (paymentMethod) => {
-  selectedPaymentMethod.value = paymentMethod;
-};
-
-const handleConfirmOrder = () => {
-  // 根據用戶選擇支付方式連確定連接後端的URL
-  let backendURL = '';
-  if (selectedPaymentMethod.value === '綠界支付') {
-    backendURL = 'http://localhost:8080/ecpayCheckout';
-  } else if (selectedPaymentMethod.value === 'LINE PAY') {
-    backendURL = 'linePayCheckoutURL'; // 假設你將來會添加LINE PAY的處理
-  }
-
-  // 發送 POST 請求到後端
-  axios.post(backendURL, orderInfo.value)
-    .then(response => {
-      // 獲取後端返回的 HTML 表單內容
-      const formData = response.data;
-
-      // 將表單內容添加到頁面中
-      const formContainer = document.getElementById('paymentFormContainer');
-      formContainer.innerHTML = formData;
-
-      // 提交表單
-      formContainer.querySelector('form').submit();
-    })
-    .catch(error => {
-      // 請求失敗處理邏輯
-      console.error(error);
-    });
-};
-</script>
-
 <template>
   <div class="xtx-pay-checkout-page">
     <div class="container">
@@ -98,7 +23,7 @@ const handleConfirmOrder = () => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in orderInfo.goods" :key="item.id">
+              <tr v-for="item in selectedProducts" :key="item.id">
                 <td>
                   <a href="javascript:;" class="info">
                     <img :src="item.picture" alt="">
@@ -109,9 +34,9 @@ const handleConfirmOrder = () => {
                   </a>
                 </td>
                 <td>&yen;{{ item.price }}</td>
-                <td>{{ item.quantity }}</td>
+                <td>{{ item.count }}</td>
+                <td>&yen;{{ item.count * item.price }}</td>
                 <td>&yen;{{ item.totalPrice }}</td>
-                <td>&yen;{{ item.totalPayPrice }}</td>
               </tr>
             </tbody>
           </table>
@@ -129,15 +54,15 @@ const handleConfirmOrder = () => {
           <div class="total">
             <dl>
               <dt>商品件數：</dt>
-              <dd>{{ orderInfo.summary?.goodsCount }}件</dd>
+              <dd>{{ selectedProducts.length }}件</dd>
             </dl>
             <dl>
               <dt>商品總價：</dt>
-              <dd>TWD{{ orderInfo.summary?.totalPrice.toFixed(2) }}</dd>
+              <dd>TWD{{ totalAmount.toFixed(2) }}</dd>
             </dl>
             <dl>
               <dt>應付金額：</dt>
-              <dd class="price">{{ orderInfo.summary?.totalPayPrice.toFixed(2) }}</dd>
+              <dd class="price">TWD{{ totalAmount.toFixed(2) }}</dd>
             </dl>
           </div>
         </div>
@@ -151,6 +76,61 @@ const handleConfirmOrder = () => {
     <div id="paymentFormContainer" style="display: none;"></div>
   </div>
 </template>
+
+<script setup>
+import { useCartStore } from '@/stores/cartStore'; // 引入購物車 store
+import { ref } from 'vue';
+import axios from 'axios';
+
+const cartStore = useCartStore(); // 使用購物車 store
+const selectedProducts = ref([]);
+
+// 計算購物車中已選產品的總金額
+selectedProducts.value = cartStore.cartList.filter(item => item.selected);
+
+const selectedPaymentMethod = ref('綠界支付'); // 預設選擇綠界支付
+
+// 合併商品名稱和描述
+const itemName = selectedProducts.value.map(item => item.name).join(', ');
+const tradeDesc = selectedProducts.value.map(item => item.description).join(', ');
+
+// 計算總金額
+const totalAmount = ref(selectedProducts.value.reduce((total, item) => total + item.price * item.count, 0));
+
+const handlePaymentMethodClick = (method) => {
+  selectedPaymentMethod.value = method;
+};
+
+const handleConfirmOrder = () => {
+  // 根據用戶選擇支付方式連確定連接後端的URL
+  let backendURL = '';
+  if (selectedPaymentMethod.value === '綠界支付') {
+    backendURL = 'http://localhost:8080/ecpayCheckout';
+  } else if (selectedPaymentMethod.value === 'LINE PAY') {
+    backendURL = 'linePayCheckoutURL'; // 假設你將來會添加LINE PAY的處理
+  }
+
+  // 發送 POST 請求到後端
+  axios.post(backendURL, { totalAmount: totalAmount.value, itemName: itemName, tradeDesc: tradeDesc })
+    .then(response => {
+      // 獲取後端返回的 HTML 表單內容
+      const formData = response.data;
+
+      // 將表單內容添加到頁面中
+      const formContainer = document.getElementById('paymentFormContainer');
+      formContainer.innerHTML = formData;
+
+      // 提交表單
+      formContainer.querySelector('form').submit();
+    })
+    .catch(error => {
+      // 請求失敗處理邏輯
+      console.error(error);
+    });
+};
+</script>
+
+
 
 
 

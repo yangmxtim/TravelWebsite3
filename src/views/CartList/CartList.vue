@@ -46,7 +46,7 @@ export default {
             <tr v-for="i in cartList" :key="i.id">
               <td>
                   <!-- 單選框 -->
-                <el-checkbox :model-value="i.selected" @change="(selcted)=>singleCheck(i,selcted)" />
+                <el-checkbox :model-value="i.selected" @change="(selected) => singleCheck(i, selected)" />
               </td>
               <td>
                 <div class="goods">
