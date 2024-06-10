@@ -119,6 +119,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
 .card{background-color: rgb(226, 103, 48, 5%);}
 ::-webkit-scrollbar {
     display: none;
@@ -127,8 +128,7 @@ onMounted(() => {
   display: flex;
   padding: 20px;
   border-radius: 8px;
-  max-height: 400px;
-  /* overflow-y: scroll; */
+  min-height: 400px;
 	flex-direction:column;
   animation: 2s infinite alternate breathing-color;
 }
@@ -203,6 +203,22 @@ onMounted(() => {
   100%{
     color: black;
     border-color: black;
+  }
+}
+@media screen and (max-width: 1400px) {
+  .right {
+    display: none;
+  }
+  .left{
+    width: 100%;
+  }
+}
+@media screen and (max-width: 770px) {
+  .right {
+    display: flex;
+  }
+  .left {
+    width: 66.66666667%;
   }
 }
 </style>
