@@ -4,7 +4,7 @@ import { ref, watch } from 'vue';
 export const useCartStore = defineStore('cart', () => {
   const cartList = ref([]);
 
-  //更新購物車總數量跟總價格
+  // 更新購物車總數量跟總價格
   const totalItems = ref(0);
   const totalPrice = ref(0);
 

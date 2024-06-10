@@ -10,14 +10,8 @@ const removeFromCart = (skuId) => {
 // 新增商品
 const addToCart = (product) => {
   cartStore.addToCart(product);
-  // 新增後更新價格
-  updateCartSummary();
 }
 
-// 更新購物車總數量跟總價格
-const updateCartSummary = () => {
-  cartStore.updateCartSummary(); //購物車數據重新計算
-}
 </script>
 
 <template>
@@ -54,7 +48,6 @@ const updateCartSummary = () => {
     </div>
   </div>
 </template>
-
 
 
 
