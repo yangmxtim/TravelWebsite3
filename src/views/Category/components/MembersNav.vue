@@ -31,5 +31,9 @@ a{
 .router-link-active{
   text-decoration: none;
 }
- 
+@media (max-width: 767.98px) {
+    a {
+      padding: 8px
+    }
+  }
 </style>
