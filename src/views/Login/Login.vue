@@ -166,7 +166,7 @@ export default {
         .then((response) => {
           alert(response.data);
           response.data === "Success!"
-            ? window.location.replace("/")
+            ? window.location.replace("/Login")
             : window.location.reload();
         });
       console.log(
