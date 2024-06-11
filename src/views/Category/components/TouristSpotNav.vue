@@ -5,9 +5,9 @@
                             <div class="col-md-12 my-2 d-flex">
                                 <div class="card-body">
                                     <span class="nav-link2">選擇分類：</span>
-                                    <a class="nav-link2 mx-lg-2" href="#">遊樂園</a>
-                                    <a class="nav-link2 mx-lg-2" href="#">海生館</a>
-                                    <a class="nav-link2 mx-lg-2" href="#">觀光景點</a>
+                                    <a class="nav-link2 mx-lg-2" href="#"  @click="filterProducts('遊樂園')">遊樂園</a>
+                                    <a class="nav-link2 mx-lg-2" href="#"  @click="filterProducts('海生館')">海生館</a>
+                                    <a class="nav-link2 mx-lg-2" href="#"  @click="filterProducts('觀光景點')">觀光景點</a>
                                 </div>
                                 <div>
                                     <img style=" height: 65px; width: auto;" src="/src/views/Layout/img/cat.png">
@@ -16,6 +16,15 @@
                         </div>
                     </div>
 </template>
+<script>
+export default {
+    methods: {
+        filterProducts(tag) {
+            this.$emit('filter', tag); // 將點擊的分類傳遞給父組件
+        }
+    }
+};
+</script>
 <style scoped>
     /* 清除超連結預設底線、顏色 */
 a{
