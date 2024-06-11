@@ -1,6 +1,7 @@
 <script>
 import { useCartStore } from '@/stores/cartStore'; // 導入購物車 store
 
+
 export default {
   setup() {
     const cartStore = useCartStore();
