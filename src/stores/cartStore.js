@@ -14,16 +14,18 @@ export const useCartStore = defineStore('cart', () => {
   };
 
   // 加入購物車
-  const addToCart = (goods) => {
-    const { skuId, count } = goods;
-    const item = cartList.value.find(item => goods.skuId === item.skuId);
-    if (item) {
-      item.count++;
-    } else {
-      cartList.value.push(goods);
-    }
-    updateCartSummary();
-  };
+  // 加入購物車
+const addToCart = (product) => {
+  const { product_id, skuId, count } = product; // 假設 product 中包含 product_id 和 skuId 作為商品的唯一識別符
+  const item = cartList.value.find(item => item.skuId === skuId);
+  if (item) {
+    item.count++;
+  } else {
+    cartList.value.push({...product, selected: true}); // 將商品添加到購物車時，添加 selected 屬性並設置為 true，表示默認選中
+  }
+  updateCartSummary();
+};
+
 
   // 刪除商品
   const removeFromCart = (skuId) => {
