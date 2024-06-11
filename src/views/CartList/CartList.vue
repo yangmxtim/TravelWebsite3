@@ -56,6 +56,7 @@ export default {
                     <p class="name ellipsis">
                       {{ i.name }}
                     </p>
+                    <p class="attr">票卷日期：{{ i.selectedDate }}</p>
                   </div>
                 </div>
               </td>
@@ -66,7 +67,7 @@ export default {
                 <el-input-number v-model="i.count" />
               </td>
               <td class="tc">
-                <p class="f16 red">${{ (i.price * i.count).toFixed(2) }}</p>
+                <p class="f16 red">${{ (i.price * i.count).toFixed(0) }}</p>
               </td>
               <td class="tc">
                 <p>
@@ -95,7 +96,7 @@ export default {
       <div class="action">
         <div class="batch">
           共 {{ cartList.length }} 件商品，已選擇 {{ cartList.filter(item => item.selected).length }} 件，價格合計：
-          <span class="red">$ {{ (cartList.filter(item => item.selected).reduce((total, item) => total + item.price * item.count, 0)).toFixed(2) }} </span>
+          <span class="red">$ {{ (cartList.filter(item => item.selected).reduce((total, item) => total + item.price * item.count, 0)).toFixed(0) }} </span>
         </div>
         <div class="total">
           <el-button size="large" type="primary" @click="$router.push('/checkout')">前往結帳</el-button>

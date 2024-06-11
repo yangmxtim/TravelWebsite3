@@ -29,14 +29,15 @@
                     <img :src="item.picture" alt="">
                     <div class="right">
                       <p>{{ item.name }}</p>
+                      <p class="attr">票卷日期：{{ item.selectedDate }}</p>
                       <!-- 如果有其他屬性需要顯示，可以在這裡添加 -->
                     </div>
                   </a>
                 </td>
-                <td>&yen;{{ item.price }}</td>
+                <td>${{ item.price }}</td>
                 <td>{{ item.count }}</td>
-                <td>&yen;{{ item.count * item.price }}</td>
-                <td>&yen;{{ item.totalPrice }}</td>
+                <td>${{ item.count * item.price }}</td>
+                <td>${{ item.count * item.price }}</td>
               </tr>
             </tbody>
           </table>
@@ -58,11 +59,11 @@
             </dl>
             <dl>
               <dt>商品總價：</dt>
-              <dd>TWD{{ totalAmount.toFixed(2) }}</dd>
+              <dd>${{ totalAmount.toFixed(0) }}</dd>
             </dl>
             <dl>
               <dt>應付金額：</dt>
-              <dd class="price">TWD{{ totalAmount.toFixed(2) }}</dd>
+              <dd class="price">TWD ${{ totalAmount.toFixed(0) }}</dd>
             </dl>
           </div>
         </div>
@@ -324,8 +325,8 @@ const handleConfirmOrder = () => {
       padding-right: 70px;
 
       &.price {
-        font-size: 20px;
-        color: #999;
+        font-size: 19px;
+        color: #f74747;
       }
     }
   }

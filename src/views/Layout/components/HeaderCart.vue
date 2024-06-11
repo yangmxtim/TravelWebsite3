@@ -28,10 +28,10 @@ const addToCart = (product) => {
               <p class="name ellipsis-2">
                 {{ i.name }}
               </p>
-              <p class="attr ellipsis">{{ i.attrsText }}</p>
+              <p class="attr ellipsis">票卷日期：{{ i.selectedDate }}</p>
             </div>
             <div class="right">
-              <p class="price">&yen;{{ i.price }}</p>
+              <p class="price">${{ i.price }}</p>
               <p class="count">x{{ i.count }}</p>
             </div>
           </RouterLink>
@@ -41,9 +41,9 @@ const addToCart = (product) => {
       <div class="foot">
         <div class="total">
           <p style="margin-bottom: 5px;">共 {{ cartStore.cartList.length }} 件商品</p>
-          <p>TWD$ {{ cartStore.totalPrice.toFixed(2) }} </p>
+          <p>TWD$ {{ cartStore.totalPrice.toFixed(0) }} </p>
         </div>
-        <el-button size="large" type="primary" @click="$router.push('/cartlist')" >前往购物车</el-button>
+        <el-button size="large" type="primary" @click="$router.push('/cartlist')" >前往購物車</el-button>
       </div>
     </div>
   </div>
@@ -148,8 +148,8 @@ const addToCart = (product) => {
 }
 
   .list {
-    height: 310px;
-    overflow: auto;
+    height: 300px; /* 設置固定高度 */
+    overflow-y: auto; /* 添加垂直滾動條 */
     padding: 0 10px;
 
     &::-webkit-scrollbar {
@@ -212,7 +212,9 @@ const addToCart = (product) => {
           .attr {
             color: #999;
             padding-top: 5px;
+            font-size: 14px; /* 設置日期文本的字體大小為 12px */
           }
+
         }
 
         .right {
