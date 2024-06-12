@@ -1,6 +1,7 @@
 <script setup>
 import LayoutHeader from '@/views/Layout/components/LayoutHeader.vue';
 import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
+import { validEmail } from '@/utils/validate';
 </script>
 
 <template>
@@ -153,6 +154,11 @@ export default {
     },
     handleRegister() {
       // Handle register logic here
+      let ckeckEmail = validEmail(this.registerAccount);
+      if (!ckeckEmail) {
+        alert("信箱格式錯誤");
+        return;
+      }
       axios
         .post("http://localhost:8080/member/register", null, {
           params: {
