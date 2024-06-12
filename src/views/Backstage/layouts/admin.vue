@@ -1,10 +1,11 @@
 <template>
   <div>
     <f-menu></f-menu>
-    <div class="content">
+    <div class="content" style="background-color:darkgrey;">
       <f-header></f-header>
-      <router-view></router-view>
+      <router-view class=""></router-view>
     </div>
+    
   </div>
 </template>
 
