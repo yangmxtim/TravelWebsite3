@@ -77,10 +77,6 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
                     class="flip-card__input"
                     required
                   />
-                  <p>使用其他方式註冊</p>
-                  <div class="row">
-                    <!-- Other register methods -->
-                  </div>
                   <button class="flip-card__btn">註冊</button>
                 </form>
               </div>
@@ -105,10 +101,6 @@ import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue';
                     class="flip-card__input"
                     required
                   />
-                  <p>使用其他方式登入</p>
-                  <div class="row">
-                    <!-- Other login methods -->
-                  </div>
                   <button class="flip-card__btn">登入</button>
                 </form>
               </div>
@@ -174,7 +166,7 @@ export default {
         .then((response) => {
           alert(response.data);
           response.data === "Success!"
-            ? window.location.replace("/")
+            ? window.location.replace("/Login")
             : window.location.reload();
         });
       console.log(
