@@ -1,190 +1,254 @@
 <template>
-  <div>
-    <button @click="addRow" class="btn btn-success">Add new row</button>
-    <div>
-      Show
-      <select v-model="entriesPerPage" @change="updatePagination">
-        <option v-for="n in [10, 25, 50, 100]" :key="n" :value="n">{{ n }}</option>
-      </select>
-      entries
+  <div class="row m-3">
+    <div class="col-12 col-lg-12 d-flex">
+      <div class="card w-100">
+        <!-- searchRow start -->
+        <div class="card-header py-3">
+          <div class="row g-3">
+            <div class="col-lg-4 col-md-6 me-auto">
+              <div class="ms-auto position-relative">
+                <div
+                  class="position-absolute top-50 translate-middle-y search-icon px-3"
+                >
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input
+                  class="form-control ps-5"
+                  type="text"
+                  placeholder="搜尋訂單"
+                  @keydown.enter="searchAll"
+                />
+              </div>
+            </div>
+            <div class="col-lg-2 col-6 col-md-3">
+              <select class="form-select">
+                <option>狀態</option>
+                <option>處理中訂單</option>
+                <option>已完成訂單</option>
+                <option>取消訂單</option>
+                <option>顯示全部</option>
+              </select>
+            </div>
+            <div class="col-lg-2 col-6 col-md-3">
+              <select class="form-select" @change="changeRowPerPage">
+                <option ref="s1">顯示 10 筆</option>
+                <option ref="s2">顯示 30 筆</option>
+                <option ref="s3">顯示 50 筆</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- searchRow end -->
+        <div class="card-body">
+          <!-- table start -->
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>訂單ID</th>
+                  <th>客戶名稱</th>
+                  <th>金額</th>
+                  <th>狀態</th>
+                  <th>下訂日期</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(order, index) in ordersOfPage" :key="index">
+                  <td>{{ order.orderId }}</td>
+                  <td>{{ order.member.username }}</td>
+                  <td>{{ order.totalAmount }}</td>
+                  <td>
+                    <span class="badge rounded-pill bg-success">Received</span>
+                  </td>
+                  <td></td>
+                  <td>
+                    <div class="d-flex align-items-center gap-3 fs-6">
+                      <a
+                        href="javascript:;"
+                        class="text-primary"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="訂單細項"
+                        aria-label="Views"
+                        ><i class="fa-regular fa-eye"></i></a
+                      ><a
+                        href="javascript:;"
+                        class="text-warning"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="編輯內容"
+                        data-bs-original-title="Edit info"
+                        aria-label="Edit"
+                        ><i class="fa-solid fa-pen"></i></a
+                      ><a
+                        href="javascript:;"
+                        class="text-danger"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="刪除"
+                        data-bs-original-title="Delete"
+                        aria-label="Delete"
+                        ><i class="fa-solid fa-trash"></i
+                      ></a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- table end -->
+
+          <!-- pagination start -->
+          <nav class="float-end" aria-label="Page navigation">
+            <ul class="pagination">
+              <li :class="['page-item', { disabled: currentPage <= 1 }]">
+                <a
+                  @click="
+                    currentPage--;
+                    changePage(currentPage);
+                  "
+                  class="page-link"
+                  href="#"
+                  >上一頁</a
+                >
+              </li>
+              <li
+                v-for="page in totalPages"
+                :class="['page-item', { active: page === currentPage }]"
+                :key="page"
+              >
+                <a @click="changePage(page)" class="page-link" href="#">{{
+                  page
+                }}</a>
+              </li>
+              <li
+                :class="['page-item', { disabled: totalPages === currentPage }]"
+              >
+                <a
+                  @click="
+                    currentPage++;
+                    changePage(currentPage);
+                  "
+                  class="page-link"
+                  href="#"
+                  >下一頁</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <!-- pagination end -->
+        </div>
+        <!-- table end -->
+      </div>
     </div>
-    <input type="text" v-model="searchQuery" placeholder="Search" class="search-input" />
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Age</th>
-          <th @click="sortTable('startDate')">Start date</th>
-          <th @click="sortTable('salary')">Salary</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="filteredRows.length === 0">
-          <td colspan="5">No data available in table</td>
-        </tr>
-        <tr v-for="(row, index) in paginatedRows" :key="index">
-          <td>{{ row.name }}</td>
-          <td>{{ row.position }}</td>
-          <td>{{ row.age }}</td>
-          <td>{{ row.startDate }}</td>
-          <td>{{ row.salary }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div>
-      Showing {{ startRow }} to {{ endRow }} of {{ filteredRows.length }} entries
-    </div>
-    <ul class="pagination">
-      <li class="page-item" :class="{ disabled: currentPage === 1 }">
-        <a class="page-link" href="#" @click.prevent="changePage(1)">First</a>
-      </li>
-      <li class="page-item" :class="{ disabled: currentPage === 1 }">
-        <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
-      </li>
-      <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: currentPage === page }">
-        <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-      </li>
-      <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-        <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next</a>
-      </li>
-      <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-        <a class="page-link" href="#" @click.prevent="changePage(totalPages)">Last</a>
-      </li>
-    </ul>
+
+    <!-- filter start -->
+    <!-- <div class="col-12 col-lg-3 d-flex">
+      <div class="card w-100">
+        <div class="card-header py-3">
+          <h5 class="mb-0">篩選從</h5>
+        </div>
+        <div class="card-body">
+          <form class="row g-3">
+            <div class="col-12">
+              <label class="form-label">訂單 ID</label
+              ><input type="text" class="form-control" placeholder="訂單 ID" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">客戶</label
+              ><input
+                type="text"
+                class="form-control"
+                placeholder="客戶 名稱"
+              />
+            </div>
+            <div class="col-12">
+              <label class="form-label">訂單 狀態</label
+              ><select class="form-select">
+                <option>訂單完成</option>
+                <option>訂單未完成</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">總額大於</label
+              ><input type="text" class="form-control" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">訂單下訂日期</label
+              ><input type="date" class="form-control" />
+            </div>
+            <div class="col-12">
+              <div class="d-grid">
+                <button @click.prevent="test" class="btn btn-primary">
+                  篩選
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+    <!-- filter end -->
+
   </div>
+
+  <spinner></spinner>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import Spinner from "@/views/Backstage/layouts/components/spinner.vue";
+import axios from "axios";
+import { onMounted, ref } from "vue";
 
-const rows = ref([]) // 初始為空數據
-const searchQuery = ref('')
-const entriesPerPage = ref(10)
-const currentPage = ref(1)
-const sortKey = ref('')
-const sortOrder = ref(1)
+const orders = ref([]);
+const ordersOfPage = ref([]);
+let totalPages = ref(0);
+const rowPerPage = ref(1);
+const currentPage = ref(1);
+const s1 = ref("");
+const s2 = ref("");
+const s3 = ref("");
 
-const filteredRows = computed(() => {
-  return rows.value.filter(row => {
-    return Object.values(row).some(value => value.toString().toLowerCase().includes(searchQuery.value.toLowerCase()))
-  })
-})
+onMounted(() => {
+  searchAll();
+  changeRowPerPage();
+});
 
-const sortedRows = computed(() => {
-  return [...filteredRows.value].sort((a, b) => {
-    if (!sortKey.value) return 0
-    const aValue = a[sortKey.value]
-    const bValue = b[sortKey.value]
-    if (aValue === bValue) return 0
-    return (aValue > bValue ? 1 : -1) * sortOrder.value
-  })
-})
-
-const paginatedRows = computed(() => {
-  const start = (currentPage.value - 1) * entriesPerPage.value
-  return sortedRows.value.slice(start, start + entriesPerPage.value)
-})
-
-const totalPages = computed(() => {
-  return Math.ceil(filteredRows.value.length / entriesPerPage.value)
-})
-
-const startRow = computed(() => {
-  return (currentPage.value - 1) * entriesPerPage.value + 1
-})
-
-const endRow = computed(() => {
-  return Math.min(currentPage.value * entriesPerPage.value, filteredRows.value.length)
-})
-
-const addRow = () => {
-  rows.value.push({
-    name: 'John Doe',
-    position: 'Developer',
-    age: 30,
-    startDate: '2021-01-01',
-    salary: 50000
-  })
-}
-
-const sortTable = key => {
-  if (sortKey.value === key) {
-    sortOrder.value = -sortOrder.value
-  } else {
-    sortKey.value = key
-    sortOrder.value = 1
+const changeRowPerPage = () => {
+  if (s1.value.selected === true) {
+    rowPerPage.value = 10;
+  } else if (s2.value.selected === true) {
+    rowPerPage.value = 30;
+  } else if (s3.value.selected === true) {
+    rowPerPage.value = 50;
   }
-}
+  // console.log(rowPerPage.value);
+};
 
-const updatePagination = () => {
-  currentPage.value = 1
-}
+const searchAll = () => {
+  axios.get("http://localhost:8080/orderManage").then((response) => {
+    orders.value = response.data;
+    pagination();
+  });
+};
 
-const changePage = page => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page
-  }
-}
+const pagination = () => {
+  // 計算總頁數
+  totalPages = Math.ceil(orders.value.length / rowPerPage.value);
+  // 取得目前這頁的資料
+  ordersOfPage.value = orders.value.slice(
+    rowPerPage.value * (currentPage.value * 1 - 1),
+    currentPage.value * rowPerPage.value
+  );
+};
+
+const changePage = (page) => {
+  currentPage.value = page;
+  pagination();
+};
+
+
 </script>
 
-<style scoped>
-.table {
-  width: 100%;
-  margin-bottom: 1rem;
-  color: #212529;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.add-row-btn {
-  margin-bottom: 10px;
-}
-
-.search-input {
-  margin-bottom: 10px;
-}
-
-.pagination {
-  display: flex;
-  list-style: none;
-  padding-left: 0;
-  border-radius: 0.25rem;
-}
-
-.page-item {
-  margin: 0 2px;
-}
-
-.page-item.disabled .page-link {
-  pointer-events: none;
-  cursor: not-allowed;
-}
-
-.page-item.active .page-link {
-  z-index: 1;
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.page-link {
-  position: relative;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  margin-left: -1px;
-  line-height: 1.25;
-  color: #007bff;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
-}
-
-.page-link:hover {
-  color: #0056b3;
-  text-decoration: none;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
-}
-</style>
+<style></style>
