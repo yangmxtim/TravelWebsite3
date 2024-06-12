@@ -2,7 +2,7 @@
   <div class="container mt-5 message-container">
     <h4 class="mt-5">評論 (共 {{ comments.length }} 則評論)</h4>
     <div v-if="comments.length > 0">
-      <div v-for="(comment, index) in comments" :key="index" class="card mt-3 message-card">
+      <div v-for="(comment, index) in product.comment" :key="index" class="card mt-3 message-card">
         <div class="card-body">
           <div class="card-title">
             <span>{{ comment.name }}</span>
@@ -70,6 +70,7 @@
 
 <script>
 import axios from 'axios';
+import Product from '../Product.vue';
 
 export default {
   data() {
@@ -121,6 +122,14 @@ export default {
   }
 };
 
+</script>
+<script setup>
+const props = defineProps({
+  product: {
+      type: Object,
+      required: true
+  }
+});
 </script>
 
 <style scoped>
