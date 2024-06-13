@@ -1,4 +1,14 @@
-<!-- CategoryAside.vue -->
+<script setup>
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['city-change']);
+
+const handleCityChange = (city, event) => {
+    console.log(`CategoryAside - City: ${city}, Checked: ${event.target.checked}`); // 调试信息
+    emit('city-change', city, event.target.checked);
+}
+</script>
+
 <template>
     <div class="card my-2 p-0 box-shadow">
         <div class="row">
@@ -35,16 +45,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    methods: {
-        handleCityChange(city, event) {
-            console.log(`City: ${city}, Checked: ${event.target.checked}`); // 添加调试信息
-            this.$emit('city-change', city, event.target.checked);
-        }
-    }
-};
-</script>
 
 <style scoped>
 /* 清除超連結預設底線、顏色 */

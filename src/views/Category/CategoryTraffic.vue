@@ -1,17 +1,18 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
-import CategoryAside from './components/CategoryAside.vue';
-import TrafficNav from './components/TrafficNav.vue';
+import CategoryAside from './components/CategoryAside.vue'; // 确保引入了 CategoryAside 组件
 import CategorySection from './components/CategorySection.vue';
+import TrafficNav from './components/TrafficNav.vue';
 
 const products = ref([]);
 const loading = ref(true);
 const error = ref('');
 const selectedTag = ref(null);
 const filteredProducts = ref([]);
+const selectedCity = ref(null);
 
-async function loadproduct() {
+async function loadProducts() {
     try {
         const response = await axios.get('http://localhost:8080/products?type=交通');
         products.value = response.data;
@@ -24,31 +25,45 @@ async function loadproduct() {
 }
 
 onMounted(() => {
-    loadproduct();
+    loadProducts();
 });
 
-watch(selectedTag, (newValue, oldValue) => {
-    if (newValue) {
-        filteredProducts.value = products.value.filter(product => product.tag === newValue);
+// 监听 selectedTag 和 selectedCity 的变化，更新 filteredProducts
+watch([selectedTag, selectedCity], ([newTag, newCity]) => {
+    console.log(`Watch - Selected Tag: ${newTag}, Selected City: ${newCity}`);
+    if (newTag && newCity) {
+        filteredProducts.value = products.value.filter(product => product.tag === newTag && product.address.includes(newCity));
+    } else if (newTag) {
+        filteredProducts.value = products.value.filter(product => product.tag === newTag);
+    } else if (newCity) {
+        filteredProducts.value = products.value.filter(product => product.address.includes(newCity));
     } else {
         filteredProducts.value = products.value;
     }
+    console.log(`Filtered Products: ${JSON.stringify(filteredProducts.value)}`);
 });
+
+// 处理城市选择变化的方法
+const handleCityChange = (city, checked) => {
+    console.log(`Main Component - City: ${city}, Checked: ${checked}`);
+    selectedCity.value = checked ? city : null;
+    console.log(`Main Component - Selected City: ${selectedCity.value}`);
+}
 </script>
 
 <template>
     <div class="container">
         <div class="row">
             <div class="col-md-3" data-aos="fade-up">
-                <CategoryAside></CategoryAside>
+                <CategoryAside @city-change="handleCityChange"></CategoryAside> <!-- 确保正确绑定 city-change 事件 -->
             </div>
             <div class="col-md-9">
-                <TrafficNav @filter="selectedTag = $event"></TrafficNav> <!-- 監聽 TrafficNav 的 filter 事件 -->
+                <TrafficNav @filter="selectedTag = $event"></TrafficNav>
                 <div v-if="loading">載入中...</div>
                 <div v-if="error">{{ error }}</div>
+                <!-- 遍历 filteredProducts 显示产品信息 -->
                 <CategorySection v-for="goods in filteredProducts" :goods="goods" :key="goods.id"></CategorySection>
             </div>
         </div>
     </div>
 </template>
-
