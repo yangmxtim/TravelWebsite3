@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5 message-container">
-    <h4 class="mt-5">評論 (共 {{ comments.length }} 則評論)</h4>
-    <div v-if="comments.length > 0">
+    <h4 class="mt-5">評論 (共 {{ product.comment.length }} 則評論)</h4>
+    <div v-if="product.comment.length > 0">
       <div v-for="(comment, index) in product.comment" :key="index" class="card mt-3 message-card">
         <div class="card-body">
           <div class="card-title">
@@ -14,7 +14,7 @@
             </div>
           </div>
           <p class="card-text">{{ comment.content }}</p>
-          <div class="card-subtitle mb-2 text-muted text-end">{{ formatDate(comment.date) }}</div>
+          <div class="card-subtitle mb-2 text-muted text-end">{{(comment.date) }}</div>
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@
       我要評論
     </button>
 
+    <!-- 留言模态框 -->
     <div v-if="showModal" class="modal fade show" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
         <div class="modal-content">
@@ -70,50 +71,60 @@
 
 <script>
 import axios from 'axios';
-import Product from '../Product.vue';
+import { defineProps, ref, reactive } from 'vue';
 
 export default {
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       comments: [],
       showModal: false,
       form: {
         name: '',
-        rate: null, // 初始化为 null
+        rate: null,
         content: ''
       }
     };
   },
-  created() {
-    this.fetchComments();
-  },
   methods: {
-    fetchComments() {
-      axios.get('http://localhost:3000/comments')
-        .then(response => {
-          this.comments = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching comments:', error);
-        });
-    },
     submitForm() {
-      axios.post('http://localhost:3000/comments', this.form)
-        .then(response => {
-          this.showModal = false;
-          this.fetchComments(); // 重新获取评论以更新列表
-          this.form = { name: '', rate: null, content: '' }; // 重置表单
-        })
-        .catch(error => {
-          console.error('Error submitting comment:', error);
-        });
-    },
-    // 更新评分值
+  const currentDate = new Date().toISOString().split('T')[0];
+  const formData = {
+    name: this.form.name,
+    rate: this.form.rate,
+    content: this.form.content,
+    date: currentDate
+  };
+
+  axios.post(`http://localhost:8080/comment?product_id=${this.product.product_id}`, formData)
+    .then(response => {
+      // 更新评论列表
+      this.product.comment.push({
+        name: formData.name,
+        rate: formData.rate,
+        content: formData.content,
+        date: formData.date
+      });
+
+      this.showModal = false;
+      this.form = { name: '', rate: null, content: '' };
+    })
+    .catch(error => {
+      console.error('Error submitting comment:', error);
+    });
+}
+
+,
     updateRate(value) {
       this.form.rate = value;
     },
-    formatDate(dateStr) {
-      const date = new Date(dateStr);
+    formatDate() {
+      const date = new Date();
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
@@ -121,16 +132,10 @@ export default {
     }
   }
 };
+</script>
 
-</script>
-<script setup>
-const props = defineProps({
-  product: {
-      type: Object,
-      required: true
-  }
-});
-</script>
+
+
 
 <style scoped>
 .star-filled {
