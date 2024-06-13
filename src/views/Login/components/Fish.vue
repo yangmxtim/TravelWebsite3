@@ -17,11 +17,10 @@ import { ref } from 'vue';
  const speed = ref([20, 30, 30, 70, 20, 50, 40, 50, 50, 80, 30, 20, 60]);
 
 const speedUp = (event, index) => {
-  speed.value[index - 1] *= 2; // 速度
+  speed.value[index - 1] /= 2; // 速度
   const animationDuration = `${speed.value[index - 1]}s`; // new animation duration
   event.target.style.animationDuration = animationDuration; // set
 };
-// "
 </script>
   
 <style scoped>
@@ -37,7 +36,7 @@ const speedUp = (event, index) => {
 .fish1 {
   top: 20%;
   height: 60px;
-  animation: animate 20s ease-in infinite;
+  animation: animate 20s linear infinite;
 }
 
 .fish2 {
@@ -115,11 +114,10 @@ const speedUp = (event, index) => {
 @keyframes animate {
   0% {
     transform: translateY(-20px);
-    left: -10px;
+    left: -10%;
   }
   25% {
     transform: translateY(0px);
-    
   }
   50% {
     transform: translateY(50px);
@@ -129,7 +127,7 @@ const speedUp = (event, index) => {
   }
   100% {
     transform: translateY(-20px);
-    left: 120%;
+    left: 100%;
   }
 }
 
