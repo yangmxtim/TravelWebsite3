@@ -1,10 +1,22 @@
+<script setup>
+
+import LayoutHeader from '@/views/Layout/components/LayoutHeader.vue'
+import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue'
+</script>
 <template>
+    <LayoutHeader />
+    <div class="container">
+        <div style="background-color: transparent; width: 100%; height: 0; padding-bottom: 56.25%; position: relative;">
+    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/PB4gId2mPNc?si=LaOhFEBY2A84CZ3X&amp;clip=UgkxgmL2Sl8KCtt2kKcmeAvs3TlalG4-YNcu&amp;clipt=EM-YCBi0hQo&autoplay=1&mute=1&modestbranding=1&showinfo=0&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+</div>
+<!-- 
     <div id="carouselExampleControls" class="carousel slide " data-bs-ride="carousel" >
         <div class="carousel-inner container">
             <div class="carousel-item header-carousel-item active bg-cover">
             </div>
         </div>
-    </div>
+    </div> -->
     <hr>
     <section>
         <div class="container py-5">
@@ -109,6 +121,7 @@
             </div>
         </div>
     </section>
+    <LayoutFooter />
 </template>
 
 <style scoped>

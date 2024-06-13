@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-sm-3 col-4">
                     <ul>
-                        <router-link :to="'/About'">
+                        <router-link :to="'/about'">
                         <h6>認識海島</h6>
                         </router-link>
                         <li>關於我們</li>
@@ -64,7 +64,7 @@
                 <div class="col-sm-3 col-4">
                     <ul>
                         <h6>合作夥伴</h6>
-                        <li>人才招募</li>
+                        <router-link :to="'/recruiting'"><li>人才招募</li></router-link>
                         <li>成為廠商</li>
                         <router-link :to="'/'"><li>廠商登入</li></router-link>
                     </ul>  

@@ -9,16 +9,13 @@ const name = inject("name");
 const permission = inject("permission");
 </script>
 
-
 <template>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid container">
-      <router-link to="/">
         <a class="navbar-brand me-auto" href="#">
-          <img src="/src/views/Layout/img/logo.png" alt="" />
+          <img @click="$router.push('/')" src="/src/views/Layout/img/logo.png" alt="" />
         </a>
-      </router-link>
       <div
         class="offcanvas offcanvas-end"
         tabindex="-1"
@@ -37,23 +34,33 @@ const permission = inject("permission");
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active mx-lg-2" aria-current="page" href="#"
-                >目的地</a
-              >
+              <a class="nav-link active mx-lg-2" aria-current="page" href="#">
+                <i class="fa-solid fa-location-dot"></i> 目的地
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryTraffic')">交通</a>
+              <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryTraffic')">
+                <i class="fa-solid fa-bus"></i> 交通
+              </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryHotel')">住宿</a>
+                <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryHotel')">
+                  <i class="fa-solid fa-house"></i> 住宿
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryTouristSpot')">景點門票</a>
+                <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryTouristSpot')">
+                  <i class="fa-solid fa-ticket"></i> 景點門票
+                </a>
             </li>
             <li class="nav-item">
                 <!-- 驗證有沒有登入 沒有的話會轉到登入頁面 -->
-                <a class="nav-link mx-lg-2" v-if="name" href="#"  @click="$router.push('/categoryMembers')">會員專區</a>
-                <a class="nav-link mx-lg-2" v-else href="#"  @click="$router.push('/Login')">會員專區</a>
+                <a class="nav-link mx-lg-2" v-if="name" href="#"  @click="$router.push('/categoryMembers')">
+                  <i class="fa-solid fa-users-rectangle"></i> 會員專區
+                </a>
+                <a class="nav-link mx-lg-2" v-else href="#"  @click="$router.push('/Login')">
+                  <i class="fa-solid fa-users-rectangle"></i> 會員專區
+                </a>
             </li>
           </ul>
           <div>
@@ -86,7 +93,7 @@ const permission = inject("permission");
   <div style="height: 100px"></div>
 </template>
   
-  <style scoped>
+<style scoped>
 .navbar {
   background-color: white;
   height: 100px; /* 设置导航栏的高度 */
@@ -118,6 +125,9 @@ const permission = inject("permission");
   color: #666777;
   font-weight: 500;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 標籤列滑鼠懸停樣式 */
@@ -163,5 +173,26 @@ const permission = inject("permission");
 a {
   text-decoration: none;
 }
-</style>
+
+@media (max-width: 991.98px) {
+  .offcanvas-body .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
   
+  .offcanvas-body .nav-item i {
+    margin-right: 8px;
+  }
+  
+  .offcanvas-body .nav-link {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+  }
+  
+  .offcanvas-body .nav-link::before {
+    content: none;
+  }
+}
+</style>

@@ -11,6 +11,7 @@ import CategoryMembers from '@/views/Category/CategoryMembers.vue'
 import Product from '@/views/Product/Product.vue'
 import Home from '@/views/Home/Home.vue'
 import About from '@/views/Home/About.vue'
+import Recruiting from '@/views/Home/Recruiting.vue'
 import CartList from '@/views/CartList/CartList.vue'
 import Checkout from '@/views/Checkout/checkout.vue'
 import NoteList from '@/views/Note/NoteList.vue'
@@ -41,10 +42,6 @@ const router = createRouter({
         {
           path:'',
           component: Home
-        },
-        {
-          path:'about',
-          component: About
         },
         {
           path:'categoryTraffic',
@@ -105,7 +102,15 @@ const router = createRouter({
       path:'/categoryMembers',
       // eslint-disable-next-line no-undef
       component: CategoryMembers
-    }
+    },
+    {
+      path:'/about',
+      component: About
+    },
+    {
+      path:'/recruiting',
+      component:Recruiting
+    },
     ,
     {
       path: "/",
