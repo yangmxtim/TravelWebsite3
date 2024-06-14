@@ -1,12 +1,14 @@
 <script setup>
 import { defineEmits } from 'vue';
+import { ref } from 'vue';
 
 const emit = defineEmits(['city-change']);
+const activeCity = ref('');
 
-const handleCityChange = (city, event) => {
-    console.log(`CategoryAside - City: ${city}, Checked: ${event.target.checked}`); // 调试信息
-    emit('city-change', city, event.target.checked);
-}
+const handleCityChange = (city) => {
+    activeCity.value = activeCity.value === city ? '' : city; // 切换选中状态
+    emit('city-change', city, activeCity.value === city);
+};
 </script>
 
 <template>
@@ -17,25 +19,20 @@ const handleCityChange = (city, event) => {
                     <h4 class="card-title pb-2">熱門旅遊縣市</h4>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                            <li class="nav-item nav-link mx-lg-2">
-                                <input type="checkbox" id="taipei" name="台北市" @change="handleCityChange('台北市', $event)">
-                                <label for="taipei">台北市</label>
+                            <li class="nav-item nav-link mx-lg-2" :class="{ active: activeCity === '台北市' }">
+                                <button @click="handleCityChange('台北市')">台北市</button>
                             </li>
-                            <li class="nav-item nav-link mx-lg-2">
-                                <input type="checkbox" id="newtaipei" name="新北市" @change="handleCityChange('新北市', $event)">
-                                <label for="newtaipei">新北市</label>
+                            <li class="nav-item nav-link mx-lg-2" :class="{ active: activeCity === '新北市' }">
+                                <button @click="handleCityChange('新北市')">新北市</button>
                             </li>
-                            <li class="nav-item nav-link mx-lg-2">
-                                <input type="checkbox" id="taichung" name="台中市" @change="handleCityChange('台中市', $event)">
-                                <label for="taichung">台中市</label>
+                            <li class="nav-item nav-link mx-lg-2" :class="{ active: activeCity === '台中市' }">
+                                <button @click="handleCityChange('台中市')">台中市</button>
                             </li>
-                            <li class="nav-item nav-link mx-lg-2">
-                                <input type="checkbox" id="tainan" name="台南市" @change="handleCityChange('台南市', $event)">
-                                <label for="tainan">台南市</label>
+                            <li class="nav-item nav-link mx-lg-2" :class="{ active: activeCity === '台南市' }">
+                                <button @click="handleCityChange('台南市')">台南市</button>
                             </li>
-                            <li class="nav-item nav-link mx-lg-2">
-                                <input type="checkbox" id="kaohsiung" name="高雄市" @change="handleCityChange('高雄市', $event)">
-                                <label for="kaohsiung">高雄市</label>
+                            <li class="nav-item nav-link mx-lg-2" :class="{ active: activeCity === '高雄市' }">
+                                <button @click="handleCityChange('高雄市')">高雄市</button>
                             </li>
                         </ul>
                     </div>
@@ -44,7 +41,6 @@ const handleCityChange = (city, event) => {
         </div>
     </div>
 </template>
-
 
 <style scoped>
 /* 清除超連結預設底線、顏色 */
@@ -55,6 +51,22 @@ a {
 
 .router-link-active {
     text-decoration: none;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+.nav-item.nav-link.active button {
+    border-bottom: 2px solid yellow;
 }
 
 @media (max-width: 767.98px) {
