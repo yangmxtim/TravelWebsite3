@@ -14,7 +14,7 @@ const permission = inject("permission");
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid container">
         <a class="navbar-brand me-auto" href="#">
-          <img @click="$router.push('/')" src="/src/views/Layout/img/logo.png" alt="" />
+          <img @click="$router.push('/')" src="/src/views/Layout/img/logo.png" alt="logo" />
         </a>
       <div
         class="offcanvas offcanvas-end"
@@ -35,37 +35,41 @@ const permission = inject("permission");
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
               <a class="nav-link active mx-lg-2" aria-current="page" href="#">
-                <i class="fa-solid fa-location-dot"></i> 目的地
+                <i class="fa-solid fa-location-dot"></i>
+                目的地
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryTraffic')">
-                <i class="fa-solid fa-bus"></i> 交通
+                <i class="fa-solid fa-bus"></i>
+                交通
               </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mx-lg-2" href="#" @click="$router.push('/categoryHotel')">
-                  <i class="fa-solid fa-house"></i> 住宿
+                  <i class="fa-solid fa-house"></i>
+                  住宿
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mx-lg-2" href="#"  @click="$router.push('/categoryTouristSpot')">
-                  <i class="fa-solid fa-ticket"></i> 景點門票
+                  <i class="fa-solid fa-ticket"></i>
+                  景點門票
                 </a>
             </li>
             <li class="nav-item">
                 <!-- 驗證有沒有登入 沒有的話會轉到登入頁面 -->
                 <a class="nav-link mx-lg-2" v-if="name" href="#"  @click="$router.push('/categoryMembers')">
-                  <i class="fa-solid fa-users-rectangle"></i> 會員專區
+                  <i class="fa-solid fa-users-rectangle"></i>
+                  會員專區
                 </a>
                 <a class="nav-link mx-lg-2" v-else href="#"  @click="$router.push('/Login')">
-                  <i class="fa-solid fa-users-rectangle"></i> 會員專區
+                  <i class="fa-solid fa-users-rectangle"></i>
+                  會員專區
                 </a>
             </li>
           </ul>
-          <div>
-            
-          </div>
+          <div></div>
 
           <!-- 我的最愛 -->
           <div><HeaderLove></HeaderLove></div>
@@ -128,6 +132,7 @@ const permission = inject("permission");
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column; /* Default to column layout for larger screens */
 }
 
 /* 標籤列滑鼠懸停樣式 */
@@ -166,10 +171,12 @@ const permission = inject("permission");
 .social-icon > a:hover {
   color: #2e6cdf;
 }
+
 /* 連結消除底線 */
 .router-link-active {
   text-decoration: none;
 }
+
 a {
   text-decoration: none;
 }
@@ -193,6 +200,10 @@ a {
   
   .offcanvas-body .nav-link::before {
     content: none;
+  }
+
+  .nav-link {
+    flex-direction: row; /* Switch to row layout for smaller screens */
   }
 }
 </style>
