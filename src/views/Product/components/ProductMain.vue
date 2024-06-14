@@ -1,56 +1,40 @@
 <template>
     <div class="container">
-            <div class="row py-4">
-                <div class="col-11">
-                    <h2>{{product.name}}</h2>
-                </div>
-                <div class="col-1">
-                    <label class="ui-bookmark">
-                        <input type="checkbox" />
-                        <div class="bookmark">
-                            <svg viewBox="0 0 16 16" style="margin-top:4px" class="bi bi-heart-fill" height="20"
-                                width="25" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                                    fill-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                    </label>
-
-                </div>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-geo-alt" viewBox="0 0 16 16">
-                        <path
-                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                    </svg>
-                    {{product.address}}
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-telephone" viewBox="0 0 16 16">
-                        <path
-                            d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                    </svg>
-                    {{product.phone}}
-                </p>
-
-                <div class="row gallery-item">
-            <div class="col-md-6 col-sm-12 mb-4">
-                <img :src="product.img" class="img-fluid portrait-image" alt="">
+        <div class="row py-4">
+            <div class="col-11">
+                <h2>{{product.name}}</h2>
             </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="row">
-                    <div v-for="(detail, index) in product.product_detail" :key="index" class="col-md-6 col-6 mb-4">
-                        <img :src="detail.img" class="img-fluid" alt="">
+            <div class="col-1">
+                <label class="ui-bookmark">
+                    <input type="checkbox" />
+                    <div class="bookmark">
+                        <svg viewBox="0 0 16 16" style="margin-top:4px" class="bi bi-heart-fill" height="20" width="25" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill-rule="evenodd"></path>
+                        </svg>
                     </div>
+                </label>
+            </div>
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                {{product.address}}
+            </p>
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                </svg>
+                {{product.phone}}
+            </p>
+            <div class="row gallery-item">
+                <div class="col-md-12 col-sm-12 mb-4">
+                    <img :src="product.img" class="img-fluid portrait-image" alt="">
                 </div>
             </div>
+            <p>{{product.introduction}}</p>
         </div>
-                <p>{{product.introduction}}
-                </p>
-            </div>
-        </div>
+    </div>
 </template>
 
 <script setup>
@@ -65,11 +49,15 @@ const props = defineProps({
 </script>
 
 <style scoped>
-/* 圖片圓角 */
-img{
-    border-radius: 10px
+/* 图片圆角 */
+img {
+    border-radius: 10px;
+    width: 100%;
+    height: 650px;
+    object-fit: cover; /* 确保图片不会被压缩 */
 }
-    /* 愛心 */
+
+/* 爱心 */
 .ui-bookmark {
     --icon-size: 24px;
     --icon-secondary-color: rgb(162, 162, 162);
@@ -115,22 +103,8 @@ img{
     position: absolute;
     width: 10px;
     height: 10px;
-    -webkit-box-shadow: 0 30px 0 -4px var(--icon-primary-color),
-        30px 0 0 -4px var(--icon-primary-color),
-        0 -30px 0 -4px var(--icon-primary-color),
-        -30px 0 0 -4px var(--icon-primary-color),
-        -22px 22px 0 -4px var(--icon-primary-color),
-        -22px -22px 0 -4px var(--icon-primary-color),
-        22px -22px 0 -4px var(--icon-primary-color),
-        22px 22px 0 -4px var(--icon-primary-color);
-    box-shadow: 0 30px 0 -4px var(--icon-primary-color),
-        30px 0 0 -4px var(--icon-primary-color),
-        0 -30px 0 -4px var(--icon-primary-color),
-        -30px 0 0 -4px var(--icon-primary-color),
-        -22px 22px 0 -4px var(--icon-primary-color),
-        -22px -22px 0 -4px var(--icon-primary-color),
-        22px -22px 0 -4px var(--icon-primary-color),
-        22px 22px 0 -4px var(--icon-primary-color);
+    -webkit-box-shadow: 0 30px 0 -4px var(--icon-primary-color), 30px 0 0 -4px var(--icon-primary-color), 0 -30px 0 -4px var(--icon-primary-color), -30px 0 0 -4px var(--icon-primary-color), -22px 22px 0 -4px var(--icon-primary-color), -22px -22px 0 -4px var(--icon-primary-color), 22px -22px 0 -4px var(--icon-primary-color), 22px 22px 0 -4px var(--icon-primary-color);
+    box-shadow: 0 30px 0 -4px var(--icon-primary-color), 30px 0 0 -4px var(--icon-primary-color), 0 -30px 0 -4px var(--icon-primary-color), -30px 0 0 -4px var(--icon-primary-color), -22px 22px 0 -4px var(--icon-primary-color), -22px -22px 0 -4px var(--icon-primary-color), 22px -22px 0 -4px var(--icon-primary-color), 22px 22px 0 -4px var(--icon-primary-color);
     border-radius: 50%;
     -webkit-transform: scale(0);
     -ms-transform: scale(0);
