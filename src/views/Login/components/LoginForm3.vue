@@ -61,14 +61,13 @@
                 <div>
                   <input
                     type="text"
-                    placeholder="請輸入驗證碼"
                     class="flip-card__input"
-                    v-model="loginCode"
+                    v-model="dynamicValidateForm.code"
                   />
                   <img
-                    :src="captchaImage"
+                    src="captchaImage"
                     alt="圖片無法載入"
-                    @click="changeVerify"
+                    @click="changeVerify()"
                   />
                 </div>
                 <button class="flip-card__btn">登入</button>
@@ -81,13 +80,13 @@
   </div>
 </template>
   
-<script setup>
+  <script setup>
 import { ref } from "vue";
+import { validEmail } from "@/utils/validate";
 import axios from "axios";
 import FormHeader from "./FormHeader.vue";
-import { validEmail } from "@/utils/validate";
-import { ElMessage } from "element-plus"; // 假設你使用 Element Plus 來處理消息
-import router from "@/router"; // 假設你使用 Vue Router 來進行導航
+import { useAuthenticationStore } from "@/stores/authentication";
+import { mapStores } from "pinia";
 
 const isLogin = ref(true);
 const loginAccount = ref("");
@@ -96,84 +95,53 @@ const registerName = ref("");
 const registerAccount = ref("");
 const registerPassword = ref("");
 const registerPhone = ref("");
-const captchaImage = ref("");
-const loginCode = ref("");
+const dynamicValidateForm = ref({
+  code: "",
+});
 
-// 函數來獲取和顯示驗證碼圖片
+const authenticationStore = mapStores(useAuthenticationStore);
+
 const changeVerify = () => {
-  axios
-    .get("http://localhost:8080/code/verify", {
-      responseType: "arraybuffer",
-    })
-    .then((response) => {
-      const imageBase64 = btoa(
-        new Uint8Array(response.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ""
-        )
-      );
-      captchaImage.value = `data:image/jpeg;base64,${imageBase64}`;
-    })
-    .catch((error) => {
-      console.error("獲取驗證碼圖片失敗", error);
-    });
+  axios.get("http://localhost:8080/code/verify",{
+    responseType: "arraybuffer",
+  })
+  .then((response) => {
+    console.log(response);
+    const imageBase64 = btoa(
+      new Uint8Array(response.data).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ""
+      )
+    );
+    this.captchaImage = `data:image/jpeg;base64,${imageBase64}`;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 };
 
-// 預先導入
-changeVerify();
-
-// 登入
 const handleLogin = async () => {
   try {
-    const checkVerify = await axios.get(
-      "http://localhost:8080/code/checkVerify",
+    const response = await axios.post(
+      "http://localhost:8080/auth/login",
+      null,
       {
-        params: {
-          code: loginCode.value,
-        },
+        params: { username: loginAccount.value, password: loginPassword.value },
+        withCredentials: true,
       }
     );
-
-    if (checkVerify.data === "success") {
-      const response = await axios.post(
-        "http://localhost:8080/auth/login",
-        null,
-        {
-          params: {
-            username: loginAccount.value,
-            password: loginPassword.value,
-          },
-          withCredentials: true,
-        }
-      );
-
-      if (response.data === "Success!"){
-        
-        ElMessage.success("登入成功");
-
-        router.push("/"); // 登入成功後跳轉到首頁
-        router.refresh();
-
-        // window.location.replace("/");
-        // window.location.reload();
-
-        //=================bug=====================
-      } else {
-        ElMessage.error("登入失败");
-      }
-    } else {
-      ElMessage.error("驗證碼錯誤，請重新輸入");
-    }
+    alert("登入" + response.data);
+    response.data === "Success!"
+      ? window.location.replace("/")
+      : window.location.reload();
   } catch (error) {
-    console.error("登入出錯", error);
-    // ElMessage.error("登入失敗");
+    console.error("Login error", error);
   }
 };
 
-// 處理註冊的函數
 const handleRegister = async () => {
   if (!validEmail(registerAccount.value)) {
-    ElMessage.error("信箱格式錯誤");
+    alert("信箱格式錯誤");
     return;
   }
 
@@ -191,21 +159,18 @@ const handleRegister = async () => {
         withCredentials: true,
       }
     );
-
-    if (response.data === "Success!") {
-      ElMessage.success("註冊成功，請登入");
-      router.push("/login"); // 註冊成功後跳轉到登錄頁面
-    } else {
-      ElMessage.error(response.data);
-    }
+    alert(response.data);
+    response.data === "Success!"
+      ? window.location.replace("/Login")
+      : window.location.reload();
   } catch (error) {
-    console.error("註冊失敗", error);
-    ElMessage.error("注冊失敗，請重試");
+    console.error("Register error", error);
   }
 };
-</script>
 
-<style scoped>
+</script>
+  
+  <style scoped>
 /* 將相關樣式放在這裡 */
 .login {
   margin-top: 35vh;
@@ -423,3 +388,4 @@ button {
   background-color: #ffffffb4;
 }
 </style>
+  
