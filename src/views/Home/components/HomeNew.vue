@@ -15,7 +15,9 @@
               </div>
               <div class="col-md-4 col-sm-12 mb-4">
                 <div class="img-container">
+                  <router-link :to="'/news'">
                   <img src="/src/views/Layout/img/p2.png" class="img-fluid" alt="">
+                </router-link>
                 </div>
               </div>
               <div class="col-md-4 col-sm-12 mb-4">

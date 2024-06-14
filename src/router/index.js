@@ -11,6 +11,7 @@ import CategoryMembers from '@/views/Category/CategoryMembers.vue'
 import Product from '@/views/Product/Product.vue'
 import Home from '@/views/Home/Home.vue'
 import About from '@/views/Home/About.vue'
+import News from '@/views/Home/News.vue'
 import Recruiting from '@/views/Home/Recruiting.vue'
 import CartList from '@/views/CartList/CartList.vue'
 import Checkout from '@/views/Checkout/checkout.vue'
@@ -106,6 +107,10 @@ const router = createRouter({
     {
       path:'/about',
       component: About
+    },
+    {
+      path:'/news',
+      component: News
     },
     {
       path:'/recruiting',
