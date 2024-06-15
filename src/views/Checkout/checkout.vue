@@ -42,12 +42,14 @@
             </tbody>
           </table>
         </div>
-        
+
         <!-- 付款方式 -->
         <h3 class="box-title">付款方式</h3>
         <div class="box-body">
-          <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === '綠界支付' }" @click="handlePaymentMethodClick('綠界支付')">綠界支付</a>
-          <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === 'LINE PAY' }" @click="handlePaymentMethodClick('LINE PAY')">LINE PAY</a> 
+          <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === '綠界支付' }"
+            @click="handlePaymentMethodClick('綠界支付')">綠界支付</a>
+          <a class="my-btn" href="javascript:;" :class="{ 'active': selectedPaymentMethod === 'LINE PAY' }"
+            @click="handlePaymentMethodClick('LINE PAY')">LINE PAY</a>
         </div>
         <!-- 金額明細 -->
         <h3 class="box-title">交易明細</h3>
@@ -80,7 +82,7 @@
 
 <script setup>
 import { useCartStore } from '@/stores/cartStore'; // 引入購物車 store
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import axios from 'axios';
 
 const cartStore = useCartStore(); // 使用購物車 store
@@ -93,7 +95,14 @@ const selectedPaymentMethod = ref('綠界支付'); // 預設選擇綠界支付
 
 // 合併商品名稱和描述
 const itemName = selectedProducts.value.map(item => item.name).join(', ');
-const tradeDesc = selectedProducts.value.map(item => item.description).join(', ');
+//
+//readeDESC有改
+//
+// const tradeDesc = selectedProducts.value.map(item => item.description).join(', ');
+const tradeDesc = selectedProducts.value.map(item => 1).join(', ');
+console.log(selectedProducts);
+
+
 
 // 計算總金額
 const totalAmount = ref(selectedProducts.value.reduce((total, item) => total + item.price * item.count, 0));
@@ -101,9 +110,40 @@ const totalAmount = ref(selectedProducts.value.reduce((total, item) => total + i
 const handlePaymentMethodClick = (method) => {
   selectedPaymentMethod.value = method;
 };
+// 抓取會員id
+const uid = inject("id");
+
+//產生訂單方法
+const generateOrder = () => {
+  const len = selectedProducts.value.length;
+  const obj = [];
+  //第一個api 是生成order detail , 就是訂單 這邊因為訂單格式都會一樣 差別只在會員id 所以只丟會員id, 付款日期會在後端做
+  axios.post('http://localhost:8080/generateOrder', { id: uid.value })
+    .then(response => {
+      //orderid = 生成訂單後 後端會回傳這張訂單的id(資料庫自增的編號)回來 可以透過這個id去跟資料庫抓取該筆訂單
+      const orderid = response.data;
+      //把購物車裡面每筆細項資料拆出來 詳請可按按鈕然後看consolelog
+      for (let i = 0; i < len; i++) {
+        const newobj = {
+          ...selectedProducts.value[i],
+          orderDetailId: orderid
+        };
+        obj.push({ [i]: newobj });
+      }
+      console.log(obj);
+      //第二個api 是生成orderitem , 就是訂單細項 比如車票幾張 飯店幾張
+      axios.post('http://localhost:8080/generateOrderItems', obj)
+    }
+
+    )
+}
+
+
 
 const handleConfirmOrder = () => {
+  generateOrder();
   // 根據用戶選擇支付方式連確定連接後端的URL
+
   let backendURL = '';
   if (selectedPaymentMethod.value === '綠界支付') {
     backendURL = 'http://localhost:8080/ecpayCheckout';
@@ -112,7 +152,12 @@ const handleConfirmOrder = () => {
   }
 
   // 發送 POST 請求到後端
-  axios.post(backendURL, { totalAmount: totalAmount.value, itemName: itemName, tradeDesc: tradeDesc })
+  axios.post(backendURL, {
+    totalAmount: totalAmount.value,
+    itemName: itemName,
+    tradeDesc: tradeDesc
+  }
+  )
     .then(response => {
       // 獲取後端返回的 HTML 表單內容
       const formData = response.data;
@@ -283,9 +328,10 @@ const handleConfirmOrder = () => {
   text-decoration: none;
 
   &:hover {
-    border-color:#83c4f8;
+    border-color: #83c4f8;
   }
 }
+
 .my-btn.active,
 .my-btn:hover {
   border-color: #83c4f8;
@@ -298,9 +344,9 @@ const handleConfirmOrder = () => {
 
 @media screen and (max-width: 768px) {
   .my-btn {
-    display: block; 
-    margin-bottom: 10px; 
-    margin-right: 0; 
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 0;
   }
 }
 
