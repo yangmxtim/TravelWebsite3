@@ -17,7 +17,7 @@ import CartList from '@/views/CartList/CartList.vue'
 import Checkout from '@/views/Checkout/checkout.vue'
 import NoteList from '@/views/Note/NoteList.vue'
 import QRcodeTickets from '@/views/QRcode/QRcodeTickets.vue'
-import QRDonePage from '@/views/QRcode/QRDonePage.vue'
+import OrderlistWithQR from '@/views/QRcode/OrderlistWithQR.vue'
 import MemberInfo from '@/views/MemberInfo/MemberInfo.vue'
 import Admin from "@/views/Backstage/layouts/admin.vue";
 import BackMain from "@/views/Backstage/layouts/backMain.vue";
