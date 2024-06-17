@@ -25,6 +25,7 @@ import Member from "@/views/Backstage/layouts/memberManage.vue";
 import OrderManage from "@/views/Backstage/layouts/orderManage.vue";
 import ProductManage from "@/views/Backstage/layouts/productManage.vue";
 import NewProduct from "@/views/Backstage/layouts/newProduct.vue";
+import Top from "@/views/Layout/Top.vue"
 
 
 
@@ -80,6 +81,10 @@ const router = createRouter({
         {
           path:'checkout',
           component: Checkout
+        },
+        {
+          path:'top',
+          component: Top
         }
       ]
     },
