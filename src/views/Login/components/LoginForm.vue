@@ -189,14 +189,14 @@ const handleRegister = async () => {
     );
 
     if (response.data === "Success!") {
-      ElMessage.success("註冊成功，請登入");
-      router.push("/login"); // 註冊成功後跳轉到登錄頁面
+      ElMessage.success("註冊成功，兩秒後請重新登入");
+      window.setTimeout(()=>window.location.reload(), 2000)
     } else {
       ElMessage.error(response.data);
     }
   } catch (error) {
-    console.error("註冊失敗", error);
-    ElMessage.error("註冊失敗，請重試");
+    // console.error("註冊失敗", error);
+    // ElMessage.error("註冊失敗，請重試");
   }
 };
 </script>
