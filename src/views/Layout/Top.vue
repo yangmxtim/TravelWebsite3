@@ -22,14 +22,28 @@
     position: absolute; /* 絕對定位 */
     top: 0;
     left: 0;
+    animation: beat 3s infinite; 
 }
 
 .top-text {
     position: absolute; /* 絕對定位 */
-    top: 40%; /* 垂直居中 */
-    left: 50%; /* 水平居中 */
+    top: 20%; /* 垂直居中 */
+    left: 30%; /* 水平居中 */
     transform: translate(-50%, -50%); /* 將元素移動到完全居中 */
     color: black; /* 文字顏色 */
     z-index: 10000; /* 確保文字在圖片上方 */
+    animation: beat 3s infinite; 
 }
+@keyframes beat {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 </style>
