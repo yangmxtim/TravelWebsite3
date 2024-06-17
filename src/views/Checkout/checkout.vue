@@ -94,7 +94,7 @@ selectedProducts.value = cartStore.cartList.filter(item => item.selected);
 const selectedPaymentMethod = ref('綠界支付'); // 預設選擇綠界支付
 
 // 合併商品名稱和描述
-const itemName = selectedProducts.value.map(item => item.name).join(', ');
+const itemName = selectedProducts.value.map(item => item.name).join('#');
 //
 //readeDESC有改
 //
@@ -275,6 +275,8 @@ const handleConfirmOrder = () => {
   .info {
     display: flex;
     text-align: left;
+    text-decoration: none;
+    color: inherit;
 
     img {
       width: 70px;
@@ -349,8 +351,6 @@ const handleConfirmOrder = () => {
     margin-right: 0;
   }
 }
-
-
 
 .total {
   dl {
