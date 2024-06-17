@@ -82,12 +82,12 @@
 </template>
   
 <script setup>
-import { ref } from "vue";
-import axios from "axios";
-import FormHeader from "./FormHeader.vue";
-import { validEmail } from "@/utils/validate";
-import { ElMessage } from "element-plus"; // 假設你使用 Element Plus 來處理消息
 import router from "@/router"; // 假設你使用 Vue Router 來進行導航
+import { validEmail } from "@/utils/validate";
+import axios from "axios";
+import { ElMessage } from "element-plus"; // 假設你使用 Element Plus 來處理消息
+import { ref } from "vue";
+import FormHeader from "./FormHeader.vue";
 
 const isLogin = ref(true);
 const loginAccount = ref("");
@@ -148,16 +148,12 @@ const handleLogin = async () => {
       );
 
       if (response.data === "Success!"){
+
+        // router.push("/"); // 登入成功後跳轉到首頁
+        // router.refresh();
+
+        window.location.replace("/");
         
-        ElMessage.success("登入成功");
-
-        router.push("/"); // 登入成功後跳轉到首頁
-        router.refresh();
-
-        // window.location.replace("/");
-        // window.location.reload();
-
-        //=================bug=====================
       } else {
         ElMessage.error("登入失败");
       }
@@ -200,13 +196,13 @@ const handleRegister = async () => {
     }
   } catch (error) {
     console.error("註冊失敗", error);
-    ElMessage.error("注冊失敗，請重試");
+    ElMessage.error("註冊失敗，請重試");
   }
 };
 </script>
 
 <style scoped>
-/* 將相關樣式放在這裡 */
+
 .login {
   margin-top: 35vh;
   margin-bottom: 60vh;
