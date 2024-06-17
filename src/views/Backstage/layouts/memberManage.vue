@@ -11,9 +11,10 @@
           
         />
         <label
-          class="btn btn-outline-primary"
+          :class="['btn', 'btn-outline-primary', {active: searchByWhich=='全部會員'}]"
           for="btnradio1"
           @click="searchAll"
+          ref="label1"
           >全部會員</label
         >
 
@@ -25,9 +26,10 @@
           autocomplete="off"
         />
         <label
-          class="btn btn-outline-primary"
+          :class="['btn', 'btn-outline-primary', {active: searchByWhich=='管理員'}]"
           for="btnradio2"
           @click="searchAdmin(true)"
+          ref="label2"
           >管理員</label
         >
 
@@ -39,14 +41,18 @@
           autocomplete="off"
         />
         <label
-          class="btn btn-outline-primary"
+          :class="['btn', 'btn-outline-primary', {active: searchByWhich=='會員'}]"
           for="btnradio3"
+          ref="label3"
           @click="searchAdmin(false)"
-          >一般用戶</label
+          >會員</label
         >
       </div>
       <p v-if="users.length == 0">沒有資料</p>
-      <p v-else>共 {{ users.length }} 筆資料</p>
+      <p v-else>共 {{ users.length }} 筆資料，
+        目前顯示第 {{ startIndex + 1 }} ~
+        {{ endIndex>users.length?users.length:endIndex}} 筆
+      </p>
       <table
         class="table table-hover align-items-center justify-content-center text-center"
       >
@@ -56,7 +62,7 @@
             <th scope="col">名稱</th>
             <th scope="col">權限</th>
             <th scope="col">Email</th>
-            <th scope="col">完成訂單數量</th>
+            <!-- <th scope="col">完成訂單數量</th> -->
             <th scope="col">操作</th>
           </tr>
         </thead>
@@ -65,12 +71,12 @@
             v-for="(user, index) in paginatedUsers" :key="index">
             <th scope="row">{{ user.id }}</th>
             <td>{{ user.username }}</td>
-            <td>{{ user.admin === "admin" ? "admin" : "normal" }}</td>
+            <td>{{ user.admin == "1" ? "管理員" : "會員" }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.permission }}</td>
+            <!-- <td>{{ user }}</td> -->
             <td>
               <button type="button" style="" class="btn btn-outline-primary me-2 p-1 my-0" 
-                @click="openModal(user.id)">
+                @click="openModal(user.id, user.admin)">
                 查看
               </button>
             </td>
@@ -82,7 +88,7 @@
           v-for="pageNumber in totalPages"
           :key="pageNumber"
           @click="handlePageClick(pageNumber)"
-          :class="{ active: pageNumber === currentPage }"
+          :class="['btn', 'btn-warning' ,{ active: pageNumber === currentPage }]"
         >
           {{ pageNumber }}
         </button>
@@ -150,7 +156,9 @@
             <!-- <h2>使用者行為</h2> -->
           </p>
           <div class="button-group">
-            <button type="button" class="btn btn-save" @click="closeAndSaveModal">儲存並關閉</button>
+            <button type="button" class="btn btn-save" @click="closeAndSaveModal">
+              {{ isButtonDisabled === true?"儲存並關閉":"關閉" }}
+            </button>
             <button type="button" :disabled="isButtonDisabled" class="btn btn-edit" 
               @click="toggleEdit">編輯</button>
           </div>
@@ -166,6 +174,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import Spinner from '@/views/Backstage/layouts/components/spinner.vue';
+import router from "@/router";
 
 let users = [];
 let currentPage = ref(1);
@@ -174,13 +183,14 @@ let pageSize = 10;
 let totalPages = 0;
 let isEdit = ref(false);
 let isButtonDisabled = ref(false);
-const normalButton = ref(null);
-const adminButton = ref(null);
 const chooseButton = ref('');
 const visible = ref(false);
 const progress = ref(0);
 const choosedMember = ref({});
 const showModal = ref(false);
+const searchByWhich = ref('全部會員')
+let startIndex;
+let endIndex;
 
 onMounted(()=>{
   searchAll();
@@ -198,12 +208,13 @@ const setTotalPages = () => {
 };
 
 const setPaginatedUsers = () => {
-  const startIndex = (currentPage.value - 1) * pageSize;
-  const endIndex = currentPage.value * pageSize;
+  startIndex = (currentPage.value - 1) * pageSize;
+  endIndex = currentPage.value * pageSize;
   paginatedUsers.value = users.slice(startIndex, endIndex);
 };
 
 const searchAll = () => {
+  searchByWhich.value = "全部會員";
   users = [];
   axios
     .get("http://localhost:8080/memberManage")
@@ -224,6 +235,7 @@ const searchAll = () => {
 };
 
 const searchAdmin = (isAdmin) => {
+  searchByWhich.value = (isAdmin ==true?"管理員":"會員");
   users = [];
   axios
     .get(`http://localhost:8080/memberManage/permission/${isAdmin}`)
@@ -254,12 +266,13 @@ const updateMember = async (id, name, email, phone, isAdmin) => {
 };
 
 const searchById = (id) => {
-  users = [];
+  // users = [];
   axios
     .get(`http://localhost:8080/memberManage/${id}`)
     .then((response) => {
       console.log(response.data);
       choosedMember.value = response.data;
+      chooseButton.value = (response.data.admin === false?"normal":"admin");
       console.log(choosedMember.value)
     });
 };
@@ -271,9 +284,10 @@ const initialModal = () => {
   isButtonDisabled.value = false;
 }
 
-const openModal = (memberId) => {
+const openModal = (memberId, isAdmin) => {
   searchById(memberId);
   showModal.value = true;
+  chooseButton.value = (isAdmin === false?"normal":"admin");
 };
 
 const closeModal = () => {
@@ -284,8 +298,8 @@ const closeModal = () => {
 const closeAndSaveModal = async () => {
   showModal.value = false;
   choosedMember.value.admin = 
-    (adminButton.value.style.backgroundColor =='chocolate') ? true  :
-    ((normalButton.value.style.backgroundColor =='chocolate') ? false : null );
+    (chooseButton.value === 'admin') ? true  : false;
+  console.log(choosedMember.value.admin);
   // 抓編輯後資料
   if (isEdit.value === true) {
     await updateMember(choosedMember.value.id, choosedMember.value.username,
@@ -293,7 +307,19 @@ const closeAndSaveModal = async () => {
                         choosedMember.value.admin);
   }
   initialModal();
-  searchAll();
+  // 重新搜尋
+  console.log(searchByWhich.value)
+  switch (searchByWhich.value) {
+    case "全部會員":
+      searchAll();
+      break;
+    case "管理員":
+      searchAdmin(true);
+      break;
+    case "會員":
+      searchAdmin(false);
+      break;
+  }
 };
 
 const toggleEdit = () => {
@@ -303,8 +329,6 @@ const toggleEdit = () => {
 
 const choosePermission = (whichButton) => {
   chooseButton.value = whichButton;
-  adminButton.value.style.backgroundColor = 'bisque';
-  normalButton.value.style.backgroundColor = 'bisque';
   if(chooseButton.value === 'admin'){
     adminButton.value.style.backgroundColor ='chocolate';
   }else if(chooseButton.value === 'normal'){
@@ -322,7 +346,7 @@ const showAlert = () => {
     // console.log(progress.value)
     width += 4;
     progress.value = width;
-    if (progress.value >= 450) {
+    if (progress.value >= 100) {
       clearInterval(interval);
       visible.value = false;
     }

@@ -10,16 +10,54 @@
 </template>
 
 <script setup>
+import "@/views/Backstage/assets/css/backStyle.css";
 import FHeader from "./components/FHeader.vue";
 import FMenu from "./components/FMenu.vue";
-import "@/styles/backStyle.css";
-// import "@/utils/backStageUtils.js";
-// import "@/utils/lib/chart/chart.min.js";
-// import "@/utils/lib/easing/easing.min.js";
-// import "@/utils/lib/waypoints/waypoints.min.js";
-// import "@/utils/lib/owlcarousel/owl.carousel.min.js";
-// import "@/utils/lib/tempusdominus/js/moment.min.js";
-// import "@/utils/lib/tempusdominus/js/moment-timezone.min.js";
+import { ref, provide, onMounted } from "vue";
+import axios from "axios";
+import router from '@/router';
+
+const permission = ref(null);
+const name = ref(null);
+const phone = ref(null);
+const email = ref(null);
+const id = ref(null);
+
+onMounted(() => {
+  axios
+    .post("http://localhost:8080/authorize", null, {
+      withCredentials: true,
+    })
+    .then((response) => {
+      permission.value = response.data;
+      console.log(permission.value)
+      if(permission.value !== "admin"){
+        router.push("/");
+      }
+    })
+    .catch((error) => {
+      console.error("Error during authorization:", error);
+    });
+  axios
+    .post("http://localhost:8080/member/requestMemberInfo", null, {
+      withCredentials: true,
+    })
+    .then((response) => {
+      name.value = response.data.username;
+      phone.value = response.data.phone;
+      email.value = response.data.email;
+      id.value = response.data.id;
+    })
+    .catch((error) => {
+      console.error("Error during authorization:", error);
+    });
+});
+
+provide("permission", permission);
+provide("name", name);
+provide("phone", phone);
+provide("email", email);
+provide("id", id);
 </script>
 
 <style>

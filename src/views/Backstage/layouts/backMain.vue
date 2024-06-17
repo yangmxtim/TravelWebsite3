@@ -7,41 +7,38 @@
       <div class="d-flex align-items-center flex-wrap text-nowrap ms-auto">
         <button
           type="button"
-          class="btn btn-outline-primary btn-icon-text me-2 mb-md-0 bg-light"
-        >
-          <i class="fa fa-print" aria-hidden="true"></i>
-          列印
-        </button>
-        <button
-          type="button"
           class="btn btn-outline-primary btn-icon-text mb-md-0 bg-light"
+          style="border: 0px"
+          @click="exportChartAsPDF"
         >
           <i class="fa fa-download" aria-hidden="true"></i>
-          下載報表
+          下載PDF圖表
         </button>
       </div>
     </div>
     <!-- 輸出輸入按鈕end -->
 
-    <main class="page-content">
+    <main class="page-content"   ref="chartDiv">
       <div class="row">
         <!-- card1 -->
         <div class="col-12 col-lg-3 d-flex">
           <div class="card radius-10 w-100 mb-4">
             <div class="card-body">
-              <p>每月網站流量趨勢分析</p>
-              <h2 class="text-center fw-light">5,635</h2>
+              <p>本月網站流量</p>
+              <h2 class="text-center fw-light">
+                {{ chart1CalcSum }}
+              </h2>
               <div id="chart1" class="chart"></div>
             </div>
             <div class="card-footer bg-transparent border-top">
               <div class="d-flex align-items-center justify-content-between">
                 <div class="text-center">
                   <p class="font-13 mb-0">與上個月相較</p>
-                  <p class="mb-0">87.6%</p>
+                  <p class="mb-0">{{ chart1VsLastMonth() }}</p>
                 </div>
                 <div class="text-center">
                   <p class="font-13 mb-0">與去年同月相較</p>
-                  <p class="mb-0">54.8%</p>
+                  <p class="mb-0">{{ chart1VsLastYear() }}</p>
                 </div>
               </div>
             </div>
@@ -63,19 +60,19 @@
           <!-- card3 -->
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>來訪停留時間分析</p>
-              <h2 class="text-center fw-light">5.03</h2>
+              <p>訪問頁面平均</p>
+              <h2 class="text-center fw-light">{{ chart3GetThisMonthPage }}</h2>
               <div id="chart3"></div>
             </div>
             <div class="card-footer bg-transparent border-top">
               <div class="d-flex align-items-center justify-content-between">
                 <div class="text-center">
                   <p class="font-13 mb-0">與上個月相較</p>
-                  <p class="mb-0">-1.6%</p>
+                  <p class="mb-0">{{ chart3VsLastMonth }}</p>
                 </div>
                 <div class="text-center">
                   <p class="font-13 mb-0">與去年同月相較</p>
-                  <p class="mb-0">24.8%</p>
+                  <p class="mb-0">{{ chart3VsLastYear }}</p>
                 </div>
               </div>
             </div>
@@ -85,8 +82,8 @@
         <div class="col-12 col-lg-3 d-flex">
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>用戶分析</p>
-              <h2 class="text-center fw-light">1,120</h2>
+              <p>平均停留分鐘數</p>
+              <h2 class="text-center fw-light">{{ chart4GetThisMonthTime }}</h2>
               <div id="chart4"></div>
             </div>
           </div>
@@ -99,45 +96,32 @@
               <div
                 class="d-lg-flex align-items-center justify-content-center gap-4"
               >
-                <div id="chart5"></div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <i class="bi bi-circle-fill text-danger me-1"></i
-                    >會員點擊次數 :<span class="me-1">546</span>
-                  </li>
-                  <li class="list-group-item">
-                    <i class="bi bi-circle-fill text-purple me-1"></i
-                    >非會員點擊次數 :<span class="me-1">985</span>
-                  </li>
-                  <li class="list-group-item list-group-item-secondary">
-                    總共:1,254
-                  </li>
-                </ul>
+                <div id="chart5" class="w-100 mt-4"></div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="text-center">
+                  <p class="font-13 mb-0">交通月點擊量</p>
+                  <p class="mb-0">{{ chart5Traffic }}</p>
+                </div>
+                <div class="text-center">
+                  <p class="font-13 mb-0">旅遊月點擊量</p>
+                  <p class="mb-0">{{ chart5Hotel }}</p>
+                </div>
+                <div class="text-center">
+                  <p class="font-13 mb-0">樂園門票月點擊量</p>
+                  <p class="mb-0">{{ chart5TouristSpot }}</p>
+                </div>
+                <!-- <div class="text-center">
+                  <p class="font-13 mb-0">總點擊量</p>
+                  <p class="mb-0">{{ chart3VsLastMonth }}</p>
+                </div> -->
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!--end row-->
-      <!-- <div class="row mb-4">
-        <div class="col-12 col-xl-6 d-flex">
-          <div class="card radius-10 w-100">
-            <div class="card-body">
-              <p>AGE GROUP</p>
-              <div id="chart6"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-xl-6 d-flex">
-          <div class="card radius-10 w-100">
-            <div class="card-body">
-              <p>CONVERSION RATE</p>
-              <div id="chart7"></div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!--end row-->
       <div class="row">
         <div class="col-12 col-xl-4 d-flex mb-4">
           <!-- card6 -->
@@ -200,9 +184,8 @@
               <p>用戶使用裝置分析</p>
               <div class="mt-5" id="chart8"></div>
             </div>
-              
           </div>
-          </div>
+        </div>
         <div id="chart" class="w-100 mt-2"></div>
       </div>
       <!--end row-->
@@ -212,28 +195,107 @@
   <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
     ><i class="fa-solid fa-arrow-up"></i>
   </a>
+  <Spinner></Spinner>
 </template>
 
 <script setup>
+import Spinner from '@/views/Backstage/layouts/components/spinner.vue';
+import { onBeforeMount, ref } from "vue";
+import axios from "axios";
+import html2canvas from "html2canvas";
+
+onBeforeMount(() => {
+  fetchChart1Data();
+  fetchChart3Data();
+  fetchChart4Data();
+  fetchChart5Data();
+  fetchChart7Data();
+  fetchChart8Data();
+});
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.load("current", { packages: ["bar"] });
-google.charts.setOnLoadCallback(drawChart1);
-google.charts.setOnLoadCallback(drawChart2);
-google.charts.setOnLoadCallback(drawChart3);
-google.charts.setOnLoadCallback(drawChart4);
-google.charts.setOnLoadCallback(drawChart5);
-google.charts.setOnLoadCallback(drawChart7);
-google.charts.setOnLoadCallback(drawChart8);
 
-// chart1
+google.charts.setOnLoadCallback(drawChart2);
+
+const chart1Data = ref([]);
+const chart3Data = ref([["Month", "Pages"]]);
+const chart4Data = ref([["Month", "minute"]]);
+const chart5Data = ref([["section", "click"]]);
+const chart7Data = ref([["language", "count", { role: "style" }]]);
+const chart8Data = ref([["裝置", "統計"]]);
+
+const today = new Date();
+const thisMonth = today.getMonth() + 1;
+const yearThisMonth =
+  today.getFullYear() + "" + (thisMonth < 10 ? "0" + thisMonth : thisMonth); // 這個月YYYYMM
+const yearBeforeMonth =
+  today.getFullYear() +
+  "" +
+  (thisMonth - 1 < 10 ? "0" + (thisMonth - 1) : thisMonth - 1); // 上個月YYYYMM
+const beforeYearSameMonth =
+  today.getFullYear() - 1 + "" + (thisMonth < 10 ? "0" + thisMonth : thisMonth); // 去年這個月YYYYMM
+const chart1CalcSum = ref("");
+const chart3GetThisMonthPage = ref("");
+const chart3VsLastMonth = ref("資料不足");
+const chart3VsLastYear = ref("資料不足");
+const chart4GetThisMonthTime = ref("");
+console.log(yearBeforeMonth);
+console.log(beforeYearSameMonth);
+
+const chartDiv = ref(null);
+
+// ==========================chart1 start=====================================
+const fetchChart1Data = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/getChart1Data`);
+    // console.log(response.data);
+    const IntegerArray = response.data.map((row) =>
+      row.map((str) => parseInt(str, 10))
+    );
+    chart1Data.value = IntegerArray;
+    chart1Data.value.unshift(["Month", "流量"]);
+    chart1CalcSum.value = chart1Data.value[chart1Data.value.length - 1][1];
+    // console.log(chart1Data.value);
+    // console.log(chart1CalcSum.value);
+    google.charts.setOnLoadCallback(drawChart1);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+  }
+};
+
+const chart1VsLastMonth = () => {
+  if (chart1Data[chart1Data.length - 1]) {
+    return (
+      Math.round(
+        (100 *
+          (chart1Data[chart1Data.length - 1][1] -
+            chart1Data[chart1Data.length - 1 - 1][1])) /
+          chart1Data[chart1Data.length - 1 - 1][1]
+      ) + "%"
+    );
+  } else {
+    return "資料不足";
+  }
+};
+
+const chart1VsLastYear = () => {
+  if (chart1Data[chart1Data.length - 1 - 12]) {
+    return (
+      Math.round(
+        (100 *
+          (chart1Data[chart1Data.length - 1][1] -
+            chart1Data[chart1Data.length - 1 - 12][1])) /
+          chart1Data[chart1Data.length - 1 - 12][1]
+      ) + "%"
+    );
+  } else {
+    return "資料不足";
+  }
+};
+
 function drawChart1() {
-  const data = google.visualization.arrayToDataTable([
-    ["Year", "流量"],
-    ["2004", 1000],
-    ["2005", 1170],
-    ["2006", 660],
-    ["2007", 1030],
-  ]);
+  const data = google.visualization.arrayToDataTable(chart1Data.value);
 
   const options = {
     title: "流量圖",
@@ -253,7 +315,34 @@ function drawChart1() {
   resizeChart();
 }
 
-// chart2
+const exportChartAsPDF = async () => {
+  const canvas = await html2canvas(chartDiv.value, { scale: 2 });
+  const imgData = canvas.toDataURL("image/png");
+
+  console.log("start request to pdf");
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/exportChartAsPDF",
+      {
+        imgData: imgData,
+      },
+      {
+        responseType: "blob", // 確保獲取二進制數據
+      }
+    );
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "chart.pdf");
+    document.body.appendChild(link);
+    link.click();
+  } catch (error) {
+    console.error("Error exporting chart:", error);
+  }
+};
+// ==========================chart1 end=====================================
+
 function drawChart2() {
   const data = google.visualization.arrayToDataTable([
     ["月", "銷售額"],
@@ -286,19 +375,56 @@ function drawChart2() {
   chart.draw(data, google.charts.Bar.convertOptions(options));
 }
 
-// chart3
+// ==========================chart3 start=====================================
+const chart3GetBeforeMonthPage = null;
+const chart3GetSameMonthPage = null;
+
+const fetchChart3Data = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/getChart3Data`);
+    for (let data of response.data) {
+      let temp = [];
+      temp.push(data.month);
+      temp.push(parseFloat(data.data1));
+      chart3Data.value.push(temp);
+      if (data.month == yearThisMonth) {
+        chart3GetThisMonthPage.value = parseFloat(data.data1);
+        chart3GetThisMonthPage.value = parseFloat(
+          chart3GetThisMonthPage.value.toFixed(2)
+        );
+      }
+      if (data.month == yearBeforeMonth) {
+        chart3GetBeforeMonthPage.value = data.data1;
+        chart3VsLastMonth.value =
+          100 *
+            ((chart3GetThisMonthPage.value - chart3GetBeforeMonthPage.value) /
+              chart3GetBeforeMonthPage.value) +
+          "%";
+      }
+      if (data.month == beforeYearSameMonth) {
+        chart3GetSameMonthPage.value = data.data1;
+        chart3VsLastYear.value =
+          100 *
+            ((chart3GetThisMonthPage.value - chart3GetSameMonthPage.value) /
+              chart3GetSameMonthPage.value) +
+          "%";
+      }
+    }
+    // console.log(chart3Data.value);
+    // console.log(chart3GetThisMonthPage.value);
+    google.charts.setOnLoadCallback(drawChart3);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+  }
+};
+
 function drawChart3() {
-  var data = google.visualization.arrayToDataTable([
-    ["Year", "Sales", "Expenses"],
-    ["2013", 1000, 400],
-    ["2014", 1170, 460],
-    ["2015", 660, 1120],
-    ["2016", 1030, 540],
-  ]);
+  var data = google.visualization.arrayToDataTable(chart3Data.value);
 
   var options = {
-    title: "各分類評分平均與分析",
-    hAxis: { title: "Year", titleTextStyle: { color: "#333" } },
+    title: "每月訪問平均頁面數",
+    hAxis: { title: "Month", titleTextStyle: { color: "#333" } },
     vAxis: { minValue: 0 },
   };
 
@@ -307,19 +433,39 @@ function drawChart3() {
   );
   chart.draw(data, options);
 }
+// ==========================chart3 end=====================================
 
-// chart4
+// ==========================chart4 start=====================================
+const fetchChart4Data = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/getChart4Data`);
+    // console.log(response.data);
+    for (let data of response.data) {
+      let temp = [];
+      if (data.month == yearThisMonth) {
+        chart4GetThisMonthTime.value = parseFloat(data.data1);
+        chart4GetThisMonthTime.value = parseFloat(
+          chart4GetThisMonthTime.value.toFixed(2)
+        );
+      }
+      // console.log(chart4GetThisMonthTime.value)
+      temp.push(data.month);
+      temp.push(parseFloat(data.data1));
+      // console.log(temp);
+      chart4Data.value.push(temp);
+    }
+    // console.log(chart4Data.value);
+    google.charts.setOnLoadCallback(drawChart4);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+  }
+};
 function drawChart4() {
-  var data = google.visualization.arrayToDataTable([
-    ["Month", "用戶", "非用戶"],
-    ["6", 1000, 400],
-    ["7", 1170, 460],
-    ["8", 660, 1120],
-    ["9", 1030, 540],
-  ]);
+  var data = google.visualization.arrayToDataTable(chart4Data.value);
 
   var options = {
-    title: "用戶與非用戶來訪次數差異圖",
+    title: "",
     hAxis: { title: "Month", titleTextStyle: { color: "#333" } },
     vAxis: { minValue: 0 },
   };
@@ -329,17 +475,49 @@ function drawChart4() {
   );
   chart.draw(data, options);
 }
+// ==========================chart4 end=====================================
 
-// chart5
+// ==========================chart5 start=====================================
+const chart5Traffic = ref("");
+const chart5Hotel = ref("");
+const chart5TouristSpot = ref("");
+
+const fetchChart5Data = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/getChart5Data`);
+    // console.log(response.data);
+    for (let data of response.data) {
+      let temp = [];
+      // if (data.month == yearThisMonth) {
+      //   chart4GetThisMonthTime.value = data.data1;
+      // }
+      // console.log(chart4GetThisMonthTime.value)
+      temp.push("交通產品");
+      temp.push(parseFloat(data.data1));
+      chart5Data.value.push(temp);
+      temp = [];
+      temp.push("旅遊產品");
+      temp.push(parseFloat(data.data2));
+      chart5Data.value.push(temp);
+      temp = [];
+      temp.push("樂園門票產品");
+      temp.push(parseFloat(data.data3));
+      chart5Data.value.push(temp);
+      temp = [];
+      chart5Traffic.value = data.data1;
+      chart5Hotel.value = data.data2;
+      chart5TouristSpot.value = data.data3;
+    }
+    // console.log(chart5Data.value);
+    google.charts.setOnLoadCallback(drawChart5);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+  }
+};
+
 function drawChart5() {
-  var data = google.visualization.arrayToDataTable([
-    ["區塊", "點擊次數"],
-    ["主頁面", 11],
-    ["交通產品頁面", 2],
-    ["旅遊產品頁面", 2],
-    ["樂園門票產品頁面", 2],
-  ]);
-
+  var data = google.visualization.arrayToDataTable(chart5Data.value);
   var options = {
     title: "熱力圖/月",
     pieHole: 0.4,
@@ -350,50 +528,80 @@ function drawChart5() {
   );
   chart.draw(data, options);
 }
+// ==========================chart5 end=====================================
 
-// chart7
+// ==========================chart7 start=====================================
+let color = ["#b87333", "silver", "color: #e5e4e2", "gold"];
+const fetchChart7Data = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/getChart7Data`);
+    console.log(response.data);
+    let temp;
+    for (let data of response.data) {
+      temp = [];
+      temp.push(data[0]);
+      temp.push(parseInt(data[1]));
+      temp.push(color[Math.floor(Math.random() * 5)]);
+      chart7Data.value.push(temp);
+    }
+    console.log(chart7Data.value);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+    google.charts.setOnLoadCallback(drawChart7);
+  }
+};
+
 function drawChart7() {
-  // Some raw data (not necessarily accurate)
-  var data = google.visualization.arrayToDataTable([
-    [
-      "Month",
-      "Bolivia",
-      "Ecuador",
-      "Madagascar",
-      "Papua New Guinea",
-      "Rwanda",
-      "Average",
-    ],
-    ["2004/05", 165, 938, 522, 998, 450, 614.6],
-    ["2005/06", 135, 1120, 599, 1268, 288, 682],
-    ["2006/07", 157, 1167, 587, 807, 397, 623],
-    ["2007/08", 139, 1110, 615, 968, 215, 609.4],
-    ["2008/09", 136, 691, 629, 1026, 366, 569.6],
-  ]);
+  var data = google.visualization.arrayToDataTable(chart7Data.value);
 
   var options = {
-    title: "Monthly Coffee Production by Country",
-    vAxis: { title: "Cups" },
+    title: "偏好語言長條圖",
+    vAxis: { title: "Language" },
     hAxis: { title: "Month" },
     seriesType: "bars",
     series: { 5: { type: "line" } },
     bars: "horizontal",
   };
 
-  var chart = new google.visualization.ComboChart(
+  var chart = new google.visualization.ColumnChart(
     document.getElementById("chart7")
   );
   chart.draw(data, options);
 }
 
-// chart8
+// ==========================chart7 end=====================================
+
+// ==========================chart8 start=====================================
+const fetchChart8Data = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/getChart8Data`);
+    // console.log(response.data[0]);
+    let arr = response.data[0].split(",");
+    let temp;
+    temp = [];
+    temp.push("桌上裝置");
+    temp.push(parseFloat(arr[1]));
+    chart8Data.value.push(temp);
+    temp = [];
+    temp.push("行動裝置");
+    temp.push(parseFloat(arr[3]));
+    chart8Data.value.push(temp);
+    // console.log(temp);
+    temp = [];
+    temp.push("其他");
+    temp.push(parseFloat(arr[5]));
+    chart8Data.value.push(temp);
+    // console.log(chart8Data.value);
+    google.charts.setOnLoadCallback(drawChart8);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+  }
+};
+
 function drawChart8() {
-  var data = google.visualization.arrayToDataTable([
-    ["裝置", "來訪次數"],
-    ["桌面電腦", 11],
-    ["平板電腦", 2],
-    ["手機", 2],
-  ]);
+  var data = google.visualization.arrayToDataTable(chart8Data.value);
 
   var options = {
     title: "裝置分布圖",
@@ -405,31 +613,42 @@ function drawChart8() {
   );
   chart.draw(data, options);
 }
+// ==========================chart8 end=====================================
 
-google.charts.load("current", {
-  packages: ["geochart"],
-});
-google.charts.setOnLoadCallback(drawRegionsMap);
+// geochart
+// google.charts.load('current', {
+//     'packages': ['map'],
+//     // Note: you will need to get a mapsApiKey for your project.
+//     // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+//     'mapsApiKey': 'AIzaSyDETBnvF7lLVqzwOk_L2XXQ02DIkvJdrJ4'
 
-function drawRegionsMap() {
-  var data = google.visualization.arrayToDataTable([
-    ["Country", "Popularity"],
-    ["Germany", 200],
-    ["United States", 300],
-    ["Brazil", 400],
-    ["Canada", 500],
-    ["France", 600],
-    ["RU", 700],
-  ]);
+//     });
+//     google.charts.setOnLoadCallback(drawMap);
 
-  var options = {};
+//     function drawMap() {
+//       var data = google.visualization.arrayToDataTable([
+//         ['Country', 'Population'],
+//         ['China', 'China: 1,363,800,000'],
+//         ['India', 'India: 1,242,620,000'],
+//         ['US', 'US: 317,842,000'],
+//         ['Indonesia', 'Indonesia: 247,424,598'],
+//         ['Brazil', 'Brazil: 201,032,714'],
+//         ['Pakistan', 'Pakistan: 186,134,000'],
+//         ['Nigeria', 'Nigeria: 173,615,000'],
+//         ['Bangladesh', 'Bangladesh: 152,518,015'],
+//         ['Russia', 'Russia: 146,019,512'],
+//         ['Japan', 'Japan: 127,120,000']
+//       ]);
 
-  var chart = new google.visualization.GeoChart(
-    document.getElementById("chart")
-  );
+//     var options = {
+//       showTooltip: true,
+//       showInfoWindow: true
+//     };
 
-  chart.draw(data, options);
-}
+//     var map = new google.visualization.Map(document.getElementById('chart'));
+
+//     map.draw(data, options);
+//   };
 </script>
 
 <style scoped>

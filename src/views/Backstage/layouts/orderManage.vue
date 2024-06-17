@@ -56,7 +56,7 @@
               <tbody>
                 <tr v-for="(order, index) in ordersOfPage" :key="index">
                   <td>{{ order.orderId }}</td>
-                  <td>{{ order.member.username }}</td>
+                  <!-- <td>{{ order.member.username }}</td> -->
                   <td>{{ order.totalAmount }}</td>
                   <td>
                     <span class="badge rounded-pill bg-success">Received</span>
@@ -227,7 +227,9 @@ const changeRowPerPage = () => {
 };
 
 const searchAll = () => {
-  axios.get("http://localhost:8080/orderManage").then((response) => {
+  // axios.get("http://localhost:8080/orderManage").then((response) => {
+  axios.get("http://localhost:8080/example").then((response) => {
+    console.log(response)
     orders.value = response.data;
     pagination();
   });
