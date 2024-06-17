@@ -1,4 +1,8 @@
+<script setup>
+import Top from '../Top.vue'
+</script>
 <template>
+    <top></top>
     <div class="wave-container">
     <div class="wave wave1"></div>
     <div class="wave wave2"></div>
