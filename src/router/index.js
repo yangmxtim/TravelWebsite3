@@ -167,4 +167,40 @@ const router = createRouter({
   ]
 })
 
+// ======================路由守衛收集使用者路徑 start=============================
+router.beforeEach((to, from, next) => {
+  if(to.fullPath.includes("category") || to.fullPath=="/" )
+  trackPageView(to.fullPath);
+  next();
+});
+
+function trackPageView (destination) {
+  const today = new Date();
+  const month = today.getFullYear() 
+    + ((today.getMonth() + 1) < 10 ? '0' 
+    + (today.getMonth() + 1) : (today.getMonth() + 1));
+  
+  // console.log(date);
+  // console.log(destination);
+  // console.log("tracking start");
+  fetch("http://localhost:8080/track-page-view", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ sessionId: getSessionId(), category: destination, month: month}),
+  });
+};
+
+function getSessionId() {
+  let sessionId = sessionStorage.getItem("sessionId");
+  if (!sessionId) {
+    sessionId = Date.now();
+    sessionStorage.setItem("sessionId", sessionId);
+  }
+  return sessionId;
+}
+// ======================路由守衛收集使用者路徑 end=============================
+
+
 export default router
