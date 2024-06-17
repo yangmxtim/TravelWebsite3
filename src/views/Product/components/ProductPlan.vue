@@ -30,7 +30,7 @@
                 <div class="card card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <VueDatePicker v-model="date[index]" inline auto-apply :enable-time-picker="false" :min-date="minDate" :max-date="maxDate"/>
+                            <VueDatePicker v-model="date[index]" inline auto-apply :enable-time-picker="false" :min-date="minDate" :max-date="maxDateString"/>
                         </div>
                         <div class="col-md-9">
                             <p>選擇數量</p><br>
@@ -67,6 +67,7 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
+import { ElMessage } from 'element-plus';
 
 const date = ref([]);
 const props = defineProps({
@@ -109,6 +110,10 @@ const addToCart = (product, quantity, selectedDate) => {
         selectedDate: formattedDate,
     };
     cartStore.addToCart(goods);
+    ElMessage({
+        message: '已加入購物車',
+        type: 'success',
+    });
 };
 
 const formatDate = (date) => {

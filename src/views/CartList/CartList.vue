@@ -1,7 +1,6 @@
 <script>
 import { useCartStore } from '@/stores/cartStore'; // 導入購物車 store
 
-
 export default {
   setup() {
     const cartStore = useCartStore();
@@ -14,13 +13,18 @@ export default {
 
     // 單選回調
     const singleCheck = (i, selected) => {
-      console.log(selected)
+      console.log(selected);
       // store cartList 
       // 除了 selected 補充一個用來篩選的參數 skuId
-      cartStore.singleCheck(i.skuId, selected)
-    }
+      cartStore.singleCheck(i.skuId, selected);
+    };
 
-    return { cartList, removeFromCart, singleCheck };
+    // 確保數量不能小於1
+    const countChange = (item, value) => {
+      item.count = value <= 0 ? 1 : value;
+    };
+
+    return { cartList, removeFromCart, singleCheck, countChange };
   }
 }
 </script>
@@ -32,9 +36,7 @@ export default {
         <table>
           <thead>
             <tr>
-              <th width="120">
-               
-              </th>
+              <th width="120"></th>
               <th width="400">購買商品</th>
               <th width="220">單價</th>
               <th width="180">數量</th>
@@ -46,7 +48,7 @@ export default {
           <tbody>
             <tr v-for="i in cartList" :key="i.id">
               <td>
-                  <!-- 單選框 -->
+                <!-- 單選框 -->
                 <el-checkbox :model-value="i.selected" @change="(selected) => singleCheck(i, selected)" />
               </td>
               <td>
@@ -60,11 +62,11 @@ export default {
                   </div>
                 </div>
               </td>
-              <td class="tc" >
+              <td class="tc">
                 <p>${{ i.price }}</p>
               </td>
               <td class="tc">
-                <el-input-number v-model="i.count" />
+                <el-input-number v-model="i.count" @change="(value) => countChange(i, value)" />
               </td>
               <td class="tc">
                 <p class="f16 red">${{ (i.price * i.count).toFixed(0) }}</p>
@@ -73,8 +75,8 @@ export default {
                 <p>
                   <el-popconfirm title="確定刪除嗎?" confirm-button-text="確定" cancel-button-text="取消" @confirm="removeFromCart(i.skuId)">
                     <template #reference>
-                        <a href="javascript:;">删除</a>
-                  </template>
+                      <a href="javascript:;">删除</a>
+                    </template>
                   </el-popconfirm>
                 </p>
               </td>
@@ -89,7 +91,6 @@ export default {
               </td>
             </tr>
           </tbody>
-
         </table>
       </div>
       <!-- 操作欄 -->
@@ -112,7 +113,7 @@ export default {
 
   .cart {
     margin: 0 auto;
-    width: 80%; /* 設置購物車料表的寬度 */
+    width: 80%; /* 設置購物車列表的寬度 */
 
     table {
       border-spacing: 0;
@@ -151,19 +152,18 @@ export default {
   }
 
   .tc {
-  text-align: start;
+    text-align: start;
 
-  a {
-    color: #e94242;
-    text-decoration: none; /* 新增這行以移除超連結的底線 */
+    a {
+      color: #e94242;
+      text-decoration: none; /* 新增這行以移除超連結的底線 */
+    }
+
+    .xtx-numbox {
+      margin: 0 auto;
+      width: 120px;
+    }
   }
-
-  .xtx-numbox {
-    margin: 0 auto;
-    width: 120px;
-  }
-}
-
 
   .red {
     color: #e94242;
@@ -186,7 +186,7 @@ export default {
       height: 100px;
     }
 
-    >div {
+    > div {
       width: 280px;
       font-size: 16px;
       padding-left: 10px;
@@ -231,6 +231,5 @@ export default {
     font-weight: normal;
     line-height: 50px;
   }
-
 }
 </style>
