@@ -16,7 +16,8 @@
                     </div>
                     <div class="row d-grid gap-2 mx-auto">
                         <div class="col-12 d-grid d-lg-flex justify-content-lg-end">
-                            <el-button size="large" type="button" data-bs-toggle="collapse" :data-bs-target="'#more' + index" aria-expanded="false" :aria-controls="'more' + index">
+                            <!-- 使用 type="default" 並添加自定義類 -->
+                            <el-button size="large" type="default" class="custom-button" data-bs-toggle="collapse" :data-bs-target="'#more' + index" aria-expanded="false" :aria-controls="'more' + index">
                                 選擇方案
                             </el-button>
                         </div>
@@ -52,7 +53,7 @@
                             <div class="row py-2">
                                 <div class="col-7"></div>
                                 <div class="col-5 d-grid d-lg-flex justify-content-lg-end">
-                                    <el-button size="large" type="button" @click="addToCart(detail, count[index], date[index])">加入購物車</el-button>
+                                    <el-button size="large" type="default" class="custom-button" @click="addToCart(detail, count[index], date[index])">加入購物車</el-button>
                                 </div>
                             </div>
                         </div>
@@ -127,6 +128,13 @@ const formatDate = (date) => {
 /* 圖片圓角 */
 img {
     border-radius: 10px;
+}
+
+/* 自定義按鈕樣式 */
+.custom-button {
+    border: 2px solid rgb(118, 116, 116); /* 黑色邊框 */
+    color: rgb(99, 96, 96); /* 黑色文字 */
+    background-color: white; /* 白色背景 */
 }
 
 /* 計數器 */
