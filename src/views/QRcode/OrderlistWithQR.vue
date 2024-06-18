@@ -2,7 +2,7 @@
     <div class="qrcode">
         <div class="qr-title container" v-for="orderList in orderLists" :key="orderList.order_item_id">
             <div class="col-4">
-                <img src="https://taipei.fun-taiwan.com/Images/HousePhotos/433874.jpg" 
+                <img :src="orderList.img"
                     @click="ImgQrdisplay"
                     v-show="!showQRCode"
                     class="product_img"
@@ -17,7 +17,7 @@
                 <div class="order-title">{{ orderList.name2 }} - {{ orderList.name }}</div>
                 <div>價格 : {{ orderList.price }}</div>
                 <div>下訂日期 : {{ orderList.order_date }}</div>
-                <div>使用狀態 : {{ orderList.status }}</div>
+                <div>使用狀態 : {{ orderList.status  }}</div>
                 http://localhost:8080/api/check/{{ orderList.order_item_id }}
             </div>
         </div>
