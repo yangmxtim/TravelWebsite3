@@ -5,8 +5,10 @@
         <!-- 會員資訊 -->
         <h3 class="box-title">會員資訊</h3>
         <div class="box-body">
-          <div class="address">
-            <!-- 這裡添加會員資訊的相關代碼 -->
+          <div class="ps-4 ">
+            <p>姓名：{{ name }}</p>
+            <p>電話：{{ phone }}</p>
+            <p>信箱：{{ email }}</p>
           </div>
         </div>
         <!-- 商品信息 -->
@@ -84,6 +86,13 @@
 import { useCartStore } from '@/stores/cartStore'; // 引入購物車 store
 import { ref, inject } from 'vue';
 import axios from 'axios';
+
+
+//會員：
+const email = inject("email");
+const phone = inject("phone");
+const name = inject("name");
+
 
 const cartStore = useCartStore(); // 使用購物車 store
 const selectedProducts = ref([]);
