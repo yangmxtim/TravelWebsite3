@@ -49,15 +49,15 @@ const props = defineProps({
 </script>
 
 <style scoped>
-/* 图片圆角 */
+/* 圖片圓角 */
 img {
     border-radius: 10px;
     width: 100%;
     height: 650px;
-    object-fit: cover; /* 确保图片不会被压缩 */
+    object-fit: cover; /* 確保圖片不壓縮 */
 }
 
-/* 爱心 */
+/* 愛心 */
 .ui-bookmark {
     --icon-size: 24px;
     --icon-secondary-color: rgb(162, 162, 162);

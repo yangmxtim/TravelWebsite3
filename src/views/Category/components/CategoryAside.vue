@@ -6,7 +6,7 @@ const emit = defineEmits(['city-change']);
 const activeCity = ref('');
 
 const handleCityChange = (city) => {
-    activeCity.value = activeCity.value === city ? '' : city; // 切换选中状态
+    activeCity.value = activeCity.value === city ? '' : city; // 切換狀態
     emit('city-change', city, activeCity.value === city);
 };
 </script>

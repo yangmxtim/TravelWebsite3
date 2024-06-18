@@ -26,7 +26,7 @@
 <style scoped>
 .img-container {
     width: 100%;
-    height: 230px; /* 你可以根据需求调整高度 */
+    height: 230px; /* 你可以根據需求調整高度 */
     overflow: hidden;
     border-radius: 10px;
 }

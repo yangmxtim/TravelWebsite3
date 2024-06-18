@@ -19,12 +19,14 @@
       </div>
     </div>
     <p v-else class="mt-3">没有評論</p>
+    <div v-if="uid">
+      <button type="button" class="btn btn-primary" @click="showModal = true">
+        我要評論
+      </button>
+    </div>
+ 
 
-    <button type="button" class="btn btn-primary" @click="showModal = true">
-      我要評論
-    </button>
-
-    <!-- 留言模态框 -->
+    <!-- 留言框-->
     <div v-if="showModal" class="modal fade show" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
         <div class="modal-content">
@@ -71,7 +73,8 @@
 
 <script>
 import axios from 'axios';
-import { defineProps, ref, reactive } from 'vue';
+import { defineProps, ref, reactive , inject} from 'vue';
+const uid = inject("id");
 
 export default {
   props: {
@@ -91,6 +94,12 @@ export default {
       }
     };
   },
+  setup() {
+    const uid = inject('id');
+    return {
+      uid
+    };
+  },
   methods: {
     submitForm() {
   const currentDate = new Date().toISOString().split('T')[0];
@@ -103,7 +112,7 @@ export default {
 
   axios.post(`http://localhost:8080/comment?product_id=${this.product.product_id}`, formData)
     .then(response => {
-      // 更新评论列表
+      // 更新評論列表
       this.product.comment.push({
         name: formData.name,
         rate: formData.rate,

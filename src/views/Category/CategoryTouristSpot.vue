@@ -28,7 +28,7 @@ onMounted(() => {
     loadProducts();
 });
 
-// 监听 selectedTag 和 selectedCity 的变化，更新 filteredProducts
+// 監聽 selectedTag 和 selectedCity 的變化，更新 filteredProducts
 watch([selectedTag, selectedCity], ([newTag, newCity]) => {
     console.log(`Watch - Selected Tag: ${newTag}, Selected City: ${newCity}`);
     if (newTag && newCity) {
@@ -43,7 +43,7 @@ watch([selectedTag, selectedCity], ([newTag, newCity]) => {
     console.log(`Filtered Products: ${JSON.stringify(filteredProducts.value)}`);
 });
 
-// 处理城市选择变化的方法
+// 處理城市變化的方法
 const handleCityChange = (city, checked) => {
     console.log(`Main Component - City: ${city}, Checked: ${checked}`);
     selectedCity.value = checked ? city : null;
@@ -55,13 +55,12 @@ const handleCityChange = (city, checked) => {
     <div class="container">
         <div class="row">
             <div class="col-md-3" data-aos="fade-up">
-                <CategoryAside @city-change="handleCityChange"></CategoryAside> <!-- 确保正确绑定 city-change 事件 -->
+                <CategoryAside @city-change="handleCityChange"></CategoryAside> <!-- 確保正確綁定 city-change 事件 -->
             </div>
             <div class="col-md-9">
                 <TouristSpotNav @filter="selectedTag = $event"></TouristSpotNav>
                 <div v-if="loading">載入中...</div>
                 <div v-if="error">{{ error }}</div>
-                <!-- 遍历 filteredProducts 显示产品信息 -->
                 <CategorySection v-for="goods in filteredProducts" :goods="goods" :key="goods.id"></CategorySection>
             </div>
         </div>
