@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
-import CategoryAside from './components/CategoryAside.vue'; // 确保引入了 CategoryAside 组件
+import CategoryAside from './components/CategoryAside.vue';
 import CategorySection from './components/CategorySection.vue';
 import TrafficNav from './components/TrafficNav.vue';
 
@@ -16,7 +16,7 @@ async function loadProducts() {
     try {
         const response = await axios.get('http://localhost:8080/products?type=交通');
         products.value = response.data;
-        filteredProducts.value = products.value; // 初始化 filteredProducts
+        filteredProducts.value = products.value; 
     } catch (err) {
         error.value = '無法載入產品';
     } finally {
@@ -28,7 +28,7 @@ onMounted(() => {
     loadProducts();
 });
 
-// 监听 selectedTag 和 selectedCity 的变化，更新 filteredProducts
+
 watch([selectedTag, selectedCity], ([newTag, newCity]) => {
     console.log(`Watch - Selected Tag: ${newTag}, Selected City: ${newCity}`);
     if (newTag && newCity) {
@@ -43,7 +43,7 @@ watch([selectedTag, selectedCity], ([newTag, newCity]) => {
     console.log(`Filtered Products: ${JSON.stringify(filteredProducts.value)}`);
 });
 
-// 处理城市选择变化的方法
+
 const handleCityChange = (city, checked) => {
     console.log(`Main Component - City: ${city}, Checked: ${checked}`);
     selectedCity.value = checked ? city : null;
@@ -55,13 +55,13 @@ const handleCityChange = (city, checked) => {
     <div class="container">
         <div class="row">
             <div class="col-md-3" data-aos="fade-up">
-                <CategoryAside @city-change="handleCityChange"></CategoryAside> <!-- 确保正确绑定 city-change 事件 -->
+                <CategoryAside @city-change="handleCityChange"></CategoryAside> 
             </div>
             <div class="col-md-9">
                 <TrafficNav @filter="selectedTag = $event"></TrafficNav>
                 <div v-if="loading">載入中...</div>
                 <div v-if="error">{{ error }}</div>
-                <!-- 遍历 filteredProducts 显示产品信息 -->
+
                 <CategorySection v-for="goods in filteredProducts" :goods="goods" :key="goods.id"></CategorySection>
             </div>
         </div>

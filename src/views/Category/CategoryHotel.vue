@@ -3,7 +3,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
-import CategoryAside from './components/CategoryAside.vue'; // 确保引入了 CategoryAside 组件
+import CategoryAside from './components/CategoryAside.vue'; // 確保引入了 CategoryAside 组件
 import CategorySection from './components/CategorySection.vue';
 import HotelNav from './components/HotelNav.vue';
 
@@ -30,7 +30,7 @@ onMounted(() => {
     loadProducts();
 });
 
-// 监听 selectedTag 和 selectedCity 的变化，更新 filteredProducts
+// 監聽 selectedTag 和 selectedCity 的變化，更新 filteredProducts
 watch([selectedTag, selectedCity], ([newTag, newCity]) => {
     console.log(`Watch - Selected Tag: ${newTag}, Selected City: ${newCity}`);
     if (newTag && newCity) {
@@ -45,7 +45,7 @@ watch([selectedTag, selectedCity], ([newTag, newCity]) => {
     console.log(`Filtered Products: ${JSON.stringify(filteredProducts.value)}`);
 });
 
-// 处理城市选择变化的方法
+// 處理城市選擇變化的方法
 const handleCityChange = (city, checked) => {
     console.log(`Main Component - City: ${city}, Checked: ${checked}`);
     selectedCity.value = checked ? city : null;
@@ -63,7 +63,6 @@ const handleCityChange = (city, checked) => {
                 <HotelNav @filter="selectedTag = $event"></HotelNav>
                 <div v-if="loading">載入中...</div>
                 <div v-if="error">{{ error }}</div>
-                <!-- 遍历 filteredProducts 显示产品信息 -->
                 <CategorySection v-for="goods in filteredProducts" :goods="goods" :key="goods.id"></CategorySection>
             </div>
         </div>
