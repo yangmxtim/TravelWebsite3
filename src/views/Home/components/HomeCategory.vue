@@ -1,4 +1,19 @@
 <template>
+  <div class="marquee-container">
+  <div class="marquee-content">
+    ✧*｡٩(ˊᗜˋ*)و✧*｡歡迎來到海島旅遊✧*｡٩(ˊᗜˋ*)و✧*｡
+    暑假早鳥活動開跑囉🎉詳情請看最新優惠專區或來電洽詢0912-345-678❗️
+  </div>
+  <div class="marquee-content2">
+    ✧*｡٩(ˊᗜˋ*)و✧*｡歡迎來到海島旅遊✧*｡٩(ˊᗜˋ*)و✧*｡
+    暑假早鳥活動開跑囉🎉詳情請看最新優惠專區或來電洽詢0912-345-678❗️
+  </div>
+  <div class="marquee-content3">
+    ✧*｡٩(ˊᗜˋ*)و✧*｡歡迎來到海島旅遊✧*｡٩(ˊᗜˋ*)و✧*｡
+    暑假早鳥活動開跑囉🎉詳情請看最新優惠專區或來電洽詢0912-345-678❗️
+  </div>
+</div>
+
   <div class="video-container">
     <video autoplay muted loop>
       <source src="/src/views/Layout/img/The_Woods_4K_Living_Background.mp4" type="video/mp4">
@@ -12,6 +27,55 @@
 </template>
 
 <style scoped>
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 10s linear infinite;
+  }
+
+  .marquee-content2 {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee2 10s linear infinite;
+  }
+  .marquee-content3 {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee2 10s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes marquee2 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes marquee3 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
   .video-container {
     position: relative;
     width: 100%;
