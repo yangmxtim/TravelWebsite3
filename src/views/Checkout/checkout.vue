@@ -11,7 +11,7 @@
             <p>信箱：{{ email }}</p>
           </div>
         </div>
-        <!-- 商品信息 -->
+        <!-- 商品資訊 -->
         <h3 class="box-title">商品資訊</h3>
         <div class="box-body">
           <table class="goods">
@@ -86,14 +86,14 @@
 import { useCartStore } from '@/stores/cartStore'; // 引入購物車 store
 import { ref, inject } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
-
-//會員：
+// 會員：
 const email = inject("email");
 const phone = inject("phone");
 const name = inject("name");
 
-
+const router = useRouter();
 const cartStore = useCartStore(); // 使用購物車 store
 const selectedProducts = ref([]);
 
@@ -104,34 +104,26 @@ const selectedPaymentMethod = ref('綠界支付'); // 預設選擇綠界支付
 
 // 合併商品名稱和描述
 const itemName = selectedProducts.value.map(item => item.name).join('#');
-//
-//readeDESC有改
-//
-// const tradeDesc = selectedProducts.value.map(item => item.description).join(', ');
 const tradeDesc = selectedProducts.value.map(item => 1).join(', ');
-console.log(selectedProducts);
-
-
 
 // 計算總金額
 const totalAmount = ref(selectedProducts.value.reduce((total, item) => total + item.price * item.count, 0));
 
+// 抓取會員 id
+const uid = inject("id");
+
 const handlePaymentMethodClick = (method) => {
   selectedPaymentMethod.value = method;
 };
-// 抓取會員id
-const uid = inject("id");
 
-//產生訂單方法
+// 產生訂單方法
 const generateOrder = () => {
   const len = selectedProducts.value.length;
   const obj = [];
-  //第一個api 是生成order detail , 就是訂單 這邊因為訂單格式都會一樣 差別只在會員id 所以只丟會員id, 付款日期會在後端做
-  axios.post('http://localhost:8080/generateOrder', { id: uid.value })
+  // 第一個 api 是生成 order detail
+  return axios.post('http://localhost:8080/generateOrder', { id: uid.value })
     .then(response => {
-      //orderid = 生成訂單後 後端會回傳這張訂單的id(資料庫自增的編號)回來 可以透過這個id去跟資料庫抓取該筆訂單
       const orderid = response.data;
-      //把購物車裡面每筆細項資料拆出來 詳請可按按鈕然後看consolelog
       for (let i = 0; i < len; i++) {
         const newobj = {
           ...selectedProducts.value[i],
@@ -139,34 +131,41 @@ const generateOrder = () => {
         };
         obj.push({ [i]: newobj });
       }
-      console.log(obj);
-      //第二個api 是生成orderitem , 就是訂單細項 比如車票幾張 飯店幾張
-      axios.post('http://localhost:8080/generateOrderItems', obj)
-    }
-
-    )
-}
-
-
-
+      return axios.post('http://localhost:8080/generateOrderItems', obj);
+    });
+};
 const handleConfirmOrder = () => {
-  generateOrder();
-  // 根據用戶選擇支付方式連確定連接後端的URL
-
-  let backendURL = '';
-  if (selectedPaymentMethod.value === '綠界支付') {
-    backendURL = 'http://localhost:8080/ecpayCheckout';
-  } else if (selectedPaymentMethod.value === 'LINE PAY') {
-    backendURL = 'linePayCheckoutURL'; // 假設你將來會添加LINE PAY的處理
+  if (!uid.value) {
+    ElMessage({
+      message: '請先登入會員，將於兩秒後跳轉',
+      type: 'success',
+    });
+    setTimeout(() => {
+      router.push('/Login');
+    }, 2000);
+    return;
   }
 
-  // 發送 POST 請求到後端
-  axios.post(backendURL, {
-    totalAmount: totalAmount.value,
-    itemName: itemName,
-    tradeDesc: tradeDesc
-  }
-  )
+  generateOrder()
+    .then(() => {
+      // 清空購物車
+      cartStore.clearCart();
+
+      // 根據用戶選擇支付方式連接後端的 URL
+      let backendURL = '';
+      if (selectedPaymentMethod.value === '綠界支付') {
+        backendURL = 'http://localhost:8080/ecpayCheckout';
+      } else if (selectedPaymentMethod.value === 'LINE PAY') {
+        backendURL = 'linePayCheckoutURL'; // 假設你將來會添加 LINE PAY 的處理
+      }
+
+      // 發送 POST 請求到後端
+      return axios.post(backendURL, {
+        totalAmount: totalAmount.value,
+        itemName: itemName,
+        tradeDesc: tradeDesc
+      });
+    })
     .then(response => {
       // 獲取後端返回的 HTML 表單內容
       const formData = response.data;
@@ -183,12 +182,9 @@ const handleConfirmOrder = () => {
       console.error(error);
     });
 };
+
+
 </script>
-
-
-
-
-
 
 <style scoped>
 .xtx-pay-checkout-page {
