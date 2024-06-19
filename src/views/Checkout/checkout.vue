@@ -141,7 +141,9 @@ const handleConfirmOrder = () => {
       type: 'success',
     });
     setTimeout(() => {
-      router.push('/Login');
+      router.push('/Login').then(() => {
+        window.scrollTo(0, 0); // 跳轉後捲動到頂部
+      });
     }, 2000);
     return;
   }
