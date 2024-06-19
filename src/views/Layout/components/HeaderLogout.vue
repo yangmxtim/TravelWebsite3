@@ -1,14 +1,15 @@
 <script setup>
-
 import { inject } from "vue";
-
 import axios from 'axios';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useCartStore } from '@/stores/cartStore'; // 你的購物車 store 引入
 
-// 定義一個響應狀態的變量以處理請求響應
+const router = useRouter();
+const cartStore = useCartStore(); // 使用購物車 store
+
 const responseStatus = ref(null);
 
-// 發送POST請求的函數
 const sendLogoutRequest = async () => {
   try {
     const response = await axios.post('http://localhost:8080/auth/logout', null, {
@@ -16,6 +17,7 @@ const sendLogoutRequest = async () => {
     });
     responseStatus.value = response.data;
     alert("登出"+response.data);
+    cartStore.clearCart(); // 在這裡清空購物車資料
     window.location.replace("/");
     window.location.reload();
   } catch (error) {
@@ -58,7 +60,7 @@ const name = inject("name");
 
 </template>
 
-<style scoped >
+<style scoped>
 .icon-large {
     font-size: 21px;
     padding: 5.5px; 
