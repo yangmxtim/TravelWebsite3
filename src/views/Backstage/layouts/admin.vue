@@ -1,7 +1,7 @@
 <template>
   <div>
     <f-menu></f-menu>
-    <div class="content" style="background-color:darkgrey;">
+    <div class="content" style="background-color:antiquewhite;">
       <f-header></f-header>
       <router-view class=""></router-view>
     </div>

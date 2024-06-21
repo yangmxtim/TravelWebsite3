@@ -1,7 +1,7 @@
 <template>
   <div class="row m-4">
-    <form>
-      <div class="col-lg-12 mx-auto">
+    <form class="p-0">
+      <div class="col-lg-12">
         <div class="card">
           <div class="card-header py-3 bg-transparent">
             <div class="d-sm-flex align-items-center">
@@ -19,16 +19,17 @@
                     <form class="row g-3">
                       <div class="col-12">
                         <div class="d-flex">
-                          <label class="form-label me-2 " for="name"
+                          <label class="form-label me-2" for="name"
                             >產品名稱</label
                           >
-                          <!-- <div class="ms-auto d-inline">
-                            <button type="button" class="btn btn-warning mb-3">
-                              匯入主產品資料
-                            </button>
-                          </div> -->
+                          <p
+                            class="text-danger"
+                            style="font-size: 14px"
+                            ref="nameStatus"
+                          ></p>
                         </div>
                         <input
+                          @blur="checkProductName(formData.name)"
                           required
                           autofocus
                           class="form-control"
@@ -246,6 +247,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
+const nameStatus = ref("");
 const formData = ref({
   name: "預設產品名稱",
   stock: "10",
@@ -266,6 +268,17 @@ const formData = ref({
 
 const imagePreviews = ref([]);
 // let validFiles = []; // 用於儲存符合大小限制的檔案
+
+const checkProductName = (name) => {
+  axios
+    .get(`http://localhost:8080/getProductSameNameCount/${name}`)
+    .then((response) => {
+      console.log(response.data);
+      if (response.data > 0) {
+        nameStatus.value.innerHTML = "產品名稱重複";
+      }
+    });
+};
 
 const handleFileUpload = (event, position) => {
   const file = event.target.files[0];
@@ -289,6 +302,10 @@ const handleFileUpload = (event, position) => {
 };
 
 const handleSubmit = async () => {
+  if(nameStatus.value.innerHTML = "產品名稱重複"){
+    alert("請輸入不重複的產品名稱");
+    return;
+  }
   // 驗證產品名稱
   if (!validateProductName(formData.value.name)) {
     alert("請輸入有效的產品名稱");
