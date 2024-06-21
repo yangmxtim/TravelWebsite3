@@ -105,7 +105,7 @@
         </div>
       </div>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" :style="{ width: progress + '%' }"></div>
+        <div class="progress-bar" role="progressbar" :style="{ width: (progress + '%') }"></div>
       </div>
     </div>
     <!-- alert end -->
@@ -128,7 +128,7 @@
             <div class="mb-1">
               <strong>權限:</strong>
               <div class="mb-1" style="height: 20px;" v-if="isEdit">
-                <button class="btn btn-light me-2" ref="normalButton" 
+                <button class="btn btn-light me-2" ref="normalButton"
                   :class="{ active: chooseButton === 'normal' }" @click="choosePermission('normal')">一般用戶</button>
                 <button class="btn btn-light" ref="adminButton" 
                   :class="{ active: chooseButton === 'admin' }" @click="choosePermission('admin')">管理員</button>
@@ -146,12 +146,12 @@
               <input v-if="isEdit" v-model="choosedMember.phone" class="form-control">
               <p class="d-inline" v-else>{{ choosedMember.phone }}</p>
             </div>
-            <div class="mb-1">
+            <!-- <div class="mb-1">
               <strong>註冊日期:</strong> {{ choosedMember.date }}<br>
             </div>
             <div class="mb-1">
               <strong>完成訂單數量:</strong> {{ choosedMember.orders }}<br>
-            </div>
+            </div> -->
             <!-- <hr> -->
             <!-- <h2>使用者行為</h2> -->
           </p>
@@ -330,9 +330,9 @@ const toggleEdit = () => {
 const choosePermission = (whichButton) => {
   chooseButton.value = whichButton;
   if(chooseButton.value === 'admin'){
-    adminButton.value.style.backgroundColor ='chocolate';
+    adminButton.value.style.backgroundColor ='gold';
   }else if(chooseButton.value === 'normal'){
-    normalButton.value.style.backgroundColor ='chocolate';
+    normalButton.value.style.backgroundColor ='gold';
   }
 }
 
@@ -341,17 +341,17 @@ const choosePermission = (whichButton) => {
 const showAlert = () => {
   progress.value = 0;
   visible.value = true;
-  let width = 0;
+  console.log(progress.value)
+
   const interval = setInterval(() => {
-    // console.log(progress.value)
-    width += 4;
-    progress.value = width;
-    if (progress.value >= 100) {
+    progress.value += 4;
+
+    if (progress.value >= 110) {
       clearInterval(interval);
       visible.value = false;
     }
   }, 30);
-}
+};
 
 // onMounted(() => {
 //   showAlert();
@@ -453,9 +453,6 @@ div input {
   box-sizing: border-box;
 }
 
-button.active {
-  background-color: chocolate;
-}
 
 button {
   margin: 5px 0;
@@ -480,6 +477,11 @@ button:hover {
 .progress {
   height: 5px;
   margin-top: 0.5rem;
+}
+.progress-bar {
+  height: 30px;
+  background-color: #4caf50;
+  transition: width 0.1s;
 }
 </style>
 

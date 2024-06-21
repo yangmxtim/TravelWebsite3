@@ -141,7 +141,7 @@
             <div class="row g-3">
               <div v-for="(detail, idx) in selectedProduct.product_detail" :key="idx" class="col-6">
                 <div class="card">
-                  <img :src="detail.img" class="card-img-top product-img img-fluid" alt="Product Image">
+                  <img :src="detail.img" class="card-img-top img-fluid" alt="Product Image">
                   <div class="card-body">
                     <h6 class="card-title">{{ detail.name }}</h6>
                     <p class="card-text">{{ detail.introduction }}</p>
