@@ -333,6 +333,7 @@ const choosePermission = (whichButton) => {
     adminButton.value.style.backgroundColor ='gold';
   }else if(chooseButton.value === 'normal'){
     normalButton.value.style.backgroundColor ='gold';
+
   }
 }
 

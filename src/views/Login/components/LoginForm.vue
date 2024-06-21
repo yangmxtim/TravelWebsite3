@@ -65,12 +65,22 @@
                     class="flip-card__input"
                     v-model="loginCode"
                   />
+                </div>
+                <div>
                   <img
                     :src="captchaImage"
                     alt="圖片無法載入"
                     @click="changeVerify"
                   />
                 </div>
+                <!-- 驗證碼到數計時20秒 -->
+                <p>
+                  <span v-if="loginCount > 0" class="flip-card__countdown">
+                    {{ loginCount }}
+                  </span>
+                  <span v-else class="flip-card__countdown">0</span>
+                  秒鐘後需重新載入頁面<br>                  取得新驗證碼
+                </p>
                 <button class="flip-card__btn">登入</button>
               </form>
             </div>
@@ -147,16 +157,17 @@ const handleLogin = async () => {
         }
       );
 
-      if (response.data === "Success!"){
-
+      if (response.data === "Success!") {
         // router.push("/"); // 登入成功後跳轉到首頁
         // router.refresh();
 
         window.location.replace("/");
-        
       } else {
-        ElMessage.error("登入失败");
+        ElMessage.error("登入失敗");
       }
+    } else if (checkVerify.data === "toolate") {
+      ElMessage.error("驗證碼過期，3秒後重新載入頁面");
+      window.setTimeout(() => window.location.reload(), 3000);
     } else {
       ElMessage.error("驗證碼錯誤，請重新輸入");
     }
@@ -190,7 +201,7 @@ const handleRegister = async () => {
 
     if (response.data === "Success!") {
       ElMessage.success("註冊成功，兩秒後請重新登入");
-      window.setTimeout(()=>window.location.reload(), 2000)
+      window.setTimeout(() => window.location.reload(), 2000);
     } else {
       ElMessage.error(response.data);
     }
@@ -199,10 +210,19 @@ const handleRegister = async () => {
     // ElMessage.error("註冊失敗，請重試");
   }
 };
+
+//倒數計時flip-card__countdown
+const loginCount = ref(20);
+const timer = setInterval(() => {
+  if (loginCount.value > 0) {
+    loginCount.value--;
+  } else {
+    clearInterval(timer);
+  }
+}, 1000);
 </script>
 
 <style scoped>
-
 .login {
   margin-top: 35vh;
   margin-bottom: 60vh;
