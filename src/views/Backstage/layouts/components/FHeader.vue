@@ -39,9 +39,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useFullscreen } from "@vueuse/core";
 import axios from "axios";
 import { inject } from "vue";
 

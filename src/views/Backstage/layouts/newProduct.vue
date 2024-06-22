@@ -127,7 +127,7 @@
                           style="min-height: 100px"
                           name="intro"
                           v-model="formData.intro"
-                          placeholder="允許字母、數字和空格，且長度在 5 到 200 個字之間"
+                          placeholder="5 到 200 個字之間"
                         ></textarea>
                       </div>
                       <button
@@ -200,7 +200,7 @@
                           style="min-height: 100px"
                           name="detailIntro"
                           v-model="formData.detailIntro"
-                          placeholder="允許字母、數字和空格，且長度在 5 到 200 個字之間"
+                          placeholder="5 到 200 個字之間"
                         ></textarea>
                       </div>
                     </div>
@@ -241,30 +241,43 @@
       </div>
     </form>
   </div>
+  
+  <alertProgress ref="alertRef" :message="alertMessage"></alertProgress>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import alertProgress from "./components/alertProgress.vue";
+import router from "@/router";
 
 const nameStatus = ref("");
 const formData = ref({
-  name: "預設產品名稱",
-  stock: "10",
+  name: "",
+  stock: "",
   type: "transport",
-  phone: "0910123456",
-  tag: "預設標籤",
-  addr: "預設地址",
-  facility: "預設設施",
+  phone: "",
+  tag: "",
+  addr: "",
+  facility: "",
   images: [],
-  intro: "預設介紹文字",
+  intro: "",
 
   detailName: "方案一",
-  price: "100",
-  specification: "可以空白",
+  price: "",
+  specification: "",
   detailImg: [],
-  detailIntro: "預設細節介紹文字",
+  detailIntro: "",
 });
+
+const alertMessage = ref('');
+const alertRef = ref(null);
+
+const triggerAlert = (message) =>{
+  alertMessage.value = message;
+  console.log(alertRef.value)
+  alertRef.value.showAlert();
+}
 
 const imagePreviews = ref([]);
 // let validFiles = []; // 用於儲存符合大小限制的檔案
@@ -276,6 +289,8 @@ const checkProductName = (name) => {
       console.log(response.data);
       if (response.data > 0) {
         nameStatus.value.innerHTML = "產品名稱重複";
+      }else{
+        nameStatus.value.innerHTML = "";
       }
     });
 };
@@ -302,7 +317,7 @@ const handleFileUpload = (event, position) => {
 };
 
 const handleSubmit = async () => {
-  if(nameStatus.value.innerHTML = "產品名稱重複"){
+  if(nameStatus.value.innerHTML === "產品名稱重複"){
     alert("請輸入不重複的產品名稱");
     return;
   }
@@ -350,7 +365,8 @@ const handleSubmit = async () => {
         },
       }
     );
-    alert(response.data);
+
+    triggerAlert("新增商品成功");
   } catch (error) {
     console.error("錯誤:", error);
   }
@@ -362,7 +378,7 @@ const validateProductName = (name) => {
 };
 
 const validateIntro = (intro) => {
-  const regex = /^[\u4e00-\u9fa5a-zA-Z0-9\s]{5,200}$/;
+  const regex = /^.{5,200}$/;
   return regex.test(intro);
 };
 
