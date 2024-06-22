@@ -99,7 +99,7 @@
                   <button @click="openEditModal(product, product.id)" class="btn btn-sm btn-outline-primary">
                     <i class="fa-solid fa-pencil"></i>查看細項
                   </button>
-                  <a @click="deleteByClick(product.id)" class="btn btn-sm btn-outline-danger"
+                  <a @click="showConfirmModal(product.name, product.id)" class="btn btn-sm btn-outline-danger"
                     ><i class="fa-solid fa-trash"></i>刪除</a
                   >
                 </div>
@@ -128,7 +128,7 @@
     <!-- grid end -->
   </div>
    <!-- Edit Modal -->
-   <div class="modal" v-if="showEditModal" @click.self="closeEditModal">
+    <div class="modal" v-if="showEditModal" @click.self="closeEditModal">
       <div class="modal-dialog" @click.stop>
         <div class="modal-content">
           <div class="modal-header">
@@ -136,7 +136,6 @@
             <button type="button" class="btn-close" @click="closeEditModal"></button>
           </div>
           <div class="modal-body">
-            <!-- Display product details -->
             <h5>{{ selectedProduct.name }}</h5>
             <div class="row g-3">
               <div v-for="(detail, idx) in selectedProduct.product_detail" :key="idx" class="col-6">
@@ -153,13 +152,37 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeEditModal">Close</button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
           </div>
         </div>
       </div>
     </div>
+
+  <!-- Delete confirm modal start -->
+  <div class="modal text-center" v-show="isConfirmModalOpen">
+		<div class="modal-dialog w-25">
+			<div class="modal-content p-0">
+				<div class="modal-header">
+					<h4 class="modal-title">刪除確認</h4>
+					<button type="button" class="btn btn-dark close ms-auto" data-dismiss="modal" @click="changeDeleteModalStatus">&times;</button>
+				</div>
+				
+				<div class="modal-body container" style="min-height: 100px; height: 100px;">
+          <div class="row align-items-center h-100">
+            <span id="confirmText"></span>
+          </div>
+				</div>
+				
+				<div class="modal-footer">
+					<a class="btn btn-success" href="" id="yesButton" @click="deleteByClick()">是</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" @click="changeDeleteModalStatus">否</button>
+				</div>
+			</div>
+		</div>
+	</div>
+  <!-- Delete confirm modal end -->
   
   <Spinner></Spinner>
+
 </template>
 
 <script setup>
@@ -167,19 +190,28 @@ import { ref, onMounted, watch } from "vue";
 import Spinner from '@/views/Backstage/layouts/components/spinner.vue';
 import axios from "axios";
 
+
 const totalPages = ref(0)
 const currentPage = ref(0);
 const products = ref([]);
 const searchText = ref('');
 const category = ref('所有類別');
 const orderBy = ref('近期新增');
+let targetId;
+
+const isConfirmModalOpen = ref(false);
+let confirmText;
+
 
 let selectedProduct = ref(null);
 let showEditModal = ref(false);
 
+
+
 onMounted(()=>{
   document.body.style.overflow = '';
   currentPage.value = 1
+  confirmText = document.getElementById("confirmText");
 })
 
 watch([ currentPage, category, orderBy ], () => {
@@ -193,9 +225,6 @@ const getDetailFromProductId = (id) =>{
     console.log(response.data);
     selectedProduct.value = response.data;
     console.log(selectedProduct.value)
-    // products.value = response.data[1];
-    // totalPages.value = Math.ceil(response.data[0] / 10);
-    // currentPage.value = page;
   })
   .catch((err) => {
     alert(err);
@@ -225,9 +254,9 @@ const searchByMultiStr = (page) => {
   });
 };
 
-const deleteByClick = (id) => {
+const deleteByClick = () => {
   axios
-    .delete(`http://localhost:8080/productManage/${id}`)
+    .delete(`http://localhost:8080/productManage/${targetId}`)
     .then((response) => {
       console.log(response);
     })
@@ -237,6 +266,17 @@ const deleteByClick = (id) => {
     .finally(() => {
       searchByMultiStr(currentPage.value);
     });
+}
+
+const showConfirmModal = (name, id) => {
+  // console.log(confirmText)
+  confirmText.innerText = `確定刪除 ${name} 嗎?` ;
+  isConfirmModalOpen.value = !isConfirmModalOpen.value
+  targetId = id;
+}
+
+const changeDeleteModalStatus = () => {
+  isConfirmModalOpen.value = !isConfirmModalOpen.value;
 }
 
 const getStarClass = (avgRate, star) => {

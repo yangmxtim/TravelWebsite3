@@ -77,7 +77,7 @@
             <td>
               <button type="button" style="" class="btn btn-outline-primary me-2 p-1 my-0" 
                 @click="openModal(user.id, user.admin)">
-                查看
+                查看與編輯
               </button>
             </td>
           </tr>
@@ -116,52 +116,46 @@
         <span @click="closeModal" class="close" title="Close Modal">&times;</span>
         <div class="container">
           <h1>會員詳細資料</h1>
-          <p v-if="choosedMember">
-            <div class="mb-1">
-              <strong>會員ID:</strong> {{ choosedMember.id }}<br>
-            </div>
-            <div class="mb-1">
-              <strong>名稱:</strong>
-              <input v-if="isEdit" v-model="choosedMember.username" class="form-control">
-              <p class="d-inline" v-else>{{ choosedMember.username }}</p>
-            </div>
-            <div class="mb-1">
-              <strong>權限:</strong>
-              <div class="mb-1" style="height: 20px;" v-if="isEdit">
-                <button class="btn btn-light me-2" ref="normalButton"
-                  :class="{ active: chooseButton === 'normal' }" @click="choosePermission('normal')">一般用戶</button>
-                <button class="btn btn-light" ref="adminButton" 
-                  :class="{ active: chooseButton === 'admin' }" @click="choosePermission('admin')">管理員</button>
+          <hr>
+          <form @submit.prevent="closeAndSaveModal">
+            <div v-if="choosedMember">
+              <div class="mb-3">
+                <strong>會員ID:</strong> {{ choosedMember.id }}<br>
               </div>
-              <p class="d-inline" v-else>{{ choosedMember.admin?'管理員':'一般用戶' }}</p>
-              <br>
+              <div class="mb-3">
+                <strong>名稱:</strong>
+                <input v-if="isEdit" v-model="choosedMember.username" class="form-control" required>
+                <p class="d-inline" v-else>{{ choosedMember.username }}</p>
+              </div>
+              <div class="mb-3">
+                <strong>權限:</strong>
+                <div class="mb-3" style="height: 20px;" v-if="isEdit && chooseButton === 'normal'">
+                  <button type="button" class="btn btn-light me-2" ref="normalButton"
+                    :class="{ active: chooseButton === 'normal' }" @click="choosePermission('normal')">一般用戶</button>
+                  <button type="button" class="btn btn-light" ref="adminButton"
+                    :class="{ active: chooseButton === 'admin' }" @click="choosePermission('admin')">管理員</button>
+                </div>
+                <p class="d-inline" v-else>{{ choosedMember.admin ? '管理員' : '一般用戶' }}</p>
+                <br>
+              </div>
+              <div class="mb-3">
+                <strong>Email:</strong>
+                <input v-if="isEdit" type="email" v-model="choosedMember.email" class="form-control" required>
+                <p class="d-inline" v-else>{{ choosedMember.email }}</p>
+              </div>
+              <div class="mb-3">
+                <strong>電話:</strong>
+                <input v-if="isEdit" v-model="choosedMember.phone" class="form-control" required>
+                <p class="d-inline" v-else>{{ choosedMember.phone }}</p>
+              </div>
             </div>
-            <div class="mb-1">
-              <strong>Email:</strong>
-              <input v-if="isEdit" v-model="choosedMember.email" class="form-control">
-              <p class="d-inline" v-else>{{ choosedMember.email }}</p>
+            <div class="button-group">
+              <button type="submit" class="btn btn-save">
+                {{ isButtonDisabled === true ? "儲存並關閉" : "關閉" }}
+              </button>
+              <button type="button" :disabled="isButtonDisabled" class="btn btn-edit" @click="toggleEdit">編輯</button>
             </div>
-            <div class="mb-1">
-              <strong>電話:</strong>
-              <input v-if="isEdit" v-model="choosedMember.phone" class="form-control">
-              <p class="d-inline" v-else>{{ choosedMember.phone }}</p>
-            </div>
-            <!-- <div class="mb-1">
-              <strong>註冊日期:</strong> {{ choosedMember.date }}<br>
-            </div>
-            <div class="mb-1">
-              <strong>完成訂單數量:</strong> {{ choosedMember.orders }}<br>
-            </div> -->
-            <!-- <hr> -->
-            <!-- <h2>使用者行為</h2> -->
-          </p>
-          <div class="button-group">
-            <button type="button" class="btn btn-save" @click="closeAndSaveModal">
-              {{ isButtonDisabled === true?"儲存並關閉":"關閉" }}
-            </button>
-            <button type="button" :disabled="isButtonDisabled" class="btn btn-edit" 
-              @click="toggleEdit">編輯</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -333,7 +327,6 @@ const choosePermission = (whichButton) => {
     adminButton.value.style.backgroundColor ='gold';
   }else if(chooseButton.value === 'normal'){
     normalButton.value.style.backgroundColor ='gold';
-
   }
 }
 
