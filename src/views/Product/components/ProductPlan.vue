@@ -109,12 +109,14 @@ const addToCart = (product, quantity, selectedDate) => {
         name: product.name,
         attrsText: '',
         selectedDate: formattedDate,
+        selectedDate2: selectedDate
     };
     cartStore.addToCart(goods);
     ElMessage({
         message: '已加入購物車',
         type: 'success',
     });
+    console.log(goods);
 };
 
 const formatDate = (date) => {

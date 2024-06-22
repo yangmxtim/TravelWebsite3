@@ -115,15 +115,19 @@ const uid = inject("id");
 const handlePaymentMethodClick = (method) => {
   selectedPaymentMethod.value = method;
 };
-
+let ecpayOrderId = "";
 // 產生訂單方法
 const generateOrder = () => {
   const len = selectedProducts.value.length;
   const obj = [];
+  // 綠界編號
+  
   // 第一個 api 是生成 order detail
   return axios.post('http://localhost:8080/generateOrder', { id: uid.value })
     .then(response => {
-      const orderid = response.data;
+      const orderid = response.data.orderId;
+      ecpayOrderId = response.data.ecpayOrderId;
+      console.log(response.data);
       for (let i = 0; i < len; i++) {
         const newobj = {
           ...selectedProducts.value[i],
@@ -165,7 +169,9 @@ const handleConfirmOrder = () => {
       return axios.post(backendURL, {
         totalAmount: totalAmount.value,
         itemName: itemName,
-        tradeDesc: tradeDesc
+        tradeDesc: tradeDesc,
+        ecpayOrderId: ecpayOrderId
+
       });
     })
     .then(response => {
