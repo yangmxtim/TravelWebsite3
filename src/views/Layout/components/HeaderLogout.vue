@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from "vue";
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cartStore'; // 你的購物車 store 引入
 
@@ -30,6 +30,25 @@ const sendLogoutRequest = async () => {
 const address = inject("email");
 const phone = inject("phone");
 const name = inject("name");
+const uid = inject("id");
+const imageUrl = ref('');
+
+const loadImage = async() => {
+  try {
+    const response = await axios.get(`http://localhost:8080/member/loadImage/${uid.value}`, { responseType: 'blob' });
+    const url = URL.createObjectURL(response.data);
+    imageUrl.value = url
+  } catch (error) {
+    console.error('Error fetching photo:', error);
+  }
+};
+
+onMounted(async () => {
+      
+      setTimeout(async () => {
+        await loadImage();
+      }, 100); 
+    });
 
 </script>
 
@@ -42,7 +61,8 @@ const name = inject("name");
     <div class="layer">
       <div class="list">
         <div class="avatar">
-          <img src="/src/views/Layout/img/000.jpg" class="avatar-img">
+          <img v-if="imageUrl" :src="imageUrl" width="200px" height="200px">
+          <img v-else src="/src/views/Layout/img/cat.png" alt="">
         </div>
         <!-- Permission: {{ permission }}<br /> -->
         Hello, {{ name }}！<br />
@@ -96,14 +116,16 @@ const name = inject("name");
 }
 
 .avatar {
-  width: 100px; /* 設置圓形圖片框的寬度 */
-  height: 100px; /* 設置圓形圖片框的高度 */
+  width: 200px; /* 設置圓形圖片框的寬度 */
+  height: 200px; /* 設置圓形圖片框的高度 */
   border-radius: 50%; /* 將圖片框設置為圓形 */
   overflow: hidden; /* 隱藏圖片溢出部分 */
   margin-bottom: 30px; /* 可根據需要調整與文字的間距 */
   display: flex; /* 將.avatar設置為彈性盒子 */
   justify-content: center; /* 水平置中 */
   align-items: center; /* 垂直置中 */
+  border: 1px solid lightgrey;
+
 }
 
 .avatar-img {

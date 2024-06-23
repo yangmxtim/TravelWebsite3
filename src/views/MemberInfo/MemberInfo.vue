@@ -1,10 +1,23 @@
 <template>
   <div class="info-container">
+    <el-upload
+    class="upload-avatar"
+    action="http://localhost:8080/member/uploadImage"
+    :data="{memberID:uid}"
+    :on-success="handleUploadSuccess"
+    :show-file-list="false"
+    >
+    <img v-if="imageUrl" :src="imageUrl" width="200px" height="200px">
+    <img v-else src="/src/views/Layout/img/cat.png" >
+    </el-upload>
     <h4>姓名：{{ name }}</h4>
+    <h4>帳號：{{ name }}</h4> 
     <h4>電話：{{ phone }}</h4>
     <h4>信箱：{{ email }}</h4>
-    <h4>帳號：{{ name }}</h4>
-    <h4>改密碼</h4>
+    <br><br>
+    <el-button v-show="!showChangePWD" size="large" @click="changePWDdisplay">修改密碼</el-button>
+    <div v-show="showChangePWD">
+    <h4>修改密碼</h4>
     <h4>
       <input
         type="password"
@@ -32,9 +45,13 @@
         required
       />
     </h4>
-    <el-button size="large" type="primary" @click="sendChangePasswordRequest"
-      >Change</el-button
+    <el-button size="large" @click="sendChangePasswordRequest"
+      >確認</el-button
     >
+    <el-button size="large" @click="changePWDdisplay"
+      >取消</el-button
+    >
+    </div>
     <h4></h4>
   </div>
   
@@ -43,14 +60,16 @@
 import { ref, onMounted } from "vue";
 import { inject } from "vue";
 import axios from "axios";
-import MembersNav from "../Category/components/MembersNav.vue";
-import LayoutHeader from "../Layout/components/LayoutHeader.vue";
-import LayoutFooter from "../Layout/components/LayoutFooter.vue";
-import WeatherDate from "../Weather/WeatherDate.vue";
 
 const email = inject("email");
 const phone = inject("phone");
 const name = inject("name");
+const uid = inject("id");
+const imageUrl = ref('');
+const showChangePWD = ref(false);
+const changePWDdisplay = () => {
+  showChangePWD.value = !showChangePWD.value
+}
 
 const sendChangePasswordRequest = () => {
   const old_passwd = document.getElementById("c_passwd").value;
@@ -79,13 +98,33 @@ const sendChangePasswordRequest = () => {
         // window.location.reload();
       });
   }
+  showChangePWD.value = !showChangePWD.value
 };
 
-// const info = ref([]);
-// info.value = {
-//     "name": "terry",
-//     "phone": "0953123123"
-// }
+const loadImage = async() => {
+  try {
+    const response = await axios.get(`http://localhost:8080/member/loadImage/${uid.value}`, { responseType: 'blob' });
+    if (imageUrl.value) {
+      URL.revokeObjectURL(imageUrl.value);
+    }
+    const url = URL.createObjectURL(response.data);
+    imageUrl.value = url
+  } catch (error) {
+    console.error('Error fetching photo:', error);
+
+  }
+};
+
+const handleUploadSuccess =  async (response) => {
+  console.log('Upload success:', response);
+
+  await loadImage();
+};
+onMounted(async () => {
+  await loadImage();
+});
+
+
 </script>
 <style scoped>
 .info-container {
@@ -101,4 +140,25 @@ h4 {
   margin: 2rem 0;
   font-size: 25px;
 }
+
+/* 
+avatar css
+ */
+.upload-avatar{
+  width: 200px;
+  height: 200px; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  margin-bottom: 30px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  border: 1px solid lightgrey;
+
+  
+}
+.upload-avatar:hover{
+  background-color: beige;
+}
+
 </style>

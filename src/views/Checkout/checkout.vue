@@ -123,7 +123,7 @@ const generateOrder = () => {
   // 綠界編號
   
   // 第一個 api 是生成 order detail
-  return axios.post('http://localhost:8080/generateOrder', { id: uid.value })
+  return axios.post('http://localhost:8080/generateOrder', { totalAmount: totalAmount.value,id: uid.value })
     .then(response => {
       const orderid = response.data.orderId;
       ecpayOrderId = response.data.ecpayOrderId;
