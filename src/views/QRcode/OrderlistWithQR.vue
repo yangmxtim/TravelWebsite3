@@ -1,6 +1,7 @@
 <template>
     <div class="qrcode">
-        <div class="qr-title container" v-for="orderList in orderLists" :key="orderList.order_item_id">
+        <div v-if="orderLists == 0" class="noOrder">目前尚無訂單</div>
+        <div class="qr-title container" v-else v-for="orderList in orderLists" :key="orderList.order_item_id">
             <div class="col-4">
                 <img :src="orderList.img"
                     @click="ImgQrdisplay"
@@ -21,6 +22,7 @@
                 http://localhost:8080/api/check/{{ orderList.order_item_id }}
             </div>
         </div>
+        
     </div>
 </template>
 
@@ -50,7 +52,8 @@ onMounted(() => {
         .get(`http://localhost:8080/orderlists/${uid.value}`)
         .then(response => {
             orderLists.value = response.data;
-
+            console.log(orderLists.value);
+            
         })
 })
 </script>
@@ -75,6 +78,12 @@ img {
     min-height: 250px;
 
 
+}
+.noOrder{
+    font-size: 30px;
+    display: block;
+    text-align: center;
+    margin-top: 10rem;
 }
 .order-title{font-size: 20px; font-weight: bold;padding-bottom: 15px;}
 .product_img{margin-bottom: 15px}
