@@ -118,6 +118,43 @@
                           @change="(event) => handleFileUpload(event, 1)"
                         />
                       </div>
+
+                      <!-- 預覽圖片 start -->
+                      <div class="d-flex">
+                        <div
+                          v-for="(image, index) in imagePreviews"
+                          :key="index"
+                          class="mt-3 me-4"
+                          style="
+                            border: 2px solid lightgray;
+                            /* height: 150px;
+                            width: 150px; */
+                            position: relative;
+                          "
+                        >
+                          <p class="m-0 text-center" v-if="index == 0">
+                            主圖片
+                          </p>
+                          <p class="m-0 text-center" v-if="index == 1">
+                            方案圖片
+                          </p>
+                          <img
+                            :src="image"
+                            alt="圖片預覽"
+                            class="product-img"
+                            style="
+                              max-width: 100%;
+                              max-height: 100%;
+                              object-fit: cover;
+                            "
+                          />
+                          <!-- <button @click="removeImage" class="close-button">
+                            &times;
+                          </button> -->
+                        </div>
+                      </div>
+                      <!-- 預覽圖片 end -->
+
                       <div class="col-12">
                         <label class="form-label" for="intro">介紹</label>
                         <textarea
@@ -207,32 +244,6 @@
                     <!--end row-->
                   </div>
                 </div>
-                <!-- 預覽圖片 -->
-                <div class="d-flex">
-                  <div
-                    v-for="(image, index) in imagePreviews"
-                    :key="index"
-                    class="mt-3 me-4"
-                    style="
-                      border: 2px solid lightgray;
-                      height: 150px;
-                      width: 150px;
-                      position: relative;
-                    "
-                  >
-                    <p class="m-0 text-center" v-if="index == 0">主圖片</p>
-                    <p class="m-0 text-center" v-if="index == 1">方案圖片</p>
-                    <img
-                      :src="image"
-                      alt="圖片預覽"
-                      class="product-img"
-                      style="max-width: 150px"
-                    />
-                    <!-- <button @click="removeImage" class="close-button">
-                      &times;
-                    </button> -->
-                  </div>
-                </div>
               </div>
             </div>
             <!--end row-->
@@ -241,7 +252,7 @@
       </div>
     </form>
   </div>
-  
+
   <alertProgress ref="alertRef" :message="alertMessage"></alertProgress>
 </template>
 
@@ -270,14 +281,14 @@ const formData = ref({
   detailIntro: "",
 });
 
-const alertMessage = ref('');
+const alertMessage = ref("");
 const alertRef = ref(null);
 
-const triggerAlert = (message) =>{
+const triggerAlert = (message) => {
   alertMessage.value = message;
-  console.log(alertRef.value)
+  console.log(alertRef.value);
   alertRef.value.showAlert();
-}
+};
 
 const imagePreviews = ref([]);
 // let validFiles = []; // 用於儲存符合大小限制的檔案
@@ -289,7 +300,7 @@ const checkProductName = (name) => {
       console.log(response.data);
       if (response.data > 0) {
         nameStatus.value.innerHTML = "產品名稱重複";
-      }else{
+      } else {
         nameStatus.value.innerHTML = "";
       }
     });
@@ -317,7 +328,7 @@ const handleFileUpload = (event, position) => {
 };
 
 const handleSubmit = async () => {
-  if(nameStatus.value.innerHTML === "產品名稱重複"){
+  if (nameStatus.value.innerHTML === "產品名稱重複") {
     alert("請輸入不重複的產品名稱");
     return;
   }
@@ -408,8 +419,8 @@ const validateNum = (num) => {
 }
 
 .product-img {
-  width: 150px;
-  height: 150px;
+  /* width: 150px;
+  height: 150px; */
   object-fit: cover;
 }
 </style>

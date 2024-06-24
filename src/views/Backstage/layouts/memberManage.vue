@@ -129,8 +129,8 @@
               </div>
               <div class="mb-3">
                 <strong>權限:</strong>
-                <div class="mb-3" style="height: 20px;" v-if="isEdit && chooseButton === 'normal'">
-                  <button type="button" class="btn btn-light me-2" ref="normalButton"
+                <div class="mb-3" style="height: 20px;" v-if="isEdit">
+                  <button type="button" class="btn btn-light me-2" ref="normalButton" :disabled="chooseButton === 'admin'"
                     :class="{ active: chooseButton === 'normal' }" @click="choosePermission('normal')">一般用戶</button>
                   <button type="button" class="btn btn-light" ref="adminButton"
                     :class="{ active: chooseButton === 'admin' }" @click="choosePermission('admin')">管理員</button>
@@ -282,11 +282,13 @@ const openModal = (memberId, isAdmin) => {
   searchById(memberId);
   showModal.value = true;
   chooseButton.value = (isAdmin === false?"normal":"admin");
+  document.body.style.overflow = 'hidden';
 };
 
 const closeModal = () => {
   showModal.value = false;
   initialModal();
+  document.body.style.overflow = '';
 };
 
 const closeAndSaveModal = async () => {
@@ -347,9 +349,6 @@ const showAlert = () => {
   }, 30);
 };
 
-// onMounted(() => {
-//   showAlert();
-// });
 </script>
 
 <style scoped>
@@ -373,7 +372,7 @@ const showAlert = () => {
 .modal {
   display: block;
   position: fixed;
-  z-index: 1;
+  z-index: 1050;
   left: 0;
   top: 0;
   width: 100%;

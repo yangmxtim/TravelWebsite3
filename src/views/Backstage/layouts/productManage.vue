@@ -292,6 +292,7 @@ const openEditModal = (product, id) => {
   getDetailFromProductId(id);
   showEditModal.value = true;
   document.body.style.overflow = 'hidden'; // 鎖定卷軸
+  
 };
 
 const closeEditModal = () => {

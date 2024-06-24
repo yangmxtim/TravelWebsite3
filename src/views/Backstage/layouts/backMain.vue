@@ -251,7 +251,7 @@ let chart4GetThisMonthTime;
 
 const chartDiv = ref(null);
 
-// =============================PDF Convert===================================
+// =============================PDF start===================================
 const exportChartAsPDF = async () => {
   const canvas = await html2canvas(chartDiv.value, { scale: 2 });
   const imgData = canvas.toDataURL("image/png");
@@ -278,6 +278,7 @@ const exportChartAsPDF = async () => {
     console.error("Error exporting chart:", error);
   }
 };
+// =============================PDF end===================================
 
 // ==========================chart1 start=====================================
 const fetchChart1Data = async () => {
