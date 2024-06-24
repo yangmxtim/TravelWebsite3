@@ -212,7 +212,7 @@ const handleRegister = async () => {
 };
 
 //倒數計時flip-card__countdown
-const loginCount = ref(20);
+const loginCount = ref(30);
 const timer = setInterval(() => {
   if (loginCount.value > 0) {
     loginCount.value--;
