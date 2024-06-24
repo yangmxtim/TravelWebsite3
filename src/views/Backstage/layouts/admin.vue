@@ -31,9 +31,9 @@ onMounted(() => {
     .then((response) => {
       permission.value = response.data;
       console.log(permission.value)
-      if(permission.value !== "admin"){
-        router.push("/");
-      }
+      // if(permission.value !== "admin"){
+      //   router.push("/");
+      // }
     })
     .catch((error) => {
       console.error("Error during authorization:", error);
