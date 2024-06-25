@@ -11,14 +11,6 @@
                     <MembersNav></MembersNav>
                     <OrderlistWithQR></OrderlistWithQR>
                     <!-- 支付成功訊息 -->
-                    <el-alert
-                        v-if="paymentSuccess"
-                        title="支付成功"
-                        type="success"
-                        :closable="false"
-                        show-icon
-                        center
-                    />
                 </div>
             </div>
         </div>

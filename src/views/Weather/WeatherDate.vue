@@ -26,13 +26,13 @@
               </div >
               <!-- icon -->
               <div class="right col-4">
-                <div v-if="parseInt(weatherData.rainOdds[index]) == 0">
+                <div v-if="parseInt(weatherData.rainOdds[index]) <= 20">
                   <div class=""><i class="fa-solid fa-sun"></i></div> 
                 </div>
-                <div v-else-if="parseInt(weatherData.rainOdds[index]) <= 30 && parseInt(weatherData.rainOdds[index]) > 0">
+                <div v-else-if="parseInt(weatherData.rainOdds[index]) <= 50 && parseInt(weatherData.rainOdds[index]) > 20">
                   <div class=""><i class="fa-solid fa-cloud"></i></div> 
                 </div>
-                <div v-else-if="parseInt(weatherData.rainOdds[index]) <= 70 && parseInt(weatherData.rainOdds[index]) > 30">
+                <div v-else-if="parseInt(weatherData.rainOdds[index]) <= 80 && parseInt(weatherData.rainOdds[index]) > 50">
                   <div class=""><i class="fa-solid fa-cloud-rain"></i></div> 
                 </div>
                 <div v-else-if="parseInt(weatherData.rainOdds[index]) > 70">
