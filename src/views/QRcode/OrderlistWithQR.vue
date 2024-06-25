@@ -18,8 +18,9 @@
                 <div class="order-title">{{ orderList.name2 }} - {{ orderList.name }}</div>
                 <div>價格 : {{ orderList.price }}</div>
                 <div>下訂日期 : {{ orderList.order_date }}</div>
+                <div>票券日期 : {{ orderList.ticket_date  }}</div>
                 <div>使用狀態 : {{ orderList.status  }}</div>
-                http://localhost:8080/api/check/{{ orderList.order_item_id }}
+
             </div>
         </div>
         
@@ -62,7 +63,7 @@ onMounted(() => {
 .qrcode {
     border: 1px solid lightgray;
     border-radius: 5px;
-    min-height: 90vh;
+    min-height: 750px;
 }
 
 img {
