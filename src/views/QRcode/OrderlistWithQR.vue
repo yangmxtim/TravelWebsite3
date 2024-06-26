@@ -44,7 +44,7 @@ const ImgQrdisplay = () => {
 //產生qr api (注意 ip需換成後端的ip 才能讓手機掃)
 const generateQRCode = (orderlistid) =>{
     const ran = Math.floor(Math.random()*100000000);
-    return `http://localhost:8080/api/check/${orderlistid}?${ran}`
+    return `http://localhost:8080/qr/${orderlistid}?${ran}`
 }
 
 
