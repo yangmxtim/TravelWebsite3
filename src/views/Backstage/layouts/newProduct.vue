@@ -184,7 +184,7 @@
                     <div class="row g-3">
                       <div class="col-12">
                         <label class="form-label" for="detailName"
-                          >方案名稱</label
+                          >方案名稱(必填)</label
                         >
                         <input
                           required
@@ -203,18 +203,6 @@
                           type="text"
                           name="price"
                           v-model="formData.price"
-                        />
-                      </div>
-                      <div class="col-12">
-                        <label class="form-label" for="specification"
-                          >規格</label
-                        >
-                        <input
-                          class="form-control"
-                          id="specification"
-                          type="text"
-                          name="specification"
-                          v-model="formData.specification"
                         />
                       </div>
                       <div class="col-12">

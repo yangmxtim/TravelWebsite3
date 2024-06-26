@@ -70,7 +70,7 @@ import Top from '../Top.vue'
                         <h6>合作夥伴</h6>
                         <router-link :to="'/recruiting'"><li>人才招募</li></router-link>
                         <li>成為廠商</li>
-                        <router-link :to="'/'"><li>廠商登入</li></router-link>
+                        <router-link :to="'/backMain'"><li>廠商入口</li></router-link>
                     </ul>  
                 </div>
                 <div class="col-sm-3">
