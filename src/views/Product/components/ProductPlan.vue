@@ -100,23 +100,33 @@ const countChange = (index, value) => {
 const cartStore = useCartStore();
 
 const addToCart = (product, quantity, selectedDate) => {
-    const formattedDate = selectedDate ? formatDate(selectedDate) : formatDate(new Date()); // 如果未選擇日期，則使用當日日期
-    const goods = {
-        skuId: product.product_detail_id,
-        count: quantity,
-        price: product.price,
-        picture: product.img,
-        name: product.name,
-        attrsText: '',
-        selectedDate: formattedDate,
-        selectedDate2: selectedDate
-    };
-    cartStore.addToCart(goods);
+    const formattedDate = selectedDate ? formatDate(selectedDate) : formatDate(new Date()); // 格式化日期
+
+    // 查找购物车中是否已存在相同skuId和日期的商品
+    const existingItem = cartStore.cartList.find(item => item.skuId === product.product_detail_id && item.selectedDate === formattedDate);
+
+    if (existingItem) {
+        // 如果找到相同商品且相同日期的购物车项，增加数量
+        existingItem.count += quantity;
+    } else {
+        // 否则新增一条购物车项
+        const goods = {
+            skuId: product.product_detail_id,
+            count: quantity,
+            price: product.price,
+            picture: product.img,
+            name: product.name,
+            attrsText: '',
+            selectedDate: formattedDate,
+            selectedDate2: selectedDate
+        };
+        cartStore.addToCart(goods);
+    }
+
     ElMessage({
         message: '已加入購物車',
         type: 'success',
     });
-    console.log(goods);
 };
 
 const formatDate = (date) => {

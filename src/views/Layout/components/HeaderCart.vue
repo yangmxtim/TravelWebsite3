@@ -1,23 +1,8 @@
-<script setup>
-import { useCartStore } from "@/stores/cartStore"
-const cartStore = useCartStore()
-
-//從購物車刪除商品
-const removeFromCart = (skuId) => {
-  cartStore.removeFromCart(skuId);
-}
-
-// 新增商品
-const addToCart = (product) => {
-  cartStore.addToCart(product);
-}
-
-</script>
-
 <template>
   <div class="cart">
     <a class="curr" href="javascript:;">
-      <i class="fa-solid fa-cart-shopping icon-cart"></i><em>{{ cartStore.cartList.length  }}</em>
+      <i class="fa-solid fa-cart-shopping icon-cart"></i>
+      <em v-if="cartStore.cartList.length > 0">{{ cartStore.cartList.length }}</em>
     </a>
     <div class="layer">
       <div class="list">
@@ -43,15 +28,28 @@ const addToCart = (product) => {
           <p style="margin-bottom: 5px;">共 {{ cartStore.cartList.length }} 件商品</p>
           <p>TWD$ {{ cartStore.totalPrice.toFixed(0) }} </p>
         </div>
-        <el-button size="large" type="primary" @click="$router.push('/cartlist')" >前往購物車</el-button>
+        <el-button size="large" type="primary" @click="$router.push('/cartlist')">前往購物車</el-button>
       </div>
     </div>
   </div>
 </template>
 
+<script setup>
+import { useCartStore } from "@/stores/cartStore";
+const cartStore = useCartStore();
 
+// 從購物車刪除商品
+const removeFromCart = (skuId) => {
+  cartStore.removeFromCart(skuId);
+};
 
-<style scoped >
+// 新增商品
+const addToCart = (product) => {
+  cartStore.addToCart(product);
+};
+</script>
+
+<style scoped>
 .cart {
   width: 50px;
   position: relative;
@@ -143,9 +141,9 @@ const addToCart = (product) => {
   }
 
   .item a {
-  text-decoration: none; /* 去除底線 */
-  color: inherit; /* 確保連結的顏色與其父元素相同 */
-}
+    text-decoration: none; /* 去除底線 */
+    color: inherit; /* 確保連結的顏色與其父元素相同 */
+  }
 
   .list {
     height: 300px; /* 設置固定高度 */
@@ -214,7 +212,6 @@ const addToCart = (product) => {
             padding-top: 5px;
             font-size: 14px; /* 設置日期文本的字體大小為 12px */
           }
-
         }
 
         .right {

@@ -103,7 +103,7 @@ selectedProducts.value = cartStore.cartList.filter(item => item.selected);
 const selectedPaymentMethod = ref('綠界支付'); // 預設選擇綠界支付
 
 // 合併商品名稱和描述
-const itemName = selectedProducts.value.map(item => item.name).join('#');
+const itemName = selectedProducts.value.map(item => `${item.name}（${item.selectedDate}）`).join('#');
 const tradeDesc = selectedProducts.value.map(item => 1).join(', ');
 
 // 計算總金額
@@ -190,7 +190,6 @@ const handleConfirmOrder = () => {
       console.error(error);
     });
 };
-
 
 </script>
 

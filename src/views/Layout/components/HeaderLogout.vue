@@ -86,7 +86,7 @@ onMounted(async () => {
     padding: 5.5px; 
 }
 .cart {
-  width: 50px;
+  width: 40px;
   position: relative;
   z-index: 600;
 
