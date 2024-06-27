@@ -5,6 +5,7 @@
     action="http://localhost:8080/member/uploadImage"
     :data="{memberID:uid}"
     :on-success="handleUploadSuccess"
+    :on-error="handleUploadError"
     :show-file-list="false"
     :before-upload="beforeUpload"
     accept=".jpg, .png, .jpeg"
@@ -124,7 +125,6 @@ const beforeUpload = (file) => {
     warn('圖片格式只能為jpg, jpeg, png');
     return
   }
-
 }
 
 const handleUploadSuccess =  async (response) => {
@@ -132,9 +132,15 @@ const handleUploadSuccess =  async (response) => {
 
   await loadImage();
 };
+const handleUploadError =  async (response) => {
+  window.alert('請選擇jpg或png檔案的圖片')
+};
 onMounted(async () => {
   await loadImage();
 });
+
+
+
 
 
 </script>
