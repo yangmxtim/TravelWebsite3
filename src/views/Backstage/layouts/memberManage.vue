@@ -130,7 +130,7 @@
               <div class="mb-3">
                 <strong>權限:</strong>
                 <div class="mb-3" style="height: 20px;" v-if="isEdit">
-                  <button type="button" class="btn btn-light me-2" ref="normalButton" :disabled="chooseButton === 'admin'"
+                  <button type="button" class="btn btn-light me-2" ref="normalButton" :disabled="choosedMember.username === 'admin'"
                     :class="{ active: chooseButton === 'normal' }" @click="choosePermission('normal')">一般用戶</button>
                   <button type="button" class="btn btn-light" ref="adminButton"
                     :class="{ active: chooseButton === 'admin' }" @click="choosePermission('admin')">管理員</button>
@@ -325,11 +325,11 @@ const toggleEdit = () => {
 
 const choosePermission = (whichButton) => {
   chooseButton.value = whichButton;
-  if(chooseButton.value === 'admin'){
-    adminButton.value.style.backgroundColor ='gold';
-  }else if(chooseButton.value === 'normal'){
-    normalButton.value.style.backgroundColor ='gold';
-  }
+  // if(chooseButton.value === 'admin'){
+  //   adminButton.value.style.backgroundColor ='gold';
+  // }else if(chooseButton.value === 'normal'){
+  //   normalButton.value.style.backgroundColor ='gold';
+  // }
 }
 
 // alert & progress
