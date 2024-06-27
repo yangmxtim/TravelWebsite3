@@ -69,7 +69,6 @@ const link_Kaoshiung = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D004
 const fetchWeatherData = async (place) => {
   try {
     const response = await axios.get(place);
-    //   weatherData.value = response.data;
     const times = response.data.records.locations[0].location[0].weatherElement[1].time;
     const rainOdds = response.data.records.locations[0].location[0].weatherElement[0].time;
     const startTime = [];
@@ -130,7 +129,6 @@ onMounted(() => {
   border-radius: 8px;
   min-height: 400px;
 	flex-direction:column;
-  animation: 2s infinite alternate breathing-color;
 }
 .weather-bar h3 {
   margin: 0 0 10px;
@@ -154,7 +152,7 @@ onMounted(() => {
 .weather-timebar-time{text-align: center; font-size: 25px;}
 .left{  
   border: 2px solid black;
-  animation: 5s infinite alternate breathing-color;
+
 }
 .right{
   display: flex;
@@ -185,26 +183,7 @@ onMounted(() => {
   background-color: rgb(255, 180, 150);
 }
 
-@keyframes breathing-color{
-  0%{
-    color: lightgray;
-    border-color: lightgray;
-  }
-  33%{
-    color: grey;
-    border-color: grey;
 
-  }
-  66%{
-    color: darkgray;
-    border-color: darkgray;
-  }
-  
-  100%{
-    color: black;
-    border-color: black;
-  }
-}
 @media screen and (max-width: 1400px) {
   .right {
     display: none;

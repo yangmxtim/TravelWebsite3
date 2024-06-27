@@ -6,6 +6,8 @@
     :data="{memberID:uid}"
     :on-success="handleUploadSuccess"
     :show-file-list="false"
+    :before-upload="beforeUpload"
+    accept=".jpg, .png, .jpeg"
     >
     <img v-if="imageUrl" :src="imageUrl" width="200px" height="200px">
     <img v-else src="/src/views/Layout/img/cat.png" >
@@ -57,7 +59,7 @@
   
 </template>
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, warn } from "vue";
 import { inject } from "vue";
 import axios from "axios";
 
@@ -114,6 +116,16 @@ const loadImage = async() => {
 
   }
 };
+const beforeUpload = (file) => {
+  const fileName = file.name.substring(file.name.lastIndexOf('.')+1).toLowerCase();
+  if(fileName === "jpg" || fileName === "jpeg" || fileName === "png"){
+    console.log('file : '+ file);
+  }else{
+    warn('圖片格式只能為jpg, jpeg, png');
+    return
+  }
+
+}
 
 const handleUploadSuccess =  async (response) => {
   console.log('Upload success:', response);
