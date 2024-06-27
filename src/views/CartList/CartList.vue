@@ -97,7 +97,7 @@ export default {
       <div class="action">
         <div class="batch">
           共 {{ cartList.length }} 件商品，已選擇 {{ cartList.filter(item => item.selected).length }} 件，價格合計：
-          <span class="red">$ {{ (cartList.filter(item => item.selected).reduce((total, item) => total + item.price * item.count, 0)).toFixed(0) }} </span>
+          <span class="red">TWD ${{ (cartList.filter(item => item.selected).reduce((total, item) => total + item.price * item.count, 0)).toFixed(0) }} </span>
         </div>
         <div class="total">
           <el-button size="large" type="primary" @click="$router.push('/checkout')">前往結帳</el-button>

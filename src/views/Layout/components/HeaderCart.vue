@@ -26,7 +26,7 @@
       <div class="foot">
         <div class="total">
           <p style="margin-bottom: 5px;">共 {{ cartStore.cartList.length }} 件商品</p>
-          <p>TWD$ {{ cartStore.totalPrice.toFixed(0) }} </p>
+          <p>TWD ${{ cartStore.totalPrice.toFixed(0) }} </p>
         </div>
         <el-button size="large" type="primary" @click="$router.push('/cartlist')">前往購物車</el-button>
       </div>
