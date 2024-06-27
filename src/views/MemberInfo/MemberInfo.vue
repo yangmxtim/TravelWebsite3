@@ -119,12 +119,19 @@ const loadImage = async() => {
 };
 const beforeUpload = (file) => {
   const fileName = file.name.substring(file.name.lastIndexOf('.')+1).toLowerCase();
+  const size = file.size/1024/1024;
   if(fileName === "jpg" || fileName === "jpeg" || fileName === "png"){
     console.log('file : '+ file);
   }else{
-    warn('圖片格式只能為jpg, jpeg, png');
-    return
+    window.alert('圖片格式只能為jpg, jpeg, png');
+    return false;
   }
+  console.log(size);
+  if(size > 1){
+    window.alert('圖片大小請小於3.5MB')
+    return false;
+  }
+
 }
 
 const handleUploadSuccess =  async (response) => {
