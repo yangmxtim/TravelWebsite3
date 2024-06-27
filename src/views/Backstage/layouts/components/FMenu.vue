@@ -23,10 +23,10 @@
           />
         </h3>
       </a>
-      <div class="navbar-nav w-100">
+      <div class="navbar-nav w-100 h5">
         <a
           href="#"
-          class="nav-item nav-link"
+          class="nav-item nav-link mb-2"
           @click.prevent="this.$router.push('backMain')"
         >
           <i class="fa fa-tachometer-alt me-2"></i>
@@ -35,7 +35,7 @@
         <a
           href="#"
           @click.prevent="this.$router.push('member')"
-          class="nav-item nav-link"
+          class="nav-item nav-link mb-2"
         >
           <i class="fa fa-users me-2" aria-hidden="true"></i>
           會員管理
@@ -43,7 +43,7 @@
         <a
           href="#"
           @click.prevent="this.$router.push('newProduct')"
-          class="nav-item nav-link"
+          class="nav-item nav-link mb-2"
         >
           <i class="fa fa-inbox me-2" aria-hidden="true"></i>
           新增商品
@@ -51,7 +51,7 @@
         <a
           href="#"
           @click.prevent="this.$router.push('productManage')"
-          class="nav-item nav-link"
+          class="nav-item nav-link mb-2"
         >
           <i class="fa fa-cart-shopping me-2" aria-hidden="true"></i>
           商品查詢  

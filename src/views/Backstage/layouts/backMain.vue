@@ -12,7 +12,7 @@
           @click="exportChartAsPDF"
         >
           <i class="fa fa-download" aria-hidden="true"></i>
-          下載PDF圖表
+          匯出PDF
         </button>
       </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="col-12 col-lg-3 d-flex">
           <div class="card radius-10 w-100 mb-4">
             <div class="card-body">
-              <p>網站流量(月)趨勢線</p>
+              <p class="h5">網站流量(月)趨勢線</p>
               <h2 class="text-center fw-light">
                 {{ chart1ThisMonthFlow }}
               </h2>
@@ -48,7 +48,7 @@
         <div class="col-12 col-lg-9 d-flex mb-4">
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>銷售額(月)</p>
+              <p class="h5">銷售額(月)</p>
               <div id="chart2" style="min-height: 205px"></div>
             </div>
           </div>
@@ -60,7 +60,7 @@
           <!-- card3 -->
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>訪問頁面數(月)平均</p>
+              <p class="h5">訪問頁面數(月)平均</p>
               <h2 class="text-center fw-light">{{ chart3ThisMonthPage }}</h2>
               <div id="chart3"></div>
             </div>
@@ -82,7 +82,7 @@
         <div class="col-12 col-lg-3 d-flex">
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>停留分鐘(月)平均</p>
+              <p class="h5">平均停留分鐘數(月)</p>
               <h2 class="text-center fw-light">{{ chart4GetThisMonthTime }}</h2>
               <div id="chart4"></div>
             </div>
@@ -92,7 +92,7 @@
         <div class="col-12 col-lg-6 d-flex">
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>點擊區塊(月)分析</p>
+              <p class="h5">點擊區塊(月)分析</p>
               <div
                 class="d-lg-flex align-items-center justify-content-center gap-4"
               >
@@ -127,7 +127,7 @@
           <!-- card6 -->
           <div class="card radius-10 w-100 overflow-hidden">
             <div class="card-body">
-              <p>熱門都市</p>
+              <p class="h5">熱門都市</p>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class="d-flex align-items-center gap-2">
@@ -172,7 +172,7 @@
           <!-- card7 -->
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>偏好語系分析</p>
+              <p class="h5">偏好語系分析</p>
               <div id="chart7"></div>
             </div>
           </div>
@@ -181,7 +181,7 @@
           <!-- card8 -->
           <div class="card radius-10 w-100">
             <div class="card-body">
-              <p>用戶使用裝置分析</p>
+              <p class="h5">用戶使用裝置分析</p>
               <div class="mt-5" id="chart8"></div>
             </div>
           </div>
