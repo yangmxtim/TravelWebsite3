@@ -204,18 +204,22 @@ import { onBeforeMount, ref } from "vue";
 import axios from "axios";
 import html2canvas from "html2canvas";
 
-onBeforeMount(() => {
-  fetchChart1Data();
-  fetchChart2Data();
-  fetchChart3Data();
-  fetchChart4Data();
-  fetchChart5Data();
-  fetchChart6Data();
-  fetchChart7Data();
-  fetchChart8Data();
+onBeforeMount(async() => {
+  // 首先加载 Google Charts 库和相关包
+  await google.charts.load('current', { packages: ['corechart', 'bar'] });
+
+  // 并发获取所有图表数据
+  await Promise.all([
+    fetchChart1Data(),
+    fetchChart2Data(),
+    fetchChart3Data(),
+    fetchChart4Data(),
+    fetchChart5Data(),
+    fetchChart6Data(),
+    fetchChart7Data(),
+    fetchChart8Data()
+  ]);
 });
-google.charts.load("current", { packages: ["corechart"] });
-google.charts.load("current", { packages: ["bar"] });
 
 const chart1Data = ref([["Month", "flow"]]);
 const chart2Data = ref([["Month", "sales"]]);
@@ -336,6 +340,11 @@ function drawChart1() {
     title: "流量圖",
     curveType: "function",
     legend: { position: "bottom" },
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'in'
+    }
   };
 
   const chart = new google.visualization.LineChart(
@@ -384,9 +393,15 @@ function drawChart2() {
     },
     bars: "vertical", // Required for Material Bar Charts.
     isStacked: true,
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'in'
+    }
   };
 
-  const chart = new google.charts.Bar(document.getElementById("chart2"));
+  // const chart = new google.charts.Bar(document.getElementById("chart2"));
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart2'));
 
   chart.draw(data, google.charts.Bar.convertOptions(options));
 }
@@ -445,6 +460,11 @@ function drawChart3() {
     title: "每月訪問平均頁面數",
     hAxis: { title: "Month", titleTextStyle: { color: "#333" } },
     vAxis: { minValue: 0 },
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'out'
+    }
   };
 
   var chart = new google.visualization.AreaChart(
@@ -486,6 +506,11 @@ function drawChart4() {
     title: "",
     hAxis: { title: "Month", titleTextStyle: { color: "#333" } },
     vAxis: { minValue: 0 },
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'in'
+    }
   };
 
   var chart = new google.visualization.AreaChart(
@@ -534,12 +559,15 @@ function drawChart5() {
   var data = google.visualization.arrayToDataTable(chart5Data.value);
   var options = {
     title: "熱力圖/月",
-    pieHole: 0.4,
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'in'
+    }
+    // pieHole: 0.4,
   };
+  var chart = new google.visualization.PieChart(document.getElementById('chart5'));
 
-  var chart = new google.visualization.PieChart(
-    document.getElementById("chart5")
-  );
   chart.draw(data, options);
 }
 // ==========================chart5 end=====================================
