@@ -168,6 +168,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import Spinner from '@/views/Backstage/layouts/components/spinner.vue';
+import router from "@/router";
 
 let users = [];
 let currentPage = ref(1);
@@ -243,18 +244,21 @@ const searchAdmin = (isAdmin) => {
 };
 
 const updateMember = async (id, name, email, phone, isAdmin) => {
-    return axios.put(`http://localhost:8080/memberManage`, {
+  try {
+    const response = await axios.put(`http://localhost:8080/memberManage`, {
       id: id,
       username: name,
       email: email,
       phone: phone,
       admin: isAdmin,
-    }).then(() => {
-      showAlert();
-    }).catch((err) => {
-      alert(err);
     });
-}
+    console.log(response.data);
+    showAlert();
+  } catch (err) {
+    showAlert();
+
+  }
+};
 
 const searchById = (id) => {
   // users = [];
@@ -292,12 +296,14 @@ const closeAndSaveModal = async () => {
   showModal.value = false;
   choosedMember.value.admin = 
     (chooseButton.value === 'admin') ? true  : false;
+  console.log(choosedMember.value.admin);
   // 抓編輯後資料
   if (isEdit.value === true) {
     await updateMember(choosedMember.value.id, choosedMember.value.username,
                         choosedMember.value.email, choosedMember.value.phone, 
                         choosedMember.value.admin);
   }
+  initialModal();
   // 重新搜尋
   console.log(searchByWhich.value)
   switch (searchByWhich.value) {
@@ -311,7 +317,6 @@ const closeAndSaveModal = async () => {
       searchAdmin(false);
       break;
   }
-  initialModal();
 };
 
 const toggleEdit = () => {
