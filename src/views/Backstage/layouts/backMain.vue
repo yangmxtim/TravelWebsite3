@@ -393,6 +393,7 @@ function drawChart2() {
     },
     bars: "vertical", // Required for Material Bar Charts.
     isStacked: true,
+    colors: ['#7570b3'],
     animation: {
       startup: true,
       duration: 1000,
@@ -460,6 +461,7 @@ function drawChart3() {
     title: "每月訪問平均頁面數",
     hAxis: { title: "Month", titleTextStyle: { color: "#333" } },
     vAxis: { minValue: 0 },
+    colors: ['#1b9e77', '#d95f02', '#7570b3'],
     animation: {
       startup: true,
       duration: 1000,
@@ -603,10 +605,9 @@ const fetchChart7Data = async () => {
       chart7Data.value.push(temp);
     }
     // console.log(chart7Data.value);
+    google.charts.setOnLoadCallback(drawChart7);
   } catch (error) {
     console.error("Error fetching data:", error);
-  } finally {
-    google.charts.setOnLoadCallback(drawChart7);
   }
 };
 
@@ -620,11 +621,14 @@ function drawChart7() {
     seriesType: "bars",
     series: { 5: { type: "line" } },
     bars: "horizontal",
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'in'
+    }
   };
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart7'));
 
-  var chart = new google.visualization.ColumnChart(
-    document.getElementById("chart7")
-  );
   chart.draw(data, options);
 }
 

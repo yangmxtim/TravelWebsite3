@@ -248,7 +248,6 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import alertProgress from "./components/alertProgress.vue";
-import router from "@/router";
 
 const nameStatus = ref("");
 const formData = ref({
@@ -264,13 +263,14 @@ const formData = ref({
 
   detailName: "方案一",
   price: "",
-  specification: "",
   detailImg: [],
   detailIntro: "",
 });
 
 const alertMessage = ref("");
 const alertRef = ref(null);
+let image;
+let detailImg;
 
 const triggerAlert = (message) => {
   alertMessage.value = message;
@@ -342,11 +342,11 @@ const handleSubmit = async () => {
     formData.value.images.length === 0 ||
     formData.value.detailImg.length === 0
   ) {
-    alert("請上傳至少一張圖片");
+    alert("請上傳各一張圖片");
     return;
   }
   try {
-    const formDataToSend = new FormData();
+    let formDataToSend = new FormData();
     for (const key in formData.value) {
       if (key !== "images" && key !== "detailImg") {
         formDataToSend.append(key, formData.value[key]);
@@ -365,6 +365,30 @@ const handleSubmit = async () => {
       }
     );
 
+    // 表單重置
+    formData.value = {
+      name: "",
+      stock: "",
+      type: "transport",
+      phone: "",
+      tag: "",
+      addr: "",
+      facility: "",
+      images: [],
+      intro: "",
+
+      detailName: "方案一",
+      price: "",
+      detailImg: [],
+      detailIntro: "",
+    };
+    formDataToSend = null;
+    imagePreviews.value = [];
+    image = document.getElementById('image');
+    image.value = null;
+    detailImg = document.getElementById('detailImg');
+    detailImg.value = null;
+    
     triggerAlert("新增商品成功");
   } catch (error) {
     console.error("錯誤:", error);
