@@ -277,6 +277,8 @@ const initialModal = () => {
   chooseButton.value = '';
   isEdit.value = false;
   isButtonDisabled.value = false;
+  document.body.style.overflow = '';
+
 }
 
 const openModal = (memberId, isAdmin) => {

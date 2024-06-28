@@ -173,7 +173,7 @@
 				</div>
 				
 				<div class="modal-footer">
-					<a class="btn btn-success" href="" id="yesButton" @click="deleteByClick()">是</a>
+					<a class="btn btn-success" href="#" id="yesButton" @click="deleteByClick()">是</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" @click="changeDeleteModalStatus">否</button>
 				</div>
 			</div>
@@ -264,6 +264,8 @@ const deleteByClick = () => {
       alert(err);
     })
     .finally(() => {
+      isConfirmModalOpen.value = !isConfirmModalOpen.value;
+      targetId = null;
       searchByMultiStr(currentPage.value);
     });
 }
@@ -271,7 +273,7 @@ const deleteByClick = () => {
 const showConfirmModal = (name, id) => {
   // console.log(confirmText)
   confirmText.innerText = `確定刪除 ${name} 嗎?` ;
-  isConfirmModalOpen.value = !isConfirmModalOpen.value
+  isConfirmModalOpen.value = !isConfirmModalOpen.value;
   targetId = id;
 }
 
