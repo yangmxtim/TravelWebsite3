@@ -269,6 +269,7 @@ const formData = ref({
 
 const alertMessage = ref("");
 const alertRef = ref(null);
+let productNameUnique = false;
 let image;
 let detailImg;
 
@@ -288,8 +289,10 @@ const checkProductName = (name) => {
       console.log(response.data);
       if (response.data > 0) {
         nameStatus.value.innerHTML = "產品名稱重複";
+        productNameUnique = false;
       } else {
         nameStatus.value.innerHTML = "";
+        productNameUnique = true;
       }
     });
 };
@@ -316,7 +319,8 @@ const handleFileUpload = (event, position) => {
 };
 
 const handleSubmit = async () => {
-  if (nameStatus.value.innerHTML === "產品名稱重複") {
+  checkProductName(formData.value.name);
+  if (productNameUnique === false) {
     alert("請輸入不重複的產品名稱");
     return;
   }
