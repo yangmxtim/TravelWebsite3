@@ -127,7 +127,7 @@ const beforeUpload = (file) => {
     return false;
   }
   console.log(size);
-  if(size > 1){
+  if(size > 3.5){
     window.alert('圖片大小請小於3.5MB')
     return false;
   }
