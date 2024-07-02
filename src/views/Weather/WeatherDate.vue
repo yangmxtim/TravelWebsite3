@@ -162,7 +162,7 @@ onMounted(() => {
   /* border-left: 1px dashed black; */
 }
 /* icons */
-.fa-sun{font-size: 60px; color: rgb(255, 215, 0, 80%);}
+.fa-sun{font-size: 60px; color: rgb(255, 217, 0);}
 .fa-cloud{font-size: 50px; color: darkgray;}
 .fa-cloud-rain{font-size: 60px; color: lightblue	;}
 .fa-cloud-showers-heavy{font-size: 60px; color: rgb(24, 119, 242,80%);}
