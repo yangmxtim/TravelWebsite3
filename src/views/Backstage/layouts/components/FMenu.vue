@@ -30,7 +30,7 @@
           @click.prevent="this.$router.push('backMain')"
         >
           <i class="fa fa-tachometer-alt me-2"></i>
-          戰情室
+          統計圖表
         </a>
         <a
           href="#"
