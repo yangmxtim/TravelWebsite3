@@ -1,8 +1,10 @@
 <template>
   <div>
     <f-menu></f-menu>
-    <div class="content" style="background-color:darksalmon;"> <!-- 資策會版 -->
-    <!-- <div class="content" style="background-color:antiquewhite;"> 正常版 --> 
+    <!-- 資策會版 -->
+    <div class="content" style="background-color:sandybrown;"> 
+    <!-- 正常版 -->
+    <!-- <div class="content" style="background-color:antiquewhite;">   -->
       <f-header></f-header>
       <router-view class=""></router-view>
     </div>
